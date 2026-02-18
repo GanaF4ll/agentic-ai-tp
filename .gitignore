@@ -50,3 +50,5 @@ back-end/venv/
 # System files
 .DS_Store
 Thumbs.db
+
+cours/
