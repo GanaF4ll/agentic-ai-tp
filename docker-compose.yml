@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  back-end:
+    build: ./back-end
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: app_db
+      DATABASE_USER: app_user
+      DATABASE_PASSWORD: app_password
+    depends_on:
+      - db
+
+  front-end:
+    build: ./front-end
+    restart: unless-stopped
+    ports:
+      - "4200:80"
+    depends_on:
+      - back-end
+
+volumes:
+  postgres_data:
