@@ -1,0 +1,52 @@
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { tap, catchError, of } from 'rxjs';
+import { User, LoginCredentials, AuthResponse } from '../models/user.model';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private readonly API_URL = '/api/auth';
+
+  private _user = signal<User | null>(null);
+  user = this._user.asReadonly();
+  
+  isAuthenticated = computed(() => !!this._user());
+  isAdmin = computed(() => this._user()?.role === 'ADMIN' || this._user()?.role === 'SUPER_ADMIN');
+
+  constructor() {
+    this.loadUser();
+  }
+
+  login(credentials: LoginCredentials) {
+    return this.http.post<AuthResponse>(`${this.API_URL}/login/`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('access_token', response.access);
+        localStorage.setItem('refresh_token', response.refresh);
+        this._user.set(response.user);
+        this.router.navigate(['/alumni']);
+      })
+    );
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    this._user.set(null);
+    this.router.navigate(['/login']);
+  }
+
+  private loadUser() {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      // In a real app, we might want to fetch user profile or decode JWT
+      // For now, let's assume we need to verify the token or we have user info in localStorage
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        this._user.set(JSON.parse(savedUser));
+      }
+    }
+  }
+}
