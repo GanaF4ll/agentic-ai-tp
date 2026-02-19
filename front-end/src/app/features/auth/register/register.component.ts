@@ -8,54 +8,61 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   template: `
-    <div class="flex justify-center items-center py-12">
-      <div class="card bg-base-100 w-full max-w-md shadow-xl border-t-4 border-primary">
-        <div class="card-body">
-          <h2 class="card-title text-2xl font-bold text-center justify-center mb-6">Join AlumniConnect</h2>
+    <div class="min-h-[80vh] flex justify-center items-center relative overflow-hidden py-12">
+      <!-- Abstract Background -->
+       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-square bg-secondary/10 rounded-full blur-[100px] -z-10"></div>
+
+      <div class="card bg-base-100 w-full max-w-md shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)] overflow-hidden">
+        <div class="card-body p-8">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-black tracking-tighter text-primary">Join AlumniConnect</h2>
+            <p class="text-base-content/60 font-medium mt-2">Connect with your peers and grow your network</p>
+          </div>
           
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
             <div class="grid grid-cols-2 gap-4">
               <fieldset class="fieldset">
-                <legend class="fieldset-legend">First Name</legend>
-                <input type="text" formControlName="first_name" class="input input-bordered w-full" placeholder="John" />
+                <legend class="fieldset-legend font-bold text-sm">First Name</legend>
+                <input type="text" formControlName="first_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="John" />
               </fieldset>
               <fieldset class="fieldset">
-                <legend class="fieldset-legend">Last Name</legend>
-                <input type="text" formControlName="last_name" class="input input-bordered w-full" placeholder="Doe" />
+                <legend class="fieldset-legend font-bold text-sm">Last Name</legend>
+                <input type="text" formControlName="last_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="Doe" />
               </fieldset>
             </div>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend">Email</legend>
-              <input type="email" formControlName="email" class="input input-bordered w-full" placeholder="john.doe@ecole.fr" />
+              <legend class="fieldset-legend font-bold text-sm">Email</legend>
+              <input type="email" formControlName="email" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="john.doe@ecole.fr" />
             </fieldset>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend">Password</legend>
-              <input type="password" formControlName="password" class="input input-bordered w-full" placeholder="••••••••" />
+              <legend class="fieldset-legend font-bold text-sm">Password</legend>
+              <input type="password" formControlName="password" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="••••••••" />
             </fieldset>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend">Graduation Year</legend>
-              <input type="number" formControlName="graduation_year" class="input input-bordered w-full" placeholder="2024" />
+              <legend class="fieldset-legend font-bold text-sm">Graduation Year</legend>
+              <input type="number" formControlName="graduation_year" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="2024" />
             </fieldset>
 
             @if (errorMessage()) {
-              <div class="alert alert-error text-sm py-2">
+              <div role="alert" class="alert alert-error text-sm py-3 font-bold rounded-xl flex items-center gap-2">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <span>{{ errorMessage() }}</span>
               </div>
             }
 
             <div class="card-actions mt-6">
-              <button type="submit" class="btn btn-primary w-full" [disabled]="registerForm.invalid || isLoading()">
-                @if (isLoading()) { <span class="loading loading-spinner"></span> }
+              <button type="submit" class="btn btn-primary w-full btn-lg h-12 min-h-12 font-black shadow-lg shadow-primary/20 rounded-xl text-base" [disabled]="registerForm.invalid || isLoading()">
+                @if (isLoading()) { <span class="loading loading-spinner loading-sm"></span> }
                 Request Access
               </button>
             </div>
           </form>
 
-          <div class="text-center text-sm mt-4">
-            Already have an account? <a routerLink="/login" class="link link-primary">Login</a>
+          <div class="text-center text-sm mt-6 font-medium">
+            Already have an account? <a routerLink="/login" class="link link-primary font-bold no-underline hover:underline">Login</a>
           </div>
         </div>
       </div>

@@ -4,10 +4,12 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { SidebarService } from './sidebar.service';
 import { LucideAngularModule, LogOut, User, Menu, Bell, Search, PanelLeftClose, PanelLeftOpen } from 'lucide-angular';
 
+import { ThemeToggleComponent } from './theme-toggle.component';
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, LucideAngularModule],
+  imports: [RouterLink, LucideAngularModule, ThemeToggleComponent],
   template: `
     <header class="navbar bg-base-100/80 backdrop-blur-md sticky top-0 z-40 border-b border-base-200 px-4 h-16">
       <div class="flex-none lg:hidden">
@@ -42,6 +44,8 @@ import { LucideAngularModule, LogOut, User, Menu, Bell, Search, PanelLeftClose, 
           </div>
           <input type="text" placeholder="Search alumni, jobs..." class="input input-bordered input-sm w-40 lg:w-56 pl-10 bg-base-200/50 focus:bg-base-100 focus:w-56 lg:focus:w-64 transition-all min-w-0" />
         </div>
+
+        <app-theme-toggle></app-theme-toggle>
 
         <button class="btn btn-ghost btn-circle">
           <div class="indicator">

@@ -1,15 +1,20 @@
-# Visual Identity Redesign: Bento Grid & Pastel Edition
+# Visual Identity Redesign: Bento Grid & Warm Vibes Edition
 
 ## Goal
-Repenser l'identité visuelle de l'application AlumniConnect en adoptant une structure en **Bento Grid** et une esthétique **Pastel** haut de gamme, tout en conservant l'intégralité des fonctionnalités et de la stack technique actuelle (Angular, Tailwind CSS v4, DaisyUI v5).
+Repenser l'identité visuelle de l'application AlumniConnect en adoptant une structure en **Bento Grid** et une esthétique **chaleureuse et moderne**, tout en conservant l'intégralité des fonctionnalités et de la stack technique actuelle (Angular, Tailwind CSS v4, DaisyUI v5).
 
 ## Why
-L'interface actuelle, bien que fonctionnelle, manque de caractère "premium". L'adoption d'un style Bento Grid permettra une meilleure hiérarchisation de l'information, tandis que la palette pastel apportera une douceur et une modernité typiques des plateformes SaaS haut de gamme.
+L'interface actuelle donne une impression **trop clinique et froide** ("médecin") à cause de sa combinaison blanc pur + bleu désaturé. La typographie Inter, bien que lisible, manque de personnalité. L'objectif est d'apporter de la chaleur, de la vie et un sentiment de communauté humaine — sans sacrifier le professionnalisme.
+
+**Ce qu'il faut éviter :**
+- Blanc pur (`#ffffff`) comme fond principal → trop stérile, trop hôpital.
+- Bleu froid ou teal désaturé comme couleur primaire → trop médical / institutionnel.
+- Inter Regular comme seule police → trop neutre, trop corporate sans âme.
 
 ## What
 - **Structure :** Migration des listes et dashboards vers une disposition en grille de type "Bento" (tailles de blocs variables, coins arrondis prononcés).
-- **Couleurs :** Remplacement des teintes vives par une palette pastel (soft blues, mints, lavenders) pour les fonds et les accents.
-- **Typographie :** Optimisation de la police **Inter** (déjà présente) avec une hiérarchie plus audacieuse (font-weights contrastés).
+- **Couleurs :** Palette **chaude et vibrante** — indigo profond comme primaire (startup/tech), corail comme secondaire (énergie humaine), ambre comme accent (optimisme), sur fond crème chaud (jamais blanc pur).
+- **Typographie :** Remplacement de **Inter** par **Plus Jakarta Sans** (Google Fonts). Cette police a des formes légèrement arrondies et expressives qui donnent un caractère "fun & friendly" tout en restant lisible et professionnelle. Importer via `@import url(...)` dans `styles.css`.
 - **Composants :** Mise à jour des `cards`, `inputs` et `nav` pour refléter ce nouveau style.
 
 ## Technical Context
@@ -32,9 +37,31 @@ L'interface actuelle, bien que fonctionnelle, manque de caractère "premium". L'
 
 ## Implementation Details
 
+### Typographie
+- **Police :** `Plus Jakarta Sans` (Google Fonts, weights 400/500/600/700/800).
+- **Import :** Ajouter en **toute première ligne** de `styles.css` (avant `@import 'tailwindcss'`) :
+  ```css
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  ```
+- **Variable :** `--font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;`
+
+### Palette de couleurs — Direction à respecter
+
+| Rôle        | Valeur oklch               | Ressenti                                  |
+|-------------|----------------------------|-------------------------------------------|
+| Primary     | `oklch(58% 0.2 270)`       | Indigo profond — tech/startup, pas médical |
+| Secondary   | `oklch(72% 0.14 25)`       | Corail chaud — humain, énergie            |
+| Accent      | `oklch(78% 0.15 75)`       | Ambre — optimisme, vivacité               |
+| Base 100    | `#FAFAF8`                  | Crème chaud — jamais blanc pur            |
+| Base 200    | `#F4F2EF`                  | Fond alterné légèrement beige             |
+| Border      | `#E8E4DF`                  | Gris chaud, pas froid                     |
+| Text muted  | `#78716C` (stone-500)      | Gris warm, pas gris acier                 |
+
+**Dark mode :** utiliser des fonds brun-sombre chauds (`#1C1917`, `#292524`) plutôt que le slate froid habituel.
+
 ### Design Tokens (to update in `styles.css`)
 - `--radius-card`: `1.5rem` (plus arrondi pour le style Bento).
-- `--color-brand`: Teinte pastel (ex: `oklch(85% 0.05 200)` pour un bleu pastel).
+- `--color-brand`: Indigo chaud `oklch(58% 0.2 270)` — pas de bleu/teal.
 - `--shadow-card`: `0 10px 30px -10px rgba(0,0,0,0.05)` (ombre très douce).
 
 ### Bento Layout Logic
