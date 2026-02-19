@@ -1,4 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+
+/* ─────────────────────────────────────────────
+   Variables CSS globales — AlumniConnect
+   Utilisées dans tous les templates Angular.
+   Modifier ici plutôt que dans les composants.
+   ───────────────────────────────────────────── */
+
+:root {
+  /* Espacements */
+  --spacing-page-x: 1.5rem;
+  --spacing-section: 2.5rem;
+  --spacing-card: 2rem;
+
+  /* Rayons — Style Bento */
+  --radius-card: 1.5rem;
+  --radius-badge: 9999px;
+  --radius-input: 0.75rem;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Ombres — Soft Bento Shadows */
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+
+  /* Largeurs max */
+  --max-w-page: 1440px;
+  --max-w-form: 480px;
+  --max-w-modal: 560px;
+
+  /* Typographie */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-size-hero: 3rem;
+  --font-size-section-title: 1.75rem;
+  --line-height-body: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   Surcharge des tokens DaisyUI + variables custom
+   Les couleurs DaisyUI (--color-primary, etc.)
+   doivent être redéfinies ici pour écraser les
+   valeurs par défaut du thème light/dark.
+   ───────────────────────────────────────────── */
+[data-theme='light'] {
+  /* Surcharge DaisyUI — Pastel Palette */
+  --color-primary: oklch(85% 0.05 200); /* Pastel Blue */
+  --color-primary-content: oklch(35% 0.05 200);
+  --color-secondary: oklch(88% 0.04 250); /* Soft Lavender */
+  --color-secondary-content: oklch(35% 0.04 250);
+  --color-accent: oklch(92% 0.06 140); /* Mint Green */
+  --color-accent-content: oklch(35% 0.06 140);
+
+  /* Variables custom AlumniConnect */
+  --color-brand: oklch(82% 0.04 190);
+  --color-brand-hover: oklch(78% 0.05 190);
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8fafc;
+  --color-border: #f1f5f9;
+  --color-text-muted: #64748b;
+  --color-overlay: rgba(15, 23, 42, 0.3);
+}
+
+[data-theme='dark'] {
+  /* Surcharge DaisyUI — Deepened Pastel */
+  --color-primary: oklch(45% 0.05 200);
+  --color-primary-content: oklch(95% 0.02 200);
+  --color-secondary: oklch(42% 0.04 250);
+  --color-secondary-content: oklch(95% 0.02 250);
+  --color-accent: oklch(48% 0.06 140);
+  --color-accent-content: oklch(95% 0.02 140);
+
+  /* Variables custom AlumniConnect */
+  --color-brand: oklch(65% 0.05 190);
+  --color-brand-hover: oklch(70% 0.06 190);
+  --color-surface: #0f172a;
+  --color-surface-alt: #1e293b;
+  --color-border: #334155;
+  --color-text-muted: #94a3b8;
+  --color-overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* ─────────────────────────────────────────────
+   Styles de base globaux
+   ───────────────────────────────────────────── */
+body {
+  font-family: var(--font-sans);
+  line-height: var(--line-height-body);
+  background-color: var(--color-surface);
+}
+
+.page-container {
+  max-width: var(--max-w-page);
+  margin-inline: auto;
+  padding-inline: var(--spacing-page-x);
+}
