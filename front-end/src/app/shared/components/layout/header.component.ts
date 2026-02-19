@@ -34,13 +34,13 @@ import { LucideAngularModule, LogOut, User, Menu, Bell, Search, PanelLeftClose, 
         </div>
       </div>
 
-      <div class="flex-none gap-2">
+      <div class="flex items-center gap-2 min-w-0 shrink">
         <!-- Search bar - Desktop -->
-        <div class="hidden md:flex relative group">
+        <div class="hidden md:flex relative group min-w-0 shrink">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
             <lucide-angular [img]="searchIcon" class="size-4"></lucide-angular>
           </div>
-          <input type="text" placeholder="Search alumni, jobs..." class="input input-bordered input-sm w-64 pl-10 bg-base-200/50 focus:bg-base-100 transition-all" />
+          <input type="text" placeholder="Search alumni, jobs..." class="input input-bordered input-sm w-40 lg:w-56 pl-10 bg-base-200/50 focus:bg-base-100 focus:w-56 lg:focus:w-64 transition-all min-w-0" />
         </div>
 
         <button class="btn btn-ghost btn-circle">
