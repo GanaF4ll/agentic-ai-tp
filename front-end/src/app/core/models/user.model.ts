@@ -6,6 +6,8 @@ export interface User {
   first_name: string;
   last_name: string;
   role: UserRole;
+  must_change_password: boolean;
+  status: 'PENDING' | 'ACTIVE';
 }
 
 export interface AuthResponse {

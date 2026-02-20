@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -33,12 +34,20 @@ describe('AuthService', () => {
     const mockResponse = {
       access: 'token',
       refresh: 'refresh',
-      user: { id: 1, email: 'test@example.com', role: 'ADMIN', first_name: 'Test', last_name: 'User' }
+      user: { 
+        id: 1, 
+        email: 'test@example.com', 
+        role: 'ADMIN', 
+        first_name: 'Test', 
+        last_name: 'User',
+        must_change_password: false,
+        status: 'ACTIVE'
+      }
     };
 
     service.login({ email: 'test@example.com', password: 'password' }).subscribe();
 
-    const req = httpMock.expectOne('/api/auth/login/');
+    const req = httpMock.expectOne(`${environment.apiUrl}/api/auth/login/`);
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
 
@@ -46,5 +55,29 @@ describe('AuthService', () => {
     expect(service.isAuthenticated()).toBe(true);
     expect(service.isAdmin()).toBe(true);
     expect(router.navigate).toHaveBeenCalledWith(['/alumni']);
+  });
+
+  it('should redirect to reset-password if must_change_password is true', () => {
+    const mockResponse = {
+      access: 'token',
+      refresh: 'refresh',
+      user: { 
+        id: 1, 
+        email: 'test@example.com', 
+        role: 'MEMBER', 
+        first_name: 'New', 
+        last_name: 'User',
+        must_change_password: true,
+        status: 'PENDING'
+      }
+    };
+
+    service.login({ email: 'test@example.com', password: 'password' }).subscribe();
+
+    const req = httpMock.expectOne(`${environment.apiUrl}/api/auth/login/`);
+    req.flush(mockResponse);
+
+    expect(service.mustChangePassword()).toBe(true);
+    expect(router.navigate).toHaveBeenCalledWith(['/reset-password']);
   });
 });
