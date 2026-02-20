@@ -184,3 +184,10 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@alumniconnect.fr'
+
+# Frontend settings
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:4200')

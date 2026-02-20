@@ -37,6 +37,7 @@ class User(AbstractUser):
     degree = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     is_profile_public = models.BooleanField(default=True)
+    must_change_password = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
