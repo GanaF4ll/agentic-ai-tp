@@ -1,13 +1,16 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, computed } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
 import { User } from '../../../core/models/user.model';
 import { LucideAngularModule, UserPlus, ShieldCheck, Mail, Calendar } from 'lucide-angular';
 import { UserCreateComponent } from './user-create.component';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { switchMap, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
   imports: [LucideAngularModule, UserCreateComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="p-6 max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -136,39 +139,31 @@ import { UserCreateComponent } from './user-create.component';
     }
   `
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
   private authService = inject(AuthService);
   
-  users = signal<User[]>([]);
   showCreateModal = signal(false);
+  private refreshTrigger = signal(0);
+
+  users = toSignal(
+    toObservable(this.refreshTrigger).pipe(
+      startWith(0),
+      switchMap(() => this.authService.getUsers())
+    ),
+    { initialValue: [] as User[] }
+  );
   
-  stats = signal({
-    admins: 0,
-    pending: 0,
-    total: 0
+  stats = computed(() => {
+    const userList = this.users();
+    return {
+      admins: userList.filter(u => u.role !== 'MEMBER').length,
+      pending: userList.filter(u => u.status === 'PENDING').length,
+      total: userList.length
+    };
   });
-
-  ngOnInit() {
-    this.loadUsers();
-  }
-
-  loadUsers() {
-    this.authService.getUsers().subscribe(users => {
-      this.users.set(users);
-      this.updateStats(users);
-    });
-  }
-
-  updateStats(users: User[]) {
-    this.stats.set({
-      admins: users.filter(u => u.role !== 'MEMBER').length,
-      pending: users.filter(u => u.status === 'PENDING').length,
-      total: users.length
-    });
-  }
 
   onUserCreated() {
     this.showCreateModal.set(false);
-    this.loadUsers();
+    this.refreshTrigger.update(n => n + 1);
   }
 }
