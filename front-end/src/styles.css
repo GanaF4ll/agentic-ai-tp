@@ -43,57 +43,168 @@
 }
 
 /* ─────────────────────────────────────────────
-   Surcharge des tokens DaisyUI + variables custom
-   Les couleurs DaisyUI (--color-primary, etc.)
-   doivent être redéfinies ici pour écraser les
-   valeurs par défaut du thème light/dark.
+   Palette Arctic Mint — Surcharge DaisyUI
+   Primary  = menthe fraîche  (hue 172)
+   Secondary = bleu arctique  (hue 213)
+   Accent    = givre / lavande glacée (hue 258)
    ───────────────────────────────────────────── */
+
 [data-theme='light'] {
-  /* Surcharge DaisyUI — Pastel Palette */
-  --color-primary: oklch(85% 0.05 200); /* Pastel Blue */
-  --color-primary-content: oklch(35% 0.05 200);
-  --color-secondary: oklch(88% 0.04 250); /* Soft Lavender */
-  --color-secondary-content: oklch(35% 0.04 250);
-  --color-accent: oklch(92% 0.06 140); /* Mint Green */
-  --color-accent-content: oklch(35% 0.06 140);
+  /* ── Arctic Mint Light — Contraste optimisé ── */
+
+  /* Fonds : Blanc pur pour les surfaces glass, gris encore plus léger pour le reste */
+  --color-base-100: oklch(100% 0 0); /* Blanc pur pour la clarté */
+  --color-base-200: oklch(98% 0.008 185); /* Bleu/gris plus subtil et plus clair */
+  --color-base-300: oklch(95% 0.015 182); /* Plus clair également */
+  --color-base-content: oklch(
+    20% 0.03 195
+  ); /* Texte un peu plus clair */
+
+  /* Primaire : Menthe assombrie pour passer les tests de contraste (WCAG) */
+  --color-primary: oklch(44% 0.15 172); /* Plus foncé pour meilleur contraste */
+  --color-primary-content: oklch(100% 0 0);
+
+  /* Secondaire : Bleu arctique renforcé */
+  --color-secondary: oklch(42% 0.13 213);
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent : Lavande glacier plus saturée pour ne pas disparaître */
+  --color-accent: oklch(50% 0.14 258);
+  --color-accent-content: oklch(99% 0.01 258);
 
   /* Variables custom AlumniConnect */
-  --color-brand: oklch(82% 0.04 190);
-  --color-brand-hover: oklch(78% 0.05 190);
-  --color-surface: #ffffff;
-  --color-surface-alt: #f8fafc;
-  --color-border: #f1f5f9;
-  --color-text-muted: #64748b;
-  --color-overlay: rgba(15, 23, 42, 0.3);
+  --color-brand: oklch(44% 0.15 172);
+  --color-brand-hover: oklch(38% 0.17 172);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-alt: oklch(97% 0.01 185);
+  --color-border: oklch(88% 0.03 185); /* Bordures plus visibles */
+  --color-text-muted: oklch(37% 0.04 195); /* Gris plus foncé lisible */
+  --color-overlay: rgba(0, 15, 20, 0.2);
 }
 
 [data-theme='dark'] {
-  /* Surcharge DaisyUI — Deepened Pastel */
-  --color-primary: oklch(45% 0.05 200);
-  --color-primary-content: oklch(95% 0.02 200);
-  --color-secondary: oklch(42% 0.04 250);
-  --color-secondary-content: oklch(95% 0.02 250);
-  --color-accent: oklch(48% 0.06 140);
-  --color-accent-content: oklch(95% 0.02 140);
+  /* ── Arctic Mint Dark — abîme arctique ── */
+
+  /* Fonds : bleu-nuit profond, froid et immersif */
+  --color-base-100: oklch(15% 0.04 215);
+  --color-base-200: oklch(20% 0.045 210);
+  --color-base-300: oklch(26% 0.05 205);
+  --color-base-content: oklch(94% 0.01 185);
+
+  /* Primaire : menthe lumineuse sur fond sombre */
+  --color-primary: oklch(72% 0.19 172);
+  --color-primary-content: oklch(10% 0.03 175);
+
+  /* Secondaire : cyan arctique vif */
+  --color-secondary: oklch(68% 0.17 213);
+  --color-secondary-content: oklch(10% 0.03 215);
+
+  /* Accent : violet glacier lumineux */
+  --color-accent: oklch(78% 0.12 258);
+  --color-accent-content: oklch(12% 0.04 258);
 
   /* Variables custom AlumniConnect */
-  --color-brand: oklch(65% 0.05 190);
-  --color-brand-hover: oklch(70% 0.06 190);
-  --color-surface: #0f172a;
-  --color-surface-alt: #1e293b;
-  --color-border: #334155;
-  --color-text-muted: #94a3b8;
-  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-brand: oklch(72% 0.19 172);
+  --color-brand-hover: oklch(78% 0.17 172);
+  --color-surface: oklch(15% 0.04 215);
+  --color-surface-alt: oklch(20% 0.045 210);
+  --color-border: oklch(30% 0.06 208);
+  --color-text-muted: oklch(62% 0.04 200);
+  --color-overlay: rgba(2, 10, 20, 0.82);
+
+  /* Ombre : halo menthe glacée */
+  --shadow-card: 0 0 0 1px oklch(28% 0.07 205), 0 12px 32px -10px rgba(0, 0, 0, 0.55);
 }
+
 /* ─────────────────────────────────────────────
-   Styles de base globaux
+   Fond global — Dégradé Arctic Mint fixe
+   Glassmorphism : fond coloré riche + fixed.
    ───────────────────────────────────────────── */
 body {
   font-family: var(--font-sans);
   line-height: var(--line-height-body);
-  background-color: var(--color-surface);
+  min-height: 100dvh;
+  background-attachment: fixed;
+  /* Light : fond blanc teinté + halos colorés bien visibles aux coins */
+  background-color: oklch(96% 0.01 188);
+  background-image:
+    radial-gradient(ellipse 70% 60% at top left, oklch(82% 0.14 170 / 0.75) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at bottom right, oklch(80% 0.12 213 / 0.7) 0%, transparent 65%);
 }
 
+[data-theme='dark'] body {
+  /* Dark : dégradé profond menthe → arctique → glacier */
+  background-color: oklch(15% 0.04 215);
+  background-image: linear-gradient(
+    135deg,
+    oklch(28% 0.1 175) 0%,
+    oklch(18% 0.08 215) 50%,
+    oklch(22% 0.07 255) 100%
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Glassmorphism — Classes utilitaires
+   ───────────────────────────────────────────── */
+
+/* Surface glass légère — navbar, badges */
+.glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Surface glass opaque — cards, panels */
+.glass-solid {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Light mode : surfaces bien opaques + texte sombre forcé */
+[data-theme='light'] .glass {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(215, 232, 236, 0.95);
+  color: oklch(11% 0.04 195);
+}
+
+[data-theme='light'] .glass-solid {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(205, 224, 230, 0.98);
+  color: oklch(11% 0.04 195);
+}
+
+/* Convertit le texte white des composants glass vers une teinte lisible en light mode */
+[data-theme='light']
+  :is(.glass, .glass-solid)
+  :is(
+    .text-white,
+    .text-white\/90,
+    .text-white\/80,
+    .text-white\/70,
+    .text-white\/60,
+    .text-white\/50
+  ) {
+  color: oklch(14% 0.04 195) !important;
+}
+
+[data-theme='dark'] .glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .glass-solid {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ─────────────────────────────────────────────
+   Layout
+   ───────────────────────────────────────────── */
 .page-container {
   max-width: var(--max-w-page);
   margin-inline: auto;
