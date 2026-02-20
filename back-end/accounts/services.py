@@ -1,11 +1,12 @@
 from django.core.mail import send_mail
 from django.conf import settings
 
-def send_invitation_email(user, temporary_password):
+def send_invitation_email(user, temporary_password, role='member'):
+    role_label = 'administrateur' if role == 'admin' else 'membre alumni'
     subject = "Invitation à rejoindre AlumniConnect"
     message = f"""Bonjour {user.first_name},
 
-Vous avez été invité à rejoindre la plateforme AlumniConnect en tant qu'administrateur.
+Vous avez été invité à rejoindre la plateforme AlumniConnect en tant que {role_label}.
 
 Voici vos identifiants de connexion temporaires :
 Email : {user.email}
@@ -24,3 +25,4 @@ L'équipe AlumniConnect
         [user.email],
         fail_silently=False,
     )
+

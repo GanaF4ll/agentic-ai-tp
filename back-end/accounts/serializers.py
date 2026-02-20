@@ -24,23 +24,23 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['user'] = UserSerializer(self.user).data
         return data
 
-class InviteAdminSerializer(serializers.ModelSerializer):
-    temporary_password = serializers.CharField(write_only=True, required=True)
+class InviteUserSerializer(serializers.ModelSerializer):
+    temporary_password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password]
+    )
 
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'temporary_password')
 
     def create(self, validated_data):
-        temporary_password = validated_data.pop('temporary_password')
-        user = User.objects.create_user(
-            role=Role.ADMIN,
+        role = self.context.get('role', Role.MEMBER)
+        return User.objects.create_user(
+            password=validated_data.pop('temporary_password'),
+            role=role,
             must_change_password=True,
             **validated_data
         )
-        user.set_password(temporary_password)
-        user.save()
-        return user
 
 class ChangePasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(write_only=True, required=True, validators=[validate_password])

@@ -6,10 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import (
     CustomTokenObtainPairSerializer, 
     UserSerializer, 
-    InviteAdminSerializer, 
+    InviteUserSerializer, 
     ChangePasswordSerializer
 )
-from .permissions import IsSuperAdmin
+from .models import Role
+from .permissions import IsSuperAdmin, IsAdmin
 from .services import send_invitation_email
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -26,11 +27,27 @@ class InviteAdminView(APIView):
     permission_classes = [IsAuthenticated, IsSuperAdmin]
 
     def post(self, request):
-        serializer = InviteAdminSerializer(data=request.data)
+        serializer = InviteUserSerializer(
+            data=request.data, context={'role': Role.ADMIN}
+        )
         if serializer.is_valid():
+            temporary_password = serializer.validated_data['temporary_password']
             user = serializer.save()
-            temporary_password = request.data.get('temporary_password')
-            send_invitation_email(user, temporary_password)
+            send_invitation_email(user, temporary_password, role='admin')
+            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class InviteMemberView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def post(self, request):
+        serializer = InviteUserSerializer(
+            data=request.data, context={'role': Role.MEMBER}
+        )
+        if serializer.is_valid():
+            temporary_password = serializer.validated_data['temporary_password']
+            user = serializer.save()
+            send_invitation_email(user, temporary_password, role='member')
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

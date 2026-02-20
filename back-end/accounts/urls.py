@@ -4,6 +4,7 @@ from .views import (
     CustomTokenObtainPairView, 
     MeView, 
     InviteAdminView, 
+    InviteMemberView,
     ChangePasswordView
 )
 
@@ -12,5 +13,7 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('me/', MeView.as_view(), name='user_me'),
     path('admins/invite/', InviteAdminView.as_view(), name='invite_admin'),
+    path('members/invite/', InviteMemberView.as_view(), name='invite_member'),
     path('change-password/', ChangePasswordView.as_view(), name='change_password'),
 ]
+
