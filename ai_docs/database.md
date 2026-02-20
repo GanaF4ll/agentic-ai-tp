@@ -36,9 +36,7 @@ User (accounts)
 ```python
 class User(AbstractUser):
     role = models.CharField(max_length=20, choices=Role.choices, default='MEMBER')
-    linkedin_url = models.URLField(blank=True, null=True)
-    graduation_year = models.PositiveIntegerField(blank=True, null=True)
-    degree = models.CharField(max_length=255, blank=True)
+    mail = models.EmailField(unique=True)
     phone = models.CharField(max_length=20, blank=True)
     is_profile_public = models.BooleanField(default=True)
 ```
@@ -53,10 +51,14 @@ class Profile(models.Model):
     current_company = models.CharField(max_length=255, blank=True)
     location = models.CharField(max_length=255, blank=True)
     avatar_url = models.URLField(blank=True, null=True)
+    linkedin_url = models.URLField(blank=True, null=True)
+    graduation_year = models.PositiveIntegerField(blank=True, null=True)
+    degree = models.CharField(max_length=255, blank=True)
     status = models.CharField(
         choices=[('DRAFT', 'Brouillon'), ('VERIFIED', 'Vérifié')],
         default='DRAFT'
     )
+    promotion = models.ForeignKey(Promotion, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 ```
@@ -69,6 +71,16 @@ class Education(models.Model):
     school = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
     year = models.PositiveIntegerField(null=True, blank=True)
+```
+
+### alumni.Promotion
+
+```python
+class Promotion(models.Model):
+    label = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 ```
 
 ### alumni.Experience

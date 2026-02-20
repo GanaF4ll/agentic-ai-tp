@@ -22,6 +22,8 @@ services:
       DATABASE_NAME: app_db
       DATABASE_USER: app_user
       DATABASE_PASSWORD: app_password
+    volumes:
+      - ./back-end:/app
     depends_on:
       - db
 
