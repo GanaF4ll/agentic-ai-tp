@@ -6,19 +6,19 @@ from accounts.models import User
 
 
 class Command(BaseCommand):
-    help = 'Creates a superuser from DJANGO_SUPERUSER_USERNAME and DJANGO_SUPERUSER_PASSWORD env vars'
+    help = 'Creates a superuser from DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD env vars'
 
     def handle(self, *args, **options):
-        username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
+        email = os.environ.get('DJANGO_SUPERUSER_EMAIL') or os.environ.get('DJANGO_SUPERUSER_USERNAME')
         password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
 
-        if not username or not password:
-            self.stdout.write('DJANGO_SUPERUSER_USERNAME or DJANGO_SUPERUSER_PASSWORD not set, skipping.')
+        if not email or not password:
+            self.stdout.write('DJANGO_SUPERUSER_EMAIL or DJANGO_SUPERUSER_PASSWORD not set, skipping.')
             return
 
-        if User.objects.filter(username=username).exists():
-            self.stdout.write(f'Superuser "{username}" already exists, skipping.')
+        if User.objects.filter(email=email).exists():
+            self.stdout.write(f'Superuser "{email}" already exists, skipping.')
             return
 
-        User.objects.create_superuser(username=username, password=password, email='')
-        self.stdout.write(self.style.SUCCESS(f'Superuser "{username}" created successfully.'))
+        User.objects.create_superuser(email=email, password=password)
+        self.stdout.write(self.style.SUCCESS(f'Superuser "{email}" created successfully.'))

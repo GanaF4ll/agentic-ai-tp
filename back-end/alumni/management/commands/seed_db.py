@@ -24,10 +24,9 @@ class Command(BaseCommand):
                 promotions.append(promo)
 
             # 2. Create Super Admin
-            if not User.objects.filter(role=Role.SUPER_ADMIN).exists():
+            if not User.objects.filter(email='mds.school@gmail.com').exists():
                 self.stdout.write('Creating Super Admin...')
                 super_admin = User.objects.create_superuser(
-                    username='superadmin',
                     email='mds.school@gmail.com',
                     password='password123',
                     role=Role.SUPER_ADMIN,
