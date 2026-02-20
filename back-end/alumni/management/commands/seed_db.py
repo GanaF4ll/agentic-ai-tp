@@ -24,10 +24,9 @@ class Command(BaseCommand):
                 promotions.append(promo)
 
             # 2. Create Super Admin
-            if not User.objects.filter(role=Role.SUPER_ADMIN).exists():
+            if not User.objects.filter(email='mds.school@gmail.com').exists():
                 self.stdout.write('Creating Super Admin...')
                 super_admin = User.objects.create_superuser(
-                    username='superadmin',
                     email='mds.school@gmail.com',
                     password='password123',
                     role=Role.SUPER_ADMIN,
@@ -44,11 +43,10 @@ class Command(BaseCommand):
             if User.objects.filter(role=Role.ADMIN).count() < 3:
                 self.stdout.write('Creating Admins...')
                 for i in range(1, 4):
-                    username = f'admin{i}'
-                    if not User.objects.filter(username=username).exists():
+                    email = f'admin{i}@alumniconnect.com'
+                    if not User.objects.filter(email=email).exists():
                         admin_user = User.objects.create_user(
-                            username=username,
-                            email=f'admin{i}@alumniconnect.com',
+                            email=email,
                             password='password123',
                             role=Role.ADMIN,
                             is_staff=True,
@@ -71,11 +69,10 @@ class Command(BaseCommand):
                     # Create a User first
                     first_name = fake.first_name()
                     last_name = fake.last_name()
-                    username = f"{first_name.lower()}.{last_name.lower()}.{random.randint(100, 9999)}"
+                    email = fake.unique.email()
                     
                     user = User.objects.create_user(
-                        username=username,
-                        email=fake.unique.email(),
+                        email=email,
                         password='password123',
                         first_name=first_name,
                         last_name=last_name,
@@ -91,7 +88,7 @@ class Command(BaseCommand):
                         current_job_title=user.degree,
                         current_company=fake.company(),
                         location=fake.city(),
-                        linkedin_url=f"https://www.linkedin.com/in/{username}",
+                        linkedin_url=f"https://www.linkedin.com/in/{first_name.lower()}.{last_name.lower()}",
                         graduation_year=user.graduation_year,
                         degree=user.degree,
                         status=random.choice([Profile.Status.DRAFT, Profile.Status.VERIFIED]),

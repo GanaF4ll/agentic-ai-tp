@@ -6,6 +6,20 @@ import { LUCIDE_ICONS, LucideIconProvider } from 'lucide-angular';
 
 describe('App', () => {
   beforeEach(async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+
     await TestBed.configureTestingModule({
       imports: [App, HttpClientTestingModule],
       providers: [

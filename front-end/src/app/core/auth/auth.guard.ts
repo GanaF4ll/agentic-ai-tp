@@ -7,11 +7,25 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   if (authService.isAuthenticated()) {
-    // Check if it's an admin-only route
-    if (route.data?.['role'] === 'ADMIN' && !authService.isAdmin()) {
+    // 1. Force password change if required
+    if (authService.mustChangePassword() && state.url !== '/reset-password') {
+      router.navigate(['/reset-password']);
+      return false;
+    }
+
+    // 2. Role-based access control
+    const requiredRole = route.data?.['role'];
+    
+    if (requiredRole === 'SUPER_ADMIN' && !authService.isSuperAdmin()) {
       router.navigate(['/alumni']);
       return false;
     }
+
+    if (requiredRole === 'ADMIN' && !authService.isAdmin()) {
+      router.navigate(['/alumni']);
+      return false;
+    }
+
     return true;
   }
 

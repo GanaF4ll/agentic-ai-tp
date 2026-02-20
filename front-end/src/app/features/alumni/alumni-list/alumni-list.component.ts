@@ -1,15 +1,17 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { Profile } from '../../../core/models/profile.model';
 import { AlumniCardComponent } from '../../../shared/components/alumni/alumni-card.component';
 import { LucideAngularModule, Search, Filter } from 'lucide-angular';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, startWith, tap, catchError, of } from 'rxjs';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-alumni-list',
   standalone: true,
   imports: [ReactiveFormsModule, AlumniCardComponent, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
       <!-- Header Bento Block -->
@@ -178,9 +180,7 @@ export class AlumniListComponent {
   private fb = inject(FormBuilder);
   private alumniService = inject(AlumniService);
 
-  profiles = signal<Profile[]>([]);
   isLoading = signal(true);
-
   readonly searchIcon = Search;
   readonly filterIcon = Filter;
 
@@ -192,31 +192,32 @@ export class AlumniListComponent {
     degree: [''],
   });
 
-  constructor() {
-    this.loadProfiles();
+  // Convert form value changes to a signal
+  private filters = toSignal(
+    this.filterForm.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      startWith(this.filterForm.value)
+    ),
+    { initialValue: this.filterForm.value }
+  );
 
-    // Setup reactive filtering
-    this.filterForm.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe(() => {
-      this.loadProfiles();
-    });
-  }
-
-  loadProfiles() {
-    this.isLoading.set(true);
-    const filters = this.filterForm.value as any;
-
-    this.alumniService.getProfiles(filters).subscribe({
-      next: (data) => {
-        this.profiles.set(data);
-        this.isLoading.set(false);
-      },
-      error: () => {
-        // Fallback for demo if API is not available
-        this.isLoading.set(false);
-        this.profiles.set(this.getMockProfiles());
-      },
-    });
-  }
+  // Derived signal for profiles based on filters
+  profiles = toSignal(
+    toObservable(this.filters).pipe(
+      tap(() => this.isLoading.set(true)),
+      switchMap((filters) =>
+        this.alumniService.getProfiles(filters as any).pipe(
+          catchError(() => {
+            console.error('API Error, falling back to mock profiles');
+            return of(this.getMockProfiles());
+          })
+        )
+      ),
+      tap(() => this.isLoading.set(false))
+    ),
+    { initialValue: [] as Profile[] }
+  );
 
   resetFilters() {
     this.filterForm.reset();

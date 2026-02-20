@@ -1,13 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { Profile } from '../../../core/models/profile.model';
 import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCircle, ArrowLeft, User } from 'lucide-angular';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-profile-detail',
   standalone: true,
   imports: [RouterLink, LucideAngularModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex flex-col gap-8">
       <nav>
@@ -126,8 +129,6 @@ export class ProfileDetailComponent {
   private route = inject(ActivatedRoute);
   private alumniService = inject(AlumniService);
   
-  profile = signal<Profile | null>(null);
-
   readonly backIcon = ArrowLeft;
   readonly mailIcon = Mail;
   readonly linkedinIcon = Linkedin;
@@ -136,16 +137,12 @@ export class ProfileDetailComponent {
   readonly pendingIcon = Calendar;
   readonly userIcon = User;
 
-  constructor() {
-    const id = this.route.snapshot.params['id'];
-    this.loadProfile(id);
-  }
-
-  loadProfile(id: string) {
-    // For demo, find in mock or fetch
-    this.alumniService.getProfiles().subscribe(profiles => {
-      const found = profiles.find(p => p.id === +id);
-      if (found) this.profile.set(found);
-    });
-  }
+  profile = toSignal(
+    this.route.params.pipe(
+      map(params => params['id']),
+      switchMap(id => this.alumniService.getProfiles().pipe(
+        map(profiles => profiles.find(p => p.id === +id) || null)
+      ))
+    )
+  );
 }
