@@ -10,12 +10,12 @@ import { AlumniEvent } from '../../../core/models/business.model';
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <header class="col-span-full glass p-8 rounded-[var(--radius-card)] border border-white/20 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-white">
         <div>
-          <h1 class="text-4xl font-black text-white tracking-tighter leading-none">Community <span class="text-white/40">Events</span></h1>
-          <p class="text-white/60 font-medium mt-3">Networking, workshops, and school life.</p>
+          <h1 class="text-4xl font-black text-white tracking-tighter leading-none">Événements <span class="text-white/40">Communauté</span></h1>
+          <p class="text-white/60 font-medium mt-3">Networking, ateliers et vie de l'école.</p>
         </div>
         <div class="flex gap-2">
-           <button class="btn btn-ghost font-bold rounded-xl border-white/20 text-white hover:bg-white/10">Past Events</button>
-           <button class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Propose Event</button>
+           <button class="btn btn-ghost font-bold rounded-xl border-white/20 text-white hover:bg-white/10">Événements passés</button>
+           <button class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Proposer un événement</button>
         </div>
       </header>
 
@@ -24,7 +24,7 @@ import { AlumniEvent } from '../../../core/models/business.model';
           <figure class="bg-white/5 h-48 flex items-center justify-center border-b border-white/10 relative overflow-hidden group-hover:bg-white/10 transition-colors">
              <lucide-angular [img]="calendarIcon" class="size-20 text-white opacity-10 group-hover:scale-110 transition-transform duration-500"></lucide-angular>
              <div class="absolute top-4 right-4">
-                <div class="badge glass-solid border-none text-white font-black text-[10px] px-3 py-3 shadow-sm bg-black/20">{{ event.is_online ? 'ONLINE' : 'IN-PERSON' }}</div>
+                <div class="badge glass-solid border-none text-white font-black text-[10px] px-3 py-3 shadow-sm bg-black/20">{{ event.is_online ? 'EN LIGNE' : 'PRÉSENTIEL' }}</div>
              </div>
           </figure>
           
@@ -48,7 +48,7 @@ import { AlumniEvent } from '../../../core/models/business.model';
             </div>
 
             <div class="card-actions mt-8">
-              <button class="btn btn-primary btn-block font-black shadow-lg shadow-primary/10 rounded-xl h-12 border-none text-primary-content">Register Now</button>
+              <button class="btn btn-primary btn-block font-black shadow-lg shadow-primary/10 rounded-xl h-12 border-none text-primary-content">S'inscrire</button>
             </div>
           </div>
         </div>
@@ -64,18 +64,18 @@ export class EventListComponent {
   events = signal<AlumniEvent[]>([
     {
       id: 1,
-      title: 'Annual Gala Night 2026',
-      description: 'The most awaited networking event of the year for all alumni cohorts.',
-      date: 'June 15, 2026 - 19:00',
+      title: 'Soirée de Gala Annuelle 2026',
+      description: 'L\'événement networking le plus attendu de l\'année pour toutes les promotions.',
+      date: '15 Juin 2026 - 19:00',
       location: 'Grand Palais, Paris',
       is_online: false,
-      organizer: 'BDE / Alumni Association'
+      organizer: 'BDE / Association des Alumni'
     },
     {
       id: 2,
-      title: 'AI in 2026: Workshop',
-      description: 'Hands-on workshop on agentic AI and LLM orchestration.',
-      date: 'March 22, 2026 - 14:00',
+      title: 'L\'IA en 2026 : Atelier',
+      description: 'Atelier pratique sur l\'IA agentique et l\'orchestration de LLM.',
+      date: '22 Mars 2026 - 14:00',
       location: 'Zoom / Campus Paris',
       is_online: true,
       organizer: 'School Tech Hub'

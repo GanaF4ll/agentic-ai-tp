@@ -36,7 +36,7 @@ export class ThemeService {
     <button 
       class="btn btn-ghost btn-circle text-base-content/60 hover:text-primary transition-colors" 
       (click)="themeService.toggle()"
-      [title]="themeService.isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+      [title]="themeService.isDark() ? 'Passer au mode clair' : 'Passer au mode sombre'"
     >
       @if (themeService.isDark()) {
         <lucide-angular [img]="sunIcon" class="size-5"></lucide-angular>

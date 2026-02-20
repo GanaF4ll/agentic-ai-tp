@@ -29,11 +29,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
         >
           <div class="max-w-2xl">
             <h1 class="text-5xl font-black tracking-tighter leading-none mb-4 text-white">
-              Alumni <span class="opacity-70">Directory</span>
+              Annuaire <span class="opacity-70">des Alumni</span>
             </h1>
             <p class="text-xl text-white/80 font-medium leading-relaxed">
-              Explore the network of our brilliant graduates. Connect, share, and grow together in
-              our professional community.
+              Explorez le réseau de nos brillants diplômés. Connectez-vous, partagez et grandissez
+              ensemble au sein de notre communauté professionnelle.
             </p>
           </div>
 
@@ -44,12 +44,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
               <div
                 class="stat-title text-white/60 uppercase tracking-[0.2em] text-[10px] font-black"
               >
-                Network Strength
+                Force du réseau
               </div>
               <div class="stat-value text-5xl font-black tabular-nums text-white">{{ profiles().length }}</div>
               <div class="stat-desc text-white/70 mt-2 font-bold flex items-center gap-2">
                 <span class="size-2 rounded-full bg-success animate-pulse"></span>
-                Verified Members
+                Membres vérifiés
               </div>
             </div>
           </div>
@@ -62,29 +62,29 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
           <div class="card-body p-6">
             <h2 class="text-xs font-black uppercase tracking-widest text-white/40 mb-4 flex items-center gap-2">
               <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
-              Search & Filters
+              Recherche & Filtres
             </h2>
             
             <form [formGroup]="filterForm" class="flex flex-col gap-5">
               <fieldset class="fieldset p-0">
-                <legend class="fieldset-legend font-bold text-sm text-white/80">Keyword</legend>
+                <legend class="fieldset-legend font-bold text-sm text-white/80">Mot-clé</legend>
                 <div class="input glass border-white/10 flex items-center gap-3 w-full h-12 focus-within:ring-2 ring-primary/50 transition-all bg-white/5 text-white">
                   <lucide-angular [img]="searchIcon" class="size-4 opacity-40 text-white"></lucide-angular>
                   <input
                     type="text"
                     formControlName="search"
                     class="grow text-sm font-medium placeholder:text-white/40 bg-transparent border-none focus:outline-none"
-                    placeholder="Name, skills, or role..."
+                    placeholder="Nom, compétences, ou poste..."
                   />
                 </div>
               </fieldset>
 
               <fieldset class="fieldset p-0">
-                <legend class="fieldset-legend font-bold text-sm text-white/80">Promotion Year</legend>
+                <legend class="fieldset-legend font-bold text-sm text-white/80">Année de promotion</legend>
                 <select formControlName="graduation_year" class="select glass border-white/10 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-white/5 text-white option:text-black">
-                  <option [value]="null" class="text-black">All Classes</option>
+                  <option [value]="null" class="text-black">Toutes les promos</option>
                   @for (year of years; track year) {
-                    <option [value]="year" class="text-black">Class of {{ year }}</option>
+                    <option [value]="year" class="text-black">Promotion {{ year }}</option>
                   }
                 </select>
               </fieldset>
@@ -92,11 +92,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
               <div class="divider opacity-10 my-0 before:bg-white after:bg-white"></div>
 
               <button type="button" class="btn btn-ghost btn-sm h-10 gap-2 normal-case font-bold text-white/60 hover:text-white hover:bg-white/10">
-                Advanced filters
+                Filtres avancés
               </button>
               
               <button type="button" (click)="resetFilters()" class="btn btn-primary h-12 font-bold shadow-lg shadow-primary/20 border-none text-primary-content">
-                Apply Filters
+                Appliquer les filtres
               </button>
             </form>
           </div>
@@ -108,9 +108,9 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
              <div class="size-10 rounded-xl bg-secondary/20 flex items-center justify-center mb-4 text-secondary">
                <lucide-angular [img]="filterIcon" class="size-5"></lucide-angular>
              </div>
-             <h3 class="font-black text-white leading-tight">Join the Mentorship Program</h3>
-             <p class="text-sm text-white/70 mt-2">Connect with senior alumni and accelerate your career growth.</p>
-             <button class="btn btn-secondary btn-sm mt-4 font-bold border-none text-secondary-content">Learn More</button>
+             <h3 class="font-black text-white leading-tight">Rejoignez le programme de mentorat</h3>
+             <p class="text-sm text-white/70 mt-2">Connectez-vous avec des alumni seniors et accélérez votre carrière.</p>
+             <button class="btn btn-secondary btn-sm mt-4 font-bold border-none text-secondary-content">En savoir plus</button>
           </div>
         </section>
       </aside>
@@ -145,10 +145,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 
           <div class="flex justify-center mt-12">
             <div class="join glass p-1 rounded-2xl border border-white/20 shadow-sm bg-white/5">
-              <button class="join-item btn btn-ghost btn-sm px-4 text-white hover:bg-white/10">Previous</button>
+              <button class="join-item btn btn-ghost btn-sm px-4 text-white hover:bg-white/10">Précédent</button>
               <button class="join-item btn btn-primary btn-sm px-4 rounded-xl border-none text-primary-content">1</button>
               <button class="join-item btn btn-ghost btn-sm px-4 text-white hover:bg-white/10">2</button>
-              <button class="join-item btn btn-ghost btn-sm px-4 text-white hover:bg-white/10">Next</button>
+              <button class="join-item btn btn-ghost btn-sm px-4 text-white hover:bg-white/10">Suivant</button>
             </div>
           </div>
         } @else {
@@ -161,12 +161,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
                 class="size-8 text-white/20"
               ></lucide-angular>
             </div>
-            <h3 class="text-2xl font-black tracking-tight text-white">No alumni found</h3>
+            <h3 class="text-2xl font-black tracking-tight text-white">Aucun alumni trouvé</h3>
             <p class="text-white/50 mt-2 max-w-xs text-center font-medium">
-              We couldn't find anyone matching your current filters.
+              Nous n'avons trouvé personne correspondant à vos filtres actuels.
             </p>
             <button class="btn btn-primary mt-8 px-8 font-bold shadow-lg shadow-primary/20 border-none text-primary-content" (click)="resetFilters()">
-              Clear all filters
+              Réinitialiser les filtres
             </button>
           </div>
         }
@@ -229,7 +229,7 @@ export class AlumniListComponent {
         first_name: 'Alice',
         last_name: 'Durand',
         email: 'alice@example.com',
-        degree: 'Masters in AI',
+        degree: 'Mastère en IA',
         graduation_year: 2024,
         status: 'VERIFIED',
         is_verified: true,
@@ -242,7 +242,7 @@ export class AlumniListComponent {
         first_name: 'Bob',
         last_name: 'Martin',
         email: 'bob@example.com',
-        degree: 'Software Engineering',
+        degree: 'Génie Logiciel',
         graduation_year: 2025,
         status: 'VERIFIED',
         is_verified: true,
@@ -255,7 +255,7 @@ export class AlumniListComponent {
         first_name: 'Claire',
         last_name: 'Lefebvre',
         email: 'claire@example.com',
-        degree: 'Cybersecurity',
+        degree: 'Cybersécurité',
         graduation_year: 2023,
         status: 'DRAFT',
         is_verified: false,

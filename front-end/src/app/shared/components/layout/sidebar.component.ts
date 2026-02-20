@@ -30,37 +30,37 @@ import { CommonModule } from '@angular/common';
           class="text-xs font-semibold text-white/40 uppercase tracking-wider px-4 py-2 transition-opacity duration-200 whitespace-nowrap"
           [ngClass]="sidebarService.isCollapsed() ? 'opacity-0' : 'opacity-100'"
         >
-          Main
+          Menu
         </div>
         
-        <a routerLink="/alumni" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Directory">
+        <a routerLink="/alumni" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Annuaire">
           <lucide-angular [img]="gradIcon" class="size-5 shrink-0"></lucide-angular>
           <span class="transition-all duration-200 whitespace-nowrap" [ngClass]="sidebarService.isCollapsed() ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'">
-            Directory
+            Annuaire
           </span>
         </a>
         
-        <a routerLink="/jobs" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Job Board">
+        <a routerLink="/jobs" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Emplois">
           <lucide-angular [img]="jobIcon" class="size-5 shrink-0"></lucide-angular>
           <span class="transition-all duration-200 whitespace-nowrap" [ngClass]="sidebarService.isCollapsed() ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'">
-            Job Board
+            Emplois
           </span>
         </a>
         
-        <a routerLink="/events" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Events">
+        <a routerLink="/events" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Événements">
           <lucide-angular [img]="calendarIcon" class="size-5 shrink-0"></lucide-angular>
           <span class="transition-all duration-200 whitespace-nowrap" [ngClass]="sidebarService.isCollapsed() ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'">
-            Events
+            Événements
           </span>
         </a>
 
         @if (authService.isAdmin()) {
           <div class="divider mx-4 opacity-50 before:bg-white/10 after:bg-white/10"></div>
           
-          <a routerLink="/admin" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Dashboard">
+          <a routerLink="/admin" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Tableau de bord">
             <lucide-angular [img]="dashboardIcon" class="size-5 shrink-0"></lucide-angular>
             <span class="transition-all duration-200 whitespace-nowrap" [ngClass]="sidebarService.isCollapsed() ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'">
-              Dashboard
+              Tableau de bord
             </span>
           </a>
         }
@@ -68,10 +68,10 @@ import { CommonModule } from '@angular/common';
         @if (authService.isAuthenticated()) {
           <div class="divider mx-4 opacity-50 before:bg-white/10 after:bg-white/10"></div>
           
-          <a routerLink="/profile" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="My Profile">
+          <a routerLink="/profile" routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group relative text-white/80" title="Mon Profil">
             <lucide-angular [img]="userIcon" class="size-5 shrink-0"></lucide-angular>
             <span class="transition-all duration-200 whitespace-nowrap" [ngClass]="sidebarService.isCollapsed() ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'">
-              My Profile
+              Mon Profil
             </span>
           </a>
         }
@@ -83,8 +83,8 @@ import { CommonModule } from '@angular/common';
             <lucide-angular [img]="userIcon" class="size-6 text-white"></lucide-angular>
           </div>
           <div class="flex-1 overflow-hidden transition-all duration-200" [ngClass]="sidebarService.isCollapsed() ? 'opacity-0 w-0' : 'opacity-100'">
-             <p class="text-sm font-bold truncate text-white">{{ authService.isAuthenticated() ? 'Connected' : 'Welcome' }}</p>
-             <p class="text-xs text-white/60 truncate">Alumni Network</p>
+             <p class="text-sm font-bold truncate text-white">{{ authService.isAuthenticated() ? 'Connecté' : 'Bienvenue' }}</p>
+             <p class="text-xs text-white/60 truncate">Réseau Alumni</p>
           </div>
         </div>
       </div>

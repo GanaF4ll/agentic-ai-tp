@@ -13,7 +13,7 @@ import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCirc
       <nav>
         <a routerLink="/alumni" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60 hover:text-primary">
           <lucide-angular [img]="backIcon" class="size-4"></lucide-angular>
-          Back to Directory
+          Retour à l'annuaire
         </a>
       </nav>
 
@@ -44,7 +44,7 @@ import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCirc
                   @if (p.linkedin_url) {
                     <a [href]="p.linkedin_url" target="_blank" class="btn btn-primary btn-sm gap-2 rounded-xl font-bold shadow-lg shadow-primary/20">
                       <lucide-angular [img]="linkedinIcon" class="size-4"></lucide-angular>
-                      LinkedIn Profile
+                      Profil LinkedIn
                     </a>
                   }
                 </div>
@@ -62,16 +62,16 @@ import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCirc
                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg">
                       <lucide-angular [img]="userIcon" class="size-5"></lucide-angular>
                    </div>
-                   About
+                   À propos
                 </h2>
                 
                 <p class="text-base-content/70 leading-relaxed font-medium text-lg">
-                  Passionate alumnus from the class of <span class="font-bold text-primary">{{ p.graduation_year }}</span>. 
-                  Specialized in {{ p.degree }}. Always interested in networking with other members of the community and exploring new opportunities.
+                  Alumnus passionné de la promotion <span class="font-bold text-primary">{{ p.graduation_year }}</span>. 
+                  Spécialisé en {{ p.degree }}. Toujours intéressé par le networking avec d'autres membres de la communauté et l'exploration de nouvelles opportunités.
                 </p>
 
                 <div class="flex gap-3 mt-8">
-                   <div class="badge badge-lg bg-base-200 border-none font-bold text-xs py-4 px-4 text-base-content/60">Software Engineering</div>
+                   <div class="badge badge-lg bg-base-200 border-none font-bold text-xs py-4 px-4 text-base-content/60">Génie Logiciel</div>
                    <div class="badge badge-lg bg-base-200 border-none font-bold text-xs py-4 px-4 text-base-content/60">React</div>
                    <div class="badge badge-lg bg-base-200 border-none font-bold text-xs py-4 px-4 text-base-content/60">Node.js</div>
                 </div>
@@ -85,13 +85,13 @@ import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCirc
                      <div class="p-2 bg-accent/10 text-accent-content rounded-lg">
                         <lucide-angular [img]="gradIcon" class="size-5"></lucide-angular>
                      </div>
-                     Academic Background
+                     Parcours Académique
                   </h2>
 
                   <div class="flex items-start gap-4">
                      <div class="flex flex-col border-l-2 border-base-200 pl-4 py-1">
                         <h3 class="font-bold text-lg">{{ p.degree }}</h3>
-                        <p class="text-base-content/60 font-medium">Class of {{ p.graduation_year }}</p>
+                        <p class="text-base-content/60 font-medium">Promotion {{ p.graduation_year }}</p>
                         <p class="text-sm text-base-content/40 mt-1">École Supérieure du Numérique</p>
                      </div>
                   </div>
@@ -103,8 +103,8 @@ import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCirc
                <div class="alert bg-success/10 border-success/20 text-success-content shadow-sm rounded-[var(--radius-card)]">
                  <lucide-angular [img]="verifiedIcon" class="size-6 text-success"></lucide-angular>
                  <div>
-                    <h3 class="font-bold">Verified Alumni</h3>
-                    <div class="text-xs opacity-80">This profile has been verified by the school administration.</div>
+                    <h3 class="font-bold">Alumni Vérifié</h3>
+                    <div class="text-xs opacity-80">Ce profil a été vérifié par l'administration de l'école.</div>
                  </div>
                </div>
              }

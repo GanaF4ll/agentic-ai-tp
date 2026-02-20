@@ -15,23 +15,23 @@ import { RouterLink } from '@angular/router';
       <div class="card bg-base-100 w-full max-w-sm shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)] overflow-hidden">
         <div class="card-body p-8">
           <div class="text-center mb-6">
-            <h2 class="text-3xl font-black tracking-tighter text-primary">Welcome Back</h2>
-            <p class="text-base-content/60 font-medium mt-2">Sign in to your alumni account</p>
+            <h2 class="text-3xl font-black tracking-tighter text-primary">Bon retour</h2>
+            <p class="text-base-content/60 font-medium mt-2">Connectez-vous à votre compte alumni</p>
           </div>
           
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
             <fieldset class="fieldset">
-              <legend class="fieldset-legend font-bold text-sm">Email</legend>
+              <legend class="fieldset-legend font-bold text-sm">E-mail</legend>
               <input 
                 type="email" 
                 formControlName="email" 
                 class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-12" 
-                placeholder="name@example.com" 
+                placeholder="nom@exemple.fr" 
               />
             </fieldset>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend font-bold text-sm">Password</legend>
+              <legend class="fieldset-legend font-bold text-sm">Mot de passe</legend>
               <input 
                 type="password" 
                 formControlName="password" 
@@ -39,7 +39,7 @@ import { RouterLink } from '@angular/router';
                 placeholder="••••••••" 
               />
               <div class="text-right mt-1">
-                 <a routerLink="/forgot-password" class="link link-primary text-xs font-bold no-underline hover:underline">Forgot password?</a>
+                 <a routerLink="/forgot-password" class="link link-primary text-xs font-bold no-underline hover:underline">Mot de passe oublié ?</a>
               </div>
             </fieldset>
 
@@ -59,15 +59,15 @@ import { RouterLink } from '@angular/router';
                 @if (isLoading()) {
                   <span class="loading loading-spinner loading-sm"></span>
                 }
-                Login
+                Se connecter
               </button>
             </div>
           </form>
 
-          <div class="divider my-6 text-xs font-bold text-base-content/30">OR</div>
+          <div class="divider my-6 text-xs font-bold text-base-content/30">OU</div>
           
           <div class="text-center text-sm font-medium">
-            Don't have an account? <a routerLink="/register" class="link link-primary font-bold no-underline hover:underline">Request Access</a>
+            Vous n'avez pas de compte ? <a routerLink="/register" class="link link-primary font-bold no-underline hover:underline">Demander l'accès</a>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         error: (err) => {
           this.isLoading.set(false);
-          this.errorMessage.set('Invalid email or password.');
+          this.errorMessage.set('E-mail ou mot de passe invalide.');
         }
       });
     }

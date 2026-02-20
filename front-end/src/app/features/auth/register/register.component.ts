@@ -15,34 +15,34 @@ import { RouterLink } from '@angular/router';
       <div class="card bg-base-100 w-full max-w-md shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)] overflow-hidden">
         <div class="card-body p-8">
           <div class="text-center mb-8">
-            <h2 class="text-3xl font-black tracking-tighter text-primary">Join AlumniConnect</h2>
-            <p class="text-base-content/60 font-medium mt-2">Connect with your peers and grow your network</p>
+            <h2 class="text-3xl font-black tracking-tighter text-primary">Rejoindre AlumniConnect</h2>
+            <p class="text-base-content/60 font-medium mt-2">Connectez-vous avec vos pairs et développez votre réseau</p>
           </div>
           
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
             <div class="grid grid-cols-2 gap-4">
               <fieldset class="fieldset">
-                <legend class="fieldset-legend font-bold text-sm">First Name</legend>
-                <input type="text" formControlName="first_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="John" />
+                <legend class="fieldset-legend font-bold text-sm">Prénom</legend>
+                <input type="text" formControlName="first_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="Jean" />
               </fieldset>
               <fieldset class="fieldset">
-                <legend class="fieldset-legend font-bold text-sm">Last Name</legend>
-                <input type="text" formControlName="last_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="Doe" />
+                <legend class="fieldset-legend font-bold text-sm">Nom</legend>
+                <input type="text" formControlName="last_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="Dupont" />
               </fieldset>
             </div>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend font-bold text-sm">Email</legend>
-              <input type="email" formControlName="email" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="john.doe@ecole.fr" />
+              <legend class="fieldset-legend font-bold text-sm">E-mail</legend>
+              <input type="email" formControlName="email" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="jean.dupont@ecole.fr" />
             </fieldset>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend font-bold text-sm">Password</legend>
+              <legend class="fieldset-legend font-bold text-sm">Mot de passe</legend>
               <input type="password" formControlName="password" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="••••••••" />
             </fieldset>
 
             <fieldset class="fieldset">
-              <legend class="fieldset-legend font-bold text-sm">Graduation Year</legend>
+              <legend class="fieldset-legend font-bold text-sm">Année de diplôme</legend>
               <input type="number" formControlName="graduation_year" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="2024" />
             </fieldset>
 
@@ -56,13 +56,13 @@ import { RouterLink } from '@angular/router';
             <div class="card-actions mt-6">
               <button type="submit" class="btn btn-primary w-full btn-lg h-12 min-h-12 font-black shadow-lg shadow-primary/20 rounded-xl text-base" [disabled]="registerForm.invalid || isLoading()">
                 @if (isLoading()) { <span class="loading loading-spinner loading-sm"></span> }
-                Request Access
+                Demander l'accès
               </button>
             </div>
           </form>
 
           <div class="text-center text-sm mt-6 font-medium">
-            Already have an account? <a routerLink="/login" class="link link-primary font-bold no-underline hover:underline">Login</a>
+            Vous avez déjà un compte ? <a routerLink="/login" class="link link-primary font-bold no-underline hover:underline">Se connecter</a>
           </div>
         </div>
       </div>

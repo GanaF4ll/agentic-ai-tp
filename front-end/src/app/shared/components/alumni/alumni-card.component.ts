@@ -23,13 +23,13 @@ import { LucideAngularModule, ExternalLink, GraduationCap, MapPin, CheckCircle }
               </h2>
               <div class="flex items-center gap-1.5 text-xs font-bold text-white/60 mt-1 uppercase tracking-wider">
                 <lucide-angular [img]="graduationIcon" class="size-3"></lucide-angular>
-                <span>{{ alumni().degree }} <span class="mx-1 text-white/40">•</span> Class of {{ alumni().graduation_year }}</span>
+                <span>{{ alumni().degree }} <span class="mx-1 text-white/40">•</span> Promotion {{ alumni().graduation_year }}</span>
               </div>
             </div>
           </div>
           
           @if (alumni().is_verified) {
-             <div class="tooltip tooltip-left" data-tip="Verified Profile">
+             <div class="tooltip tooltip-left" data-tip="Profil Vérifié">
                 <div class="bg-success/20 p-1.5 rounded-lg border border-success/30">
                   <lucide-angular [img]="verifiedIcon" class="size-4 text-success-content"></lucide-angular>
                 </div>
@@ -38,8 +38,8 @@ import { LucideAngularModule, ExternalLink, GraduationCap, MapPin, CheckCircle }
         </div>
 
         <p class="mt-5 text-sm font-medium text-white/80 line-clamp-2 leading-relaxed italic">
-            "Looking for opportunities in software engineering and cloud architecture. 
-            Passionate about agentic AI and modern web frameworks."
+            "À la recherche d'opportunités en ingénierie logicielle et architecture cloud. 
+            Passionné par l'IA agentique et les frameworks web modernes."
         </p>
         
         <div class="card-actions justify-between items-center mt-6 pt-5 border-t border-white/10">
@@ -50,13 +50,13 @@ import { LucideAngularModule, ExternalLink, GraduationCap, MapPin, CheckCircle }
               </a>
             }
             <div class="flex gap-1">
-               <div class="badge badge-sm bg-white/10 text-white border-white/10 font-bold text-[10px] py-2">AI</div>
+               <div class="badge badge-sm bg-white/10 text-white border-white/10 font-bold text-[10px] py-2">IA</div>
                <div class="badge badge-sm bg-white/10 text-white border-white/10 font-bold text-[10px] py-2">Web</div>
             </div>
           </div>
           
           <a [routerLink]="['/alumni', alumni().id]" class="btn btn-primary btn-sm px-5 font-bold shadow-md shadow-primary/20 rounded-xl border-none text-primary-content">
-            View Details
+            Voir Détails
           </a>
         </div>
       </div>

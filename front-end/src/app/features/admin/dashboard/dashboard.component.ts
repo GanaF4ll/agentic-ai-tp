@@ -11,8 +11,8 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <header class="col-span-full bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative overflow-hidden">
         <div class="relative z-10">
-          <h1 class="text-4xl font-black text-primary tracking-tighter leading-none">Admin <span class="text-base-content/30">Dashboard</span></h1>
-          <p class="text-base-content/50 font-medium mt-3">Manage alumni profiles, validate new members, and monitor platform activity.</p>
+          <h1 class="text-4xl font-black text-primary tracking-tighter leading-none">Tableau de bord <span class="text-base-content/30">Admin</span></h1>
+          <p class="text-base-content/50 font-medium mt-3">Gérez les profils des alumni, validez les nouveaux membres et surveillez l'activité de la plateforme.</p>
         </div>
         
         <!-- Abstract background pattern -->
@@ -26,11 +26,11 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
           <div class="stat-figure text-primary bg-primary/10 p-3 rounded-xl">
             <lucide-angular [img]="checkIcon" class="size-6"></lucide-angular>
           </div>
-          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">Verified Alumni</div>
+          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">Alumni Vérifiés</div>
           <div class="stat-value text-primary font-black text-4xl mt-1">842</div>
           <div class="stat-desc font-medium text-success mt-2 flex items-center gap-1">
              <span class="inline-block size-1.5 rounded-full bg-success"></span>
-             21% more than last month
+             21% de plus que le mois dernier
           </div>
         </div>
       </div>
@@ -41,9 +41,9 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
           <div class="stat-figure text-warning bg-warning/10 p-3 rounded-xl">
             <lucide-angular [img]="clockIcon" class="size-6"></lucide-angular>
           </div>
-          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">Pending Validation</div>
+          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">En attente de validation</div>
           <div class="stat-value text-warning font-black text-4xl mt-1">12</div>
-          <div class="stat-desc font-medium text-warning mt-2">Awaiting review</div>
+          <div class="stat-desc font-medium text-warning mt-2">En attente d'examen</div>
         </div>
       </div>
 
@@ -53,10 +53,10 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
             <lucide-angular [img]="checkIcon" class="size-32 -mb-8 -mr-8 rotate-12"></lucide-angular>
          </div>
          <div class="card-body p-6">
-            <h3 class="font-black text-secondary-content text-lg">Quick Actions</h3>
+            <h3 class="font-black text-secondary-content text-lg">Actions Rapides</h3>
             <div class="flex flex-wrap gap-2 mt-2">
-               <button class="btn btn-sm btn-secondary font-bold shadow-sm">Export Data (CSV)</button>
-               <button class="btn btn-sm btn-ghost bg-white/50 hover:bg-white/80 font-bold">Invite User</button>
+               <button class="btn btn-sm btn-secondary font-bold shadow-sm">Exporter les données (CSV)</button>
+               <button class="btn btn-sm btn-ghost bg-white/50 hover:bg-white/80 font-bold">Inviter un utilisateur</button>
             </div>
          </div>
       </div>
@@ -69,12 +69,12 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
                <div class="p-2 bg-primary/10 rounded-lg text-primary">
                   <lucide-angular [img]="clockIcon" class="size-5"></lucide-angular>
                </div>
-               <h2 class="card-title font-black tracking-tight">Validation Queue</h2>
+               <h2 class="card-title font-black tracking-tight">File d'attente de validation</h2>
             </div>
             
             <div class="input input-bordered input-sm flex items-center gap-2 bg-base-200/50 focus-within:bg-base-100 focus-within:w-64 transition-all duration-300">
                <lucide-angular [img]="searchIcon" class="size-4 opacity-40"></lucide-angular>
-               <input type="text" placeholder="Search pending profiles..." class="grow font-medium placeholder:text-base-content/30" />
+               <input type="text" placeholder="Rechercher des profils en attente..." class="grow font-medium placeholder:text-base-content/30" />
             </div>
           </div>
 
@@ -82,9 +82,9 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
             <table class="table table-zebra w-full">
               <thead>
                 <tr class="bg-base-200/30 text-xs uppercase text-base-content/50 font-bold tracking-wider">
-                  <th class="py-4 pl-6">Candidate</th>
-                  <th>Graduation</th>
-                  <th>Degree</th>
+                  <th class="py-4 pl-6">Candidat</th>
+                  <th>Promotion</th>
+                  <th>Diplôme</th>
                   <th>Source</th>
                   <th class="pr-6 text-right">Actions</th>
                 </tr>
@@ -110,13 +110,13 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
                     <td><span class="badge badge-outline badge-info badge-sm font-bold gap-1 pl-1 pr-2"><div class="size-1.5 rounded-full bg-info"></div>LinkedIn</span></td>
                     <th class="pr-6 text-right">
                       <div class="flex gap-2 justify-end">
-                        <button class="btn btn-ghost btn-xs font-bold hover:bg-base-200">Details</button>
+                        <button class="btn btn-ghost btn-xs font-bold hover:bg-base-200">Détails</button>
                         <button 
                           class="btn btn-success btn-xs gap-1 font-bold shadow-sm shadow-success/20"
                           (click)="validateProfile(profile.id)"
                         >
                           <lucide-angular [img]="checkIcon" class="size-3"></lucide-angular>
-                          Validate
+                          Valider
                         </button>
                       </div>
                     </th>
@@ -129,8 +129,8 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
                            <lucide-angular [img]="checkIcon" class="size-8"></lucide-angular>
                         </div>
                         <div>
-                          <p class="font-black text-lg text-base-content/80">All caught up!</p>
-                          <p class="text-sm text-base-content/50 font-medium">No profiles pending validation.</p>
+                          <p class="font-black text-lg text-base-content/80">Tout est à jour !</p>
+                          <p class="text-sm text-base-content/50 font-medium">Aucun profil en attente de validation.</p>
                         </div>
                       </div>
                     </td>
@@ -165,7 +165,7 @@ export class DashboardComponent {
         first_name: 'Claire',
         last_name: 'Lefebvre',
         email: 'claire@example.com',
-        degree: 'Cybersecurity',
+        degree: 'Cybersécurité',
         graduation_year: 2023,
         status: 'DRAFT',
         is_verified: false,

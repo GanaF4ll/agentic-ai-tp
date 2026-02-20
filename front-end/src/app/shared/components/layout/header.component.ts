@@ -30,7 +30,7 @@ import { ThemeToggleComponent } from './theme-toggle.component';
            <div class="text-sm breadcrumbs text-white/90">
               <ul>
                 <li><a routerLink="/" class="hover:text-white">AlumniConnect</a></li>
-                <li class="font-bold text-white">Platform</li>
+                <li class="font-bold text-white">Plateforme</li>
               </ul>
             </div>
         </div>
@@ -42,7 +42,7 @@ import { ThemeToggleComponent } from './theme-toggle.component';
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-white/60 group-focus-within:text-white transition-colors">
             <lucide-angular [img]="searchIcon" class="size-4"></lucide-angular>
           </div>
-          <input type="text" placeholder="Search alumni, jobs..." class="input glass input-sm w-40 lg:w-56 pl-10 text-white placeholder:text-white/60 focus:bg-white/10 focus:w-56 lg:focus:w-64 transition-all min-w-0 border-white/20" />
+          <input type="text" placeholder="Rechercher alumni, jobs..." class="input glass input-sm w-40 lg:w-56 pl-10 text-white placeholder:text-white/60 focus:bg-white/10 focus:w-56 lg:focus:w-64 transition-all min-w-0 border-white/20" />
         </div>
 
         <app-theme-toggle></app-theme-toggle>
@@ -64,16 +64,16 @@ import { ThemeToggleComponent } from './theme-toggle.component';
               </div>
             </div>
             <ul tabindex="0" class="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content glass-solid rounded-box w-52 text-white">
-              <li class="px-4 py-2 font-semibold text-xs uppercase text-white/50">My Account</li>
-              <li><a routerLink="/profile" class="hover:bg-white/10">Profile Settings</a></li>
+              <li class="px-4 py-2 font-semibold text-xs uppercase text-white/50">Mon Compte</li>
+              <li><a routerLink="/profile" class="hover:bg-white/10">Paramètres du profil</a></li>
               <div class="divider my-1 before:bg-white/10 after:bg-white/10"></div>
-              <li><a (click)="logout()" class="text-error font-semibold hover:bg-white/10"><lucide-angular [img]="logoutIcon" class="size-4"></lucide-angular> Logout</a></li>
+              <li><a (click)="logout()" class="text-error font-semibold hover:bg-white/10"><lucide-angular [img]="logoutIcon" class="size-4"></lucide-angular> Déconnexion</a></li>
             </ul>
           </div>
         } @else {
           <div class="flex gap-2">
-            <a routerLink="/login" class="btn btn-ghost btn-sm text-white hover:bg-white/10">Login</a>
-            <a routerLink="/register" class="btn btn-primary btn-sm shadow-md border-none text-primary-content">Join Now</a>
+            <a routerLink="/login" class="btn btn-ghost btn-sm text-white hover:bg-white/10">Connexion</a>
+            <a routerLink="/register" class="btn btn-primary btn-sm shadow-md border-none text-primary-content">Rejoindre</a>
           </div>
         }
       </div>
