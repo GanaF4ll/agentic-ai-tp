@@ -1,7 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlumniService } from '../../../core/services/alumni.service';
+import { PromotionService } from '../../../core/services/promotion.service';
 import { Profile } from '../../../core/models/profile.model';
-import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'lucide-angular';
+import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap } from 'lucide-angular';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +20,7 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
             Tableau de bord <span class="text-base-content/30">Admin</span>
           </h1>
           <p class="text-base-content/50 font-medium mt-3">
-            Gérez les profils des alumni, validez les nouveaux membres et surveillez l'activité de
+            Gérez les profils des alumni, les promotions et surveillez l'activité de
             la plateforme.
           </p>
         </div>
@@ -66,9 +69,25 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
         </div>
       </div>
 
+      <!-- Stat Card 3: Promotions -->
+      <div
+        class="stats shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
+      >
+        <div class="stat p-6">
+          <div class="stat-figure text-secondary bg-secondary/10 p-3 rounded-xl">
+            <lucide-angular [img]="gradIcon" class="size-6"></lucide-angular>
+          </div>
+          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">
+            Promotions
+          </div>
+          <div class="stat-value text-secondary font-black text-4xl mt-1">{{ totalPromotions() }}</div>
+          <div class="stat-desc font-medium text-secondary mt-2">Cohortes actives</div>
+        </div>
+      </div>
+
       <!-- Action Card -->
       <div
-        class="col-span-1 md:col-span-2 card bg-secondary/10 border border-secondary/20 rounded-[var(--radius-card)] overflow-hidden relative"
+        class="col-span-1 card bg-secondary/10 border border-secondary/20 rounded-[var(--radius-card)] overflow-hidden relative"
       >
         <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
           <lucide-angular [img]="checkIcon" class="size-32 -mb-8 -mr-8 rotate-12"></lucide-angular>
@@ -76,8 +95,8 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
         <div class="card-body p-6">
           <h3 class="font-black text-secondary-content text-lg">Actions Rapides</h3>
           <div class="flex flex-wrap gap-2 mt-2">
-            <button class="btn btn-sm btn-secondary font-bold shadow-sm">
-              Exporter les données (CSV)
+            <button (click)="navigateToPromotions()" class="btn btn-sm btn-secondary font-bold shadow-sm">
+              Gérer les Promotions
             </button>
             <button class="btn btn-sm btn-ghost bg-white/50 hover:bg-white/80 font-bold">
               Inviter un utilisateur
@@ -208,15 +227,25 @@ import { LucideAngularModule, CheckCircle, Clock, Search, ExternalLink } from 'l
 })
 export class DashboardComponent {
   private alumniService = inject(AlumniService);
+  private promotionService = inject(PromotionService);
+  private router = inject(Router);
 
   pendingProfiles = signal<Profile[]>([]);
+  
+  promotions = toSignal(this.promotionService.getPromotions(), { initialValue: [] });
+  totalPromotions = computed(() => this.promotions().length);
 
   readonly checkIcon = CheckCircle;
   readonly clockIcon = Clock;
   readonly searchIcon = Search;
+  readonly gradIcon = GraduationCap;
 
   constructor() {
     this.loadPending();
+  }
+
+  navigateToPromotions() {
+    this.router.navigate(['/admin/promotions']);
   }
 
   loadPending() {

@@ -76,6 +76,12 @@ export const routes: Routes = [
           import('./features/admin/user-management/user-list.component').then((m) => m.UserListComponent),
         data: { role: 'SUPER_ADMIN' },
       },
+      {
+        path: 'promotions',
+        loadComponent: () =>
+          import('./features/admin/promotion-management/promotion-list.component').then((m) => m.PromotionListComponent),
+        data: { role: 'ADMIN' },
+      },
     ],
   },
 ];

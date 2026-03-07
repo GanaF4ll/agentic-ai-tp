@@ -12,19 +12,15 @@ export class PromotionService {
     return this.http.get<Promotion[]>(`${this.API_URL}/`);
   }
 
-  getPromotion(id: number) {
-    return this.http.get<Promotion>(`${this.API_URL}/${id}/`);
+  createPromotion(label: string) {
+    return this.http.post<Promotion>(`${this.API_URL}/`, { label });
   }
 
-  createPromotion(data: Partial<Promotion>) {
-    return this.http.post<Promotion>(`${this.API_URL}/`, data);
-  }
-
-  updatePromotion(id: number, data: Partial<Promotion>) {
-    return this.http.patch<Promotion>(`${this.API_URL}/${id}/`, data);
+  updatePromotion(id: number, label: string) {
+    return this.http.patch<Promotion>(`${this.API_URL}/${id}/`, { label });
   }
 
   deletePromotion(id: number) {
-    return this.http.delete<void>(`${this.API_URL}/${id}/`);
+    return this.http.delete(`${this.API_URL}/${id}/`);
   }
 }
