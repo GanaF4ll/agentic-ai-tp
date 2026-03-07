@@ -55,7 +55,12 @@ agentic-ai-tp/
 │   │   │   ├── core/                 # Guards, Interceptors, Services globaux
 │   │   │   │   ├── auth/             # AuthService, JWT Interceptor
 │   │   │   │   ├── guards/           # RoleGuard, AuthGuard
-│   │   │   │   └── services/         # ApiService (HttpClient wrapper)
+│   │   │   │   ├── layout/           # Composants structurels de l'application
+│   │   │   │   │   ├── header/       # HeaderComponent — navbar principale
+│   │   │   │   │   ├── footer/       # FooterComponent — pied de page
+│   │   │   │   │   ├── sidebar/      # SidebarComponent — navigation latérale
+│   │   │   │   │   └── shell/        # ShellComponent — wrapper header+sidebar+<router-outlet>+footer
+│   │   │   │   └── services/         # ApiService (HttpClient wrapper), ThemeService
 │   │   │   ├── shared/               # Composants réutilisables, pipes, directives
 │   │   │   ├── features/             # Modules par fonctionnalité
 │   │   │   │   ├── admin/            # Dashboard Admin
@@ -333,7 +338,71 @@ export const routes: Routes = [
 ];
 ```
 
-### 8. Angular — HTTP Interceptor (JWT)
+### 8. Angular — Layout Shell (core/layout)
+
+Le dossier `core/layout` contient les composants structurels qui encadrent toutes les pages authentifiées. Le `ShellComponent` agit comme wrapper global : il intègre le header, la sidebar et le footer, et expose un `<router-outlet>` pour le contenu des features.
+
+```
+core/layout/
+├── header/
+│   └── header.component.ts       # Navbar principale (logo, nav links, ThemeToggle, avatar menu)
+├── footer/
+│   └── footer.component.ts       # Pied de page (copyright, liens légaux)
+├── sidebar/
+│   └── sidebar.component.ts      # Navigation latérale (DaisyUI drawer, liens par rôle)
+└── shell/
+    └── shell.component.ts        # Wrapper : header + sidebar + <router-outlet> + footer
+```
+
+**Structure du `ShellComponent` :**
+
+```typescript
+// core/layout/shell/shell.component.ts
+@Component({
+  selector: 'app-shell',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent],
+  template: `
+    <div class="drawer lg:drawer-open">
+      <input id="sidebar-toggle" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col min-h-screen">
+        <app-header />
+        <main class="flex-1 p-6 bg-base-200">
+          <router-outlet />
+        </main>
+        <app-footer />
+      </div>
+      <div class="drawer-side z-40">
+        <label for="sidebar-toggle" class="drawer-overlay"></label>
+        <app-sidebar />
+      </div>
+    </div>
+  `,
+})
+export class ShellComponent {}
+```
+
+**Intégration dans le routing :**
+
+```typescript
+// app.routes.ts
+export const routes: Routes = [
+  { path: 'login', loadComponent: () => import('./features/auth/login/login.component') },
+  {
+    path: '',
+    component: ShellComponent,          // Toutes les routes authentifiées passent par le Shell
+    canActivate: [authGuard],
+    children: [
+      { path: 'alumni', loadChildren: () => import('./features/alumni/alumni.routes') },
+      { path: 'jobs',   loadChildren: () => import('./features/jobs/jobs.routes') },
+      { path: 'admin',  loadChildren: () => import('./features/admin/admin.routes'), canActivate: [roleGuard('ADMIN')] },
+      { path: '',       redirectTo: 'alumni', pathMatch: 'full' },
+    ],
+  },
+];
+```
+
+### 9. Angular — HTTP Interceptor (JWT)
 
 Injection automatique du token Bearer dans chaque requête API.
 
