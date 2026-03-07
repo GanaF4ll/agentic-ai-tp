@@ -12,7 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
 class PromotionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promotion
-        fields = ['id', 'label']
+        fields = ['id', 'label', 'created_at', 'updated_at']
+        read_only_fields = ['created_at', 'updated_at']
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
