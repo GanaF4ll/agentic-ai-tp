@@ -29,7 +29,8 @@
 
   /* Ombres — Soft Bento Shadows */
   --shadow-card:
-    0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+    0 1px 3px rgba(0,0,0,0.08),
+    0 10px 30px -10px rgba(0,0,0,0.12); 
 
   /* Largeurs max */
   --max-w-page: 1440px;
@@ -87,8 +88,8 @@
   /* ── Azure Vif Dark — profondeur électrique ── */
 
   /* Fonds : bleu-nuit profond, froid et immersif */
-  --color-base-100: oklch(15% 0.04 225);
-  --color-base-200: oklch(20% 0.045 220);
+  --color-base-100: oklch(18% 0.05 225); 
+  --color-base-200: oklch(23% 0.05 220);
   --color-base-300: oklch(26% 0.05 218);
   --color-base-content: oklch(94% 0.01 215);
 

@@ -24,6 +24,10 @@ export class JobService {
     return this.http.patch<JobOffer>(`${this.API_URL}${id}/`, job);
   }
 
+  applyToJob(jobId: number) {
+    return this.http.post<{ detail: string }>(`${this.API_URL}${jobId}/apply/`, {});
+  }
+
   deleteJob(id: number) {
     return this.http.delete(`${this.API_URL}${id}/`);
   }

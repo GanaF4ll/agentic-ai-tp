@@ -98,7 +98,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             <button (click)="navigateToPromotions()" class="btn btn-sm btn-secondary font-bold shadow-sm">
               Gérer les Promotions
             </button>
-            <button class="btn btn-sm btn-ghost bg-white/50 hover:bg-white/80 font-bold">
+            <button class="btn btn-sm btn-outline font-bold">
               Inviter un utilisateur
             </button>
           </div>

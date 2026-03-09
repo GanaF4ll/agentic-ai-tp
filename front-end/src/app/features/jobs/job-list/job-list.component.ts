@@ -5,6 +5,7 @@ import { LucideAngularModule, Briefcase, MapPin, Clock, Plus } from 'lucide-angu
 import { JobOffer } from '../../../core/models/business.model';
 import { JobService } from '../../../core/services/job.service';
 import { AuthService } from '../../../core/auth/auth.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-job-list',
@@ -83,9 +84,9 @@ import { AuthService } from '../../../core/auth/auth.service';
                   </div>
                 </div>
                 <div class="flex gap-2 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/10">
-                  <button class="btn btn-ghost btn-sm font-bold flex-1 md:flex-none px-6 text-white hover:bg-white/10">Détails</button>
+                  <a [routerLink]="['/jobs', job.id]" class="btn btn-ghost btn-sm font-bold flex-1 md:flex-none px-6 text-white hover:bg-white/10">Détails</a>
                   @if (isMember()) {
-                    <button class="btn btn-primary btn-sm font-bold flex-1 md:flex-none px-6 shadow-md shadow-primary/10 border-none text-primary-content">Postuler</button>
+                    <button (click)="onApply(job)" class="btn btn-primary btn-sm font-bold flex-1 md:flex-none px-6 shadow-md shadow-primary/10 border-none text-primary-content">Postuler</button>
                   }
                 </div>
               </div>
@@ -104,6 +105,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class JobListComponent implements OnInit {
   private jobService = inject(JobService);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   readonly jobIcon = Briefcase;
   readonly locationIcon = MapPin;
@@ -129,6 +131,22 @@ export class JobListComponent implements OnInit {
       error: (err) => {
         console.error('Error loading jobs:', err);
         this.isLoading.set(false);
+      }
+    });
+  }
+
+  onApply(job: JobOffer) {
+    this.jobService.applyToJob(job.id).subscribe({
+      next: (res) => {
+        this.toastService.success(res.detail);
+      },
+      error: (err) => {
+        console.error('Error applying:', err);
+        let message = "Erreur lors de la candidature.";
+        if (err.error?.detail) {
+          message = err.error.detail;
+        }
+        this.toastService.error(message);
       }
     });
   }

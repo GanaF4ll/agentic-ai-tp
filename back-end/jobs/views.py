@@ -1,7 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from accounts.permissions import IsAdmin
-from .models import Job
+from accounts.models import Role
+from alumni.models import Profile
+from .models import Job, JobApplication
 from .serializers import JobSerializer
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -23,3 +27,43 @@ class JobViewSet(viewsets.ModelViewSet):
         Automatically set the posted_by field to the current user.
         """
         serializer.save(posted_by=self.request.user)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def apply(self, request, pk=None):
+        job = self.get_object()
+        user = request.user
+        
+        # 1. Role check
+        if user.role != Role.MEMBER:
+            return Response(
+                {"detail": "Seuls les membres peuvent postuler aux offres d'emploi."}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # 2. Profile Status check
+        try:
+            profile = user.profile
+            if profile.status != Profile.Status.VERIFIED:
+                return Response(
+                    {"detail": "Votre profil doit être vérifié pour postuler aux offres d'emploi."}, 
+                    status=status.HTTP_403_FORBIDDEN
+                )
+        except Profile.DoesNotExist:
+             return Response(
+                 {"detail": "Vous devez avoir un profil pour postuler."}, 
+                 status=status.HTTP_403_FORBIDDEN
+             )
+
+        # 3. Double application check
+        if JobApplication.objects.filter(job=job, user=user).exists():
+            return Response(
+                {"detail": "Vous avez déjà postulé à cette offre."}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # 4. Create application
+        JobApplication.objects.create(job=job, user=user)
+        return Response(
+            {"detail": "Candidature envoyée avec succès !"}, 
+            status=status.HTTP_201_CREATED
+        )

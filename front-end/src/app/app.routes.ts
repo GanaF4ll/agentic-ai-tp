@@ -46,8 +46,18 @@ export const routes: Routes = [
   {
     path: 'jobs',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/jobs/job-list/job-list.component').then((m) => m.JobListComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/jobs/job-list/job-list.component').then((m) => m.JobListComponent),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/jobs/job-detail/job-detail.component').then((m) => m.JobDetailComponent),
+      }
+    ]
   },
   {
     path: 'events',

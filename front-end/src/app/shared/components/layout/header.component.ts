@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, computed } from '@angular/core';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, startWith } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { SidebarService } from './sidebar.service';
 import { LucideAngularModule, LogOut, User, Menu, Bell, Search, PanelLeftClose, PanelLeftOpen } from 'lucide-angular';
@@ -30,7 +32,7 @@ import { ThemeToggleComponent } from './theme-toggle.component';
            <div class="text-sm breadcrumbs text-white/90">
               <ul>
                 <li><a routerLink="/" class="hover:text-white">AlumniConnect</a></li>
-                <li class="font-bold text-white">Plateforme</li>
+                <li class="font-bold text-white">{{ pageTitle() }}</li>
               </ul>
             </div>
         </div>
@@ -83,6 +85,27 @@ import { ThemeToggleComponent } from './theme-toggle.component';
 export class HeaderComponent {
   authService = inject(AuthService);
   sidebarService = inject(SidebarService);
+  private router = inject(Router);
+  
+  private currentUrl = toSignal(
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => (event as NavigationEnd).urlAfterRedirects),
+      startWith(this.router.url)
+    )
+  );
+
+  pageTitle = computed(() => {
+    const url = this.currentUrl() || '';
+    if (url.includes('/alumni')) return 'Annuaire';
+    if (url.includes('/jobs')) return 'Emplois';
+    if (url.includes('/events')) return 'Événements';
+    if (url.includes('/admin')) return 'Tableau de bord';
+    if (url.includes('/profile')) return 'Mon Profil';
+    if (url.includes('/login')) return 'Connexion';
+    if (url.includes('/register')) return 'Inscription';
+    return 'Plateforme';
+  });
   
   readonly userIcon = User;
   readonly logoutIcon = LogOut;
