@@ -28,6 +28,15 @@ class JobViewSet(viewsets.ModelViewSet):
         """
         serializer.save(posted_by=self.request.user)
 
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def my_applications(self, request):
+        """
+        Return the list of job offers the user has applied to.
+        """
+        applied_jobs = Job.objects.filter(applications__user=request.user).order_by('-applications__applied_at')
+        serializer = self.get_serializer(applied_jobs, many=True)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def apply(self, request, pk=None):
         job = self.get_object()

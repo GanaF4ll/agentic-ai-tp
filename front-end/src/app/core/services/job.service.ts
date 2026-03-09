@@ -16,6 +16,10 @@ export class JobService {
     return this.http.get<JobOffer>(`${this.API_URL}${id}/`);
   }
 
+  getMyApplications() {
+    return this.http.get<JobOffer[]>(`${this.API_URL}my_applications/`);
+  }
+
   createJob(job: Partial<JobOffer>) {
     return this.http.post<JobOffer>(this.API_URL, job);
   }

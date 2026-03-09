@@ -1,7 +1,7 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { LucideAngularModule, Briefcase, MapPin, Clock, Plus } from 'lucide-angular';
+import { LucideAngularModule, Briefcase, MapPin, Clock, Plus, Globe } from 'lucide-angular';
 import { JobOffer } from '../../../core/models/business.model';
 import { JobService } from '../../../core/services/job.service';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -80,6 +80,21 @@ import { ToastService } from '../../../core/services/toast.service';
                         <lucide-angular [img]="clockIcon" class="size-3"></lucide-angular>
                         {{ job.type }}
                       </span>
+                      <span class="flex items-center gap-1.5 text-primary">
+                        <lucide-angular [img]="plusIcon" class="size-3"></lucide-angular>
+                        {{ job.applications_count }} candidature(s)
+                      </span>
+                    </div>
+                    <!-- New enriched badges -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                       <div class="badge badge-sm bg-primary/20 text-white border border-primary/30 font-black py-3 px-3 shadow-sm">
+                          <lucide-angular [img]="clockIcon" class="size-3 mr-1.5"></lucide-angular>
+                          {{ job.periodicity }}
+                       </div>
+                       <div class="badge badge-sm bg-accent/20 text-white border border-accent/30 font-black py-3 px-3 shadow-sm">
+                          <lucide-angular [img]="globeIcon" class="size-3 mr-1.5"></lucide-angular>
+                          {{ job.remote_status }}
+                       </div>
                     </div>
                   </div>
                 </div>
@@ -111,6 +126,7 @@ export class JobListComponent implements OnInit {
   readonly locationIcon = MapPin;
   readonly clockIcon = Clock;
   readonly plusIcon = Plus;
+  readonly globeIcon = Globe;
 
   jobs = signal<JobOffer[]>([]);
   isLoading = signal<boolean>(true);

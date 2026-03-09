@@ -8,11 +8,35 @@ class Job(models.Model):
         FREELANCE = 'FREELANCE', 'Freelance'
         INTERNSHIP = 'INTERNSHIP', 'Stage'
 
+    class RemoteStatus(models.TextChoices):
+        HYBRID = 'HYBRID', 'Hybride'
+        FULL_REMOTE = 'FULL REMOTE', 'Télétravail complet'
+        ON_SITE = 'ON SITE', 'Sur site'
+
+    class Periodicity(models.TextChoices):
+        FULL_TIME = 'FULL TIME', 'Temps plein'
+        PART_TIME = 'PART TIME', 'Temps partiel'
+
     title = models.CharField(max_length=255)
     company = models.CharField(max_length=255)
     job_type = models.CharField(max_length=20, choices=Type.choices, default=Type.CDI)
     location = models.CharField(max_length=255, blank=True)
     description = models.TextField()
+    
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    remote_status = models.CharField(
+        max_length=20, 
+        choices=RemoteStatus.choices, 
+        default=RemoteStatus.ON_SITE
+    )
+    periodicity = models.CharField(
+        max_length=20, 
+        choices=Periodicity.choices, 
+        default=Periodicity.FULL_TIME
+    )
+    source_url = models.URLField(max_length=500, null=True, blank=True)
+
     posted_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { SidebarService } from './sidebar.service';
-import { LucideAngularModule, User, Briefcase, Calendar, GraduationCap, LayoutDashboard, Settings } from 'lucide-angular';
+import { LucideAngularModule, User, Briefcase, Calendar, GraduationCap, LayoutDashboard, Settings, ClipboardList } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -80,6 +80,26 @@ import { CommonModule } from '@angular/common';
             >Emplois</span>
           </a>
         </div>
+
+        <!-- Mes Candidatures (Member Only) -->
+        @if (authService.isMember()) {
+          <div [ngClass]="sidebarService.isCollapsed() ? 'px-2' : 'px-4'">
+            <a
+              routerLink="/jobs/my-applications"
+              routerLinkActive="bg-white/10 text-white font-bold shadow-sm ring-1 ring-white/10"
+              title="Mes Candidatures"
+              aria-label="Mes Candidatures"
+              class="flex items-center py-3 rounded-xl hover:bg-white/5 transition-colors text-white/80"
+              [ngClass]="sidebarService.isCollapsed() ? 'justify-center px-3 gap-0' : 'gap-3 px-4'"
+            >
+              <lucide-angular [img]="clipboardIcon" class="size-5 shrink-0 block"></lucide-angular>
+              <span
+                class="overflow-hidden whitespace-nowrap transition-all duration-200"
+                [ngClass]="sidebarService.isCollapsed() ? 'max-w-0 opacity-0' : 'max-w-40 opacity-100'"
+              >Mes Candidatures</span>
+            </a>
+          </div>
+        }
 
         <!-- Événements -->
         <div [ngClass]="sidebarService.isCollapsed() ? 'px-2' : 'px-4'">
@@ -180,4 +200,5 @@ export class SidebarComponent {
   readonly gradIcon = GraduationCap;
   readonly dashboardIcon = LayoutDashboard;
   readonly settingsIcon = Settings;
+  readonly clipboardIcon = ClipboardList;
 }

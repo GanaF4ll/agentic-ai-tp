@@ -6,7 +6,7 @@ import { JobService } from '../../../core/services/job.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { JobOffer } from '../../../core/models/business.model';
-import { LucideAngularModule, Briefcase, MapPin, Clock, ArrowLeft, Building, Send, Pencil, Save, X } from 'lucide-angular';
+import { LucideAngularModule, Briefcase, MapPin, Clock, ArrowLeft, Building, Send, Pencil, Save, X, ExternalLink, Globe, Calendar } from 'lucide-angular';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { map, switchMap, startWith } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { map, switchMap, startWith } from 'rxjs';
   template: `
     <div class="flex flex-col gap-8 max-w-4xl mx-auto py-8 px-4">
       <nav>
-        <a routerLink="/jobs" class="btn btn-ghost btn-sm gap-2 font-bold text-white/60 hover:text-white transition-colors">
+        <a routerLink="/jobs" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60 hover:text-primary transition-colors">
           <lucide-angular [img]="backIcon" class="size-4"></lucide-angular>
           Retour aux offres
         </a>
@@ -36,6 +36,9 @@ import { map, switchMap, startWith } from 'rxjs';
               <div class="flex flex-wrap items-center gap-3 mb-4">
                 <span class="badge badge-primary font-black px-4 py-3 h-auto">{{ j.type }}</span>
                 <span class="text-white/40 font-bold uppercase tracking-widest text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</span>
+                <span class="badge glass border-white/20 text-white font-bold px-4 py-3 h-auto">
+                  {{ j.applications_count }} candidature(s)
+                </span>
               </div>
               
               <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-2">{{ j.title }}</h1>
@@ -56,6 +59,48 @@ import { map, switchMap, startWith } from 'rxjs';
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-8">
+              <!-- Key Info Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                 <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+                    <div class="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                       <lucide-angular [img]="clockIcon" class="size-5"></lucide-angular>
+                    </div>
+                    <div>
+                       <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Périodicité</p>
+                       <p class="font-bold text-white">{{ j.periodicity }}</p>
+                    </div>
+                 </div>
+                 <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+                    <div class="size-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent-content">
+                       <lucide-angular [img]="globeIcon" class="size-5"></lucide-angular>
+                    </div>
+                    <div>
+                       <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Remote Status</p>
+                       <p class="font-bold text-white">{{ j.remote_status }}</p>
+                    </div>
+                 </div>
+                 <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+                    <div class="size-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
+                       <lucide-angular [img]="calendarIcon" class="size-5"></lucide-angular>
+                    </div>
+                    <div>
+                       <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Début</p>
+                       <p class="font-bold text-white">{{ j.start_date ? (j.start_date | date:'dd/MM/yyyy') : 'À définir' }}</p>
+                    </div>
+                 </div>
+                 @if (j.type !== 'CDI') {
+                   <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+                      <div class="size-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
+                         <lucide-angular [img]="calendarIcon" class="size-5"></lucide-angular>
+                      </div>
+                      <div>
+                         <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Fin prévue</p>
+                         <p class="font-bold text-white">{{ j.end_date ? (j.end_date | date:'dd/MM/yyyy') : 'Non spécifiée' }}</p>
+                      </div>
+                   </div>
+                 }
+              </div>
+
               <div class="glass p-8 rounded-[var(--radius-card)] border border-white/10 shadow-sm text-white">
                 <div class="flex items-center justify-between mb-6">
                   <h2 class="text-2xl font-black flex items-center gap-3">
@@ -133,6 +178,12 @@ import { map, switchMap, startWith } from 'rxjs';
 
                 <div class="card glass border border-white/10 rounded-[var(--radius-card)] overflow-hidden">
                   <div class="card-body p-6">
+                    @if (j.source_url) {
+                      <a [href]="j.source_url" target="_blank" class="btn btn-outline btn-block btn-sm gap-2 rounded-xl font-bold mb-6">
+                         <lucide-angular [img]="externalIcon" class="size-4"></lucide-angular>
+                         Annonce d'origine
+                      </a>
+                    }
                     <h4 class="text-xs font-black uppercase tracking-widest text-white/40 mb-4">Partager</h4>
                     <div class="flex gap-2">
                        <button class="btn btn-ghost btn-sm btn-square rounded-xl text-white/60 hover:text-white hover:bg-white/10 flex-1">LinkedIn</button>
@@ -171,6 +222,9 @@ export class JobDetailComponent {
   readonly editIcon = Pencil;
   readonly saveIcon = Save;
   readonly cancelIcon = X;
+  readonly globeIcon = Globe;
+  readonly calendarIcon = Calendar;
+  readonly externalIcon = ExternalLink;
 
   isAdmin = this.authService.isAdmin;
   isMember = this.authService.isMember;
