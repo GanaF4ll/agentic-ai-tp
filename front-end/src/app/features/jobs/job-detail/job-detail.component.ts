@@ -1,18 +1,19 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { JobService } from '../../../core/services/job.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { JobOffer } from '../../../core/models/business.model';
-import { LucideAngularModule, Briefcase, MapPin, Clock, ArrowLeft, Building, Send } from 'lucide-angular';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map, switchMap } from 'rxjs';
+import { LucideAngularModule, Briefcase, MapPin, Clock, ArrowLeft, Building, Send, Pencil, Save, X } from 'lucide-angular';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { map, switchMap, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-job-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
+  imports: [CommonModule, RouterLink, LucideAngularModule, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex flex-col gap-8 max-w-4xl mx-auto py-8 px-4">
@@ -56,12 +57,50 @@ import { map, switchMap } from 'rxjs';
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-8">
               <div class="glass p-8 rounded-[var(--radius-card)] border border-white/10 shadow-sm text-white">
-                <h2 class="text-2xl font-black mb-6 flex items-center gap-3">
-                  Description du poste
-                </h2>
-                <div class="prose prose-invert max-w-none text-white/70 font-medium leading-relaxed whitespace-pre-wrap">
-                  {{ j.description }}
+                <div class="flex items-center justify-between mb-6">
+                  <h2 class="text-2xl font-black flex items-center gap-3">
+                    Description du poste
+                  </h2>
+                  @if (isAdmin() && !isEditing()) {
+                    <button (click)="startEdit(j.description)" class="btn btn-ghost btn-sm gap-2 font-bold text-primary hover:bg-primary/10">
+                      <lucide-angular [img]="editIcon" class="size-4"></lucide-angular>
+                      Modifier
+                    </button>
+                  }
                 </div>
+
+                @if (isEditing()) {
+                  <div class="flex flex-col gap-4">
+                    <textarea 
+                      [(ngModel)]="editedDescription"
+                      rows="12"
+                      class="textarea textarea-bordered w-full bg-white/5 border-white/20 text-white font-medium leading-relaxed focus:border-primary/50"
+                      placeholder="Modifier la description..."
+                    ></textarea>
+                    <div class="flex justify-end gap-2">
+                      <button (click)="cancelEdit()" class="btn btn-ghost btn-sm gap-2 font-bold text-white/60">
+                        <lucide-angular [img]="cancelIcon" class="size-4"></lucide-angular>
+                        Annuler
+                      </button>
+                      <button 
+                        (click)="saveEdit()" 
+                        [disabled]="isSubmittingUpdate()"
+                        class="btn btn-primary btn-sm gap-2 font-bold shadow-lg shadow-primary/20"
+                      >
+                        @if (isSubmittingUpdate()) {
+                          <span class="loading loading-spinner loading-xs"></span>
+                        } @else {
+                          <lucide-angular [img]="saveIcon" class="size-4"></lucide-angular>
+                        }
+                        Enregistrer
+                      </button>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="prose prose-invert max-w-none text-white/70 font-medium leading-relaxed whitespace-pre-wrap">
+                    {{ j.description }}
+                  </div>
+                }
               </div>
             </div>
 
@@ -129,16 +168,57 @@ export class JobDetailComponent {
   readonly clockIcon = Clock;
   readonly buildingIcon = Building;
   readonly sendIcon = Send;
+  readonly editIcon = Pencil;
+  readonly saveIcon = Save;
+  readonly cancelIcon = X;
 
+  isAdmin = this.authService.isAdmin;
   isMember = this.authService.isMember;
   isSubmitting = signal(false);
+  isSubmittingUpdate = signal(false);
+  isEditing = signal(false);
+  editedDescription = '';
 
+  private refreshTrigger = signal(0);
+  
   job = toSignal(
-    this.route.params.pipe(
-      map(params => params['id']),
-      switchMap(id => this.jobService.getJobById(+id))
+    toObservable(this.refreshTrigger).pipe(
+      startWith(0),
+      switchMap(() => this.route.params.pipe(
+        map(params => params['id']),
+        switchMap(id => this.jobService.getJobById(+id))
+      ))
     )
   );
+
+  startEdit(description: string) {
+    this.editedDescription = description;
+    this.isEditing.set(true);
+  }
+
+  cancelEdit() {
+    this.isEditing.set(false);
+  }
+
+  saveEdit() {
+    const currentJob = this.job();
+    if (!currentJob) return;
+
+    this.isSubmittingUpdate.set(true);
+    this.jobService.updateJob(currentJob.id, { description: this.editedDescription }).subscribe({
+      next: () => {
+        this.toastService.success("Description mise à jour avec succès.");
+        this.isEditing.set(false);
+        this.isSubmittingUpdate.set(false);
+        this.refreshTrigger.update(n => n + 1);
+      },
+      error: (err) => {
+        console.error('Error updating job:', err);
+        this.toastService.error("Erreur lors de la mise à jour.");
+        this.isSubmittingUpdate.set(false);
+      }
+    });
+  }
 
   apply() {
     const currentJob = this.job();

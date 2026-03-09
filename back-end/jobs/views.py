@@ -16,7 +16,7 @@ class JobViewSet(viewsets.ModelViewSet):
         """
         Instantiates and returns the list of permissions that this view requires.
         """
-        if self.action in ['list', 'retrieve']:
+        if self.action in ['list', 'retrieve', 'apply']:
             permission_classes = [IsAuthenticated]
         else:
             permission_classes = [IsAdmin]
