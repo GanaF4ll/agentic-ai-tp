@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { LucideAngularModule, Calendar, MapPin, ExternalLink } from 'lucide-angular';
 import { AlumniEvent } from '../../../core/models/business.model';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-event-list',
@@ -15,7 +16,9 @@ import { AlumniEvent } from '../../../core/models/business.model';
         </div>
         <div class="flex gap-2">
            <button class="btn btn-ghost font-bold rounded-xl border-white/20 text-white hover:bg-white/10">Événements passés</button>
-           <button class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Proposer un événement</button>
+           @if (isAdmin()) {
+             <button class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Proposer un événement</button>
+           }
         </div>
       </header>
 
@@ -48,7 +51,9 @@ import { AlumniEvent } from '../../../core/models/business.model';
             </div>
 
             <div class="card-actions mt-8">
-              <button class="btn btn-primary btn-block font-black shadow-lg shadow-primary/10 rounded-xl h-12 border-none text-primary-content">S'inscrire</button>
+              @if (isMember()) {
+                <button class="btn btn-primary btn-block font-black shadow-lg shadow-primary/10 rounded-xl h-12 border-none text-primary-content">S'inscrire</button>
+              }
             </div>
           </div>
         </div>
@@ -57,9 +62,14 @@ import { AlumniEvent } from '../../../core/models/business.model';
   `
 })
 export class EventListComponent {
+  private authService = inject(AuthService);
+  
   readonly calendarIcon = Calendar;
   readonly locationIcon = MapPin;
   readonly externalIcon = ExternalLink;
+
+  isAdmin = this.authService.isAdmin;
+  isMember = this.authService.isMember;
 
   events = signal<AlumniEvent[]>([
     {

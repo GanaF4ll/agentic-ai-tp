@@ -49,7 +49,7 @@ import {
               <div class="bg-success/20 p-1.5 rounded-lg border border-success/30">
                 <lucide-angular
                   [img]="verifiedIcon"
-                  class="size-4 text-success-content"
+                  class="size-4 text-success"
                 ></lucide-angular>
               </div>
             </div>

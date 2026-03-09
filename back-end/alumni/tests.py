@@ -150,6 +150,20 @@ class PromotionAPITests(APITestCase):
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_create_promotion_duplicate_returns_conflict(self):
+        self.client.force_authenticate(user=self.admin_user)
+        data = {"label": "Promotion 2024"}
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+
+    def test_update_promotion_duplicate_returns_conflict(self):
+        self.client.force_authenticate(user=self.admin_user)
+        other_promo = Promotion.objects.create(label="Promotion 2025")
+        url = reverse('promotion-detail', args=[other_promo.id])
+        data = {"label": "Promotion 2024"}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+
     def test_update_promotion_admin(self):
         self.client.force_authenticate(user=self.admin_user)
         url = reverse('promotion-detail', args=[self.promo.id])

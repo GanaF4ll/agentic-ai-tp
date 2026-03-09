@@ -2,6 +2,7 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PromotionService } from '../../../core/services/promotion.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { Promotion } from '../../../core/models/promotion.model';
 import { LucideAngularModule, GraduationCap, Plus, Pencil, Trash2, X } from 'lucide-angular';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
@@ -127,6 +128,7 @@ import { switchMap, startWith } from 'rxjs';
 })
 export class PromotionListComponent {
   private promotionService = inject(PromotionService);
+  private toastService = inject(ToastService);
   
   readonly gradIcon = GraduationCap;
   readonly plusIcon = Plus;
@@ -175,11 +177,27 @@ export class PromotionListComponent {
     request.subscribe({
       next: () => {
         this.refreshTrigger.update(n => n + 1);
+        this.toastService.success(`Promotion ${this.isEditing() ? 'mise à jour' : 'créée'} avec succès.`);
         this.closeModal();
       },
       error: (err) => {
         console.error('Error saving promotion', err);
-        alert(`Erreur lors de l'enregistrement. Le libellé est peut-être déjà utilisé.`);
+        let message = "Erreur lors de l'enregistrement.";
+        
+        if (err.status === 409) {
+          message = err.error?.detail || "Ce libellé existe déjà.";
+        } else if (err.status === 400 && err.error) {
+          if (typeof err.error === 'object') {
+            const firstError = Object.values(err.error)[0];
+            if (Array.isArray(firstError)) {
+              message = firstError[0];
+            } else if (typeof firstError === 'string') {
+              message = firstError;
+            }
+          }
+        }
+        
+        this.toastService.error(message);
       }
     });
   }
@@ -189,10 +207,11 @@ export class PromotionListComponent {
       this.promotionService.deletePromotion(promo.id).subscribe({
         next: () => {
           this.refreshTrigger.update(n => n + 1);
+          this.toastService.success('Promotion supprimée.');
         },
         error: (err) => {
           console.error('Error deleting promotion', err);
-          alert('Erreur lors de la suppression.');
+          this.toastService.error('Erreur lors de la suppression.');
         }
       });
     }

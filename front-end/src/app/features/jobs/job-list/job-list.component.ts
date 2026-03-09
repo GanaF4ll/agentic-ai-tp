@@ -27,16 +27,18 @@ import { AuthService } from '../../../core/auth/auth.service';
       </header>
 
       <aside class="col-span-full lg:col-span-2 flex flex-col gap-6">
-        <div class="card glass border border-white/20 rounded-[var(--radius-card)] overflow-hidden bg-white/5">
-          <div class="card-body p-6">
-             <div class="size-10 rounded-xl bg-accent/20 flex items-center justify-center mb-4 text-accent-content">
-               <lucide-angular [img]="jobIcon" class="size-5 text-accent"></lucide-angular>
-             </div>
-             <h3 class="font-black text-white leading-tight">Services Carrière</h3>
-             <p class="text-sm text-white/70 mt-2">Besoin d'aide pour votre CV ou préparation d'entretien ? Nos experts sont là.</p>
-             <button class="btn btn-accent btn-sm mt-4 font-bold border-none text-accent-content">Réserver une session</button>
+        @if (isMember()) {
+          <div class="card glass border border-white/20 rounded-[var(--radius-card)] overflow-hidden bg-white/5">
+            <div class="card-body p-6">
+               <div class="size-10 rounded-xl bg-accent/20 flex items-center justify-center mb-4 text-accent-content">
+                 <lucide-angular [img]="jobIcon" class="size-5 text-accent"></lucide-angular>
+               </div>
+               <h3 class="font-black text-white leading-tight">Services Carrière</h3>
+               <p class="text-sm text-white/70 mt-2">Besoin d'aide pour votre CV ou préparation d'entretien ? Nos experts sont là.</p>
+               <button class="btn btn-accent btn-sm mt-4 font-bold border-none text-accent-content">Réserver une session</button>
+            </div>
           </div>
-        </div>
+        }
 
         <div class="card glass border border-white/20 shadow-sm rounded-[var(--radius-card)] overflow-hidden bg-white/5">
            <div class="card-body p-6">
@@ -82,7 +84,9 @@ import { AuthService } from '../../../core/auth/auth.service';
                 </div>
                 <div class="flex gap-2 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/10">
                   <button class="btn btn-ghost btn-sm font-bold flex-1 md:flex-none px-6 text-white hover:bg-white/10">Détails</button>
-                  <button class="btn btn-primary btn-sm font-bold flex-1 md:flex-none px-6 shadow-md shadow-primary/10 border-none text-primary-content">Postuler</button>
+                  @if (isMember()) {
+                    <button class="btn btn-primary btn-sm font-bold flex-1 md:flex-none px-6 shadow-md shadow-primary/10 border-none text-primary-content">Postuler</button>
+                  }
                 </div>
               </div>
             </div>
@@ -109,6 +113,7 @@ export class JobListComponent implements OnInit {
   jobs = signal<JobOffer[]>([]);
   isLoading = signal<boolean>(true);
   isAdmin = this.authService.isAdmin;
+  isMember = this.authService.isMember;
 
   ngOnInit() {
     this.loadJobs();

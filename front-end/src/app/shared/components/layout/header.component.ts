@@ -63,7 +63,7 @@ import { ThemeToggleComponent } from './theme-toggle.component';
                 <lucide-angular [img]="userIcon" class="size-5 text-white"></lucide-angular>
               </div>
             </div>
-            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content glass-solid rounded-box w-52 text-white">
+            <ul tabindex="0" class="mt-3 z-70 p-2 shadow-xl menu menu-sm dropdown-content glass-solid rounded-box w-52 text-white">
               <li class="px-4 py-2 font-semibold text-xs uppercase text-white/50">Mon Compte</li>
               <li><a routerLink="/profile" class="hover:bg-white/10">Paramètres du profil</a></li>
               <div class="divider my-1 before:bg-white/10 after:bg-white/10"></div>
