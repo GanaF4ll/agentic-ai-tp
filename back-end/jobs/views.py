@@ -2,15 +2,24 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 from accounts.permissions import IsAdmin
 from accounts.models import Role
 from alumni.models import Profile
 from .models import Job, JobApplication
 from .serializers import JobSerializer
+from .filters import JobFilter
+
+class JobPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'limit'
+    max_page_size = 20
 
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all().order_by('-created_at').select_related('posted_by')
     serializer_class = JobSerializer
+    filterset_class = JobFilter
+    pagination_class = JobPagination
 
     def get_permissions(self):
         """

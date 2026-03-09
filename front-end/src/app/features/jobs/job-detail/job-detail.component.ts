@@ -27,80 +27,81 @@ import { map, switchMap, startWith } from 'rxjs';
       @if (job(); as j) {
         <div class="flex flex-col gap-8">
           <!-- Header Card -->
-          <header class="glass p-8 rounded-[var(--radius-card)] border border-white/20 shadow-[var(--shadow-card)] text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-8 opacity-5">
-               <lucide-angular [img]="jobIcon" class="size-32"></lucide-angular>
-            </div>
-            
-            <div class="relative z-10">
-              <div class="flex flex-wrap items-center gap-3 mb-4">
-                <span class="badge badge-primary font-black px-4 py-3 h-auto">{{ j.type }}</span>
-                <span class="text-white/40 font-bold uppercase tracking-widest text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</span>
-                <span class="badge glass border-white/20 text-white font-bold px-4 py-3 h-auto">
-                  {{ j.applications_count }} candidature(s)
-                </span>
-              </div>
-              
-              <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-2">{{ j.title }}</h1>
-              
-              <div class="flex flex-wrap gap-6 mt-6">
-                <div class="flex items-center gap-2 text-lg font-bold text-white/80">
-                  <lucide-angular [img]="buildingIcon" class="size-5 text-primary"></lucide-angular>
-                  {{ j.company }}
+          <header class="glass rounded-[var(--radius-card)] border border-white/20 shadow-[var(--shadow-card)] text-white overflow-hidden">
+            <div class="flex flex-col lg:flex-row">
+
+              <!-- Left: title & meta -->
+              <div class="flex-1 min-w-0 p-8 relative flex flex-col justify-between gap-6">
+                <div class="absolute right-4 top-1/2 -translate-y-1/3 opacity-[0.04] pointer-events-none">
+                  <lucide-angular [img]="jobIcon" class="size-48"></lucide-angular>
                 </div>
-                <div class="flex items-center gap-2 text-lg font-bold text-white/80">
-                  <lucide-angular [img]="locationIcon" class="size-5 text-primary"></lucide-angular>
-                  {{ j.location }}
+                <div class="relative z-10 flex flex-col gap-5">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="badge badge-primary font-black px-4 py-3 h-auto">{{ j.type }}</span>
+                    <span class="badge bg-primary/20 border-white/20 text-white font-bold px-3 py-3 h-auto gap-1.5">
+                      <lucide-angular [img]="clockIcon" class="size-3"></lucide-angular>
+                      {{ j.periodicity }}
+                    </span>
+                    <span class="badge bg-accent/20 border-white/20  text-white font-bold px-3 py-3 h-auto gap-1.5">
+                      <lucide-angular [img]="globeIcon" class="size-3"></lucide-angular>
+                      {{ j.remote_status }}
+                    </span>
+                    <span class="badge glass border-white/20 text-white font-bold px-4 py-3 h-auto">
+                      {{ j.applications_count }} candidature(s)
+                    </span>
+                  </div>
+
+                  <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight">{{ j.title }}</h1>
+
+                  <div class="flex flex-wrap gap-5">
+                    <div class="flex items-center gap-2 font-bold text-white/70">
+                      <lucide-angular [img]="buildingIcon" class="size-4 text-primary shrink-0"></lucide-angular>
+                      {{ j.company }}
+                    </div>
+                    <div class="flex items-center gap-2 font-bold text-white/70">
+                      <lucide-angular [img]="locationIcon" class="size-4 text-primary shrink-0"></lucide-angular>
+                      {{ j.location }}
+                    </div>
+                  </div>
                 </div>
+
+                <p class="relative z-10 text-white/30 font-semibold text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</p>
               </div>
+
+              <!-- Divider -->
+              <div class="hidden lg:block w-px bg-white/10 my-6"></div>
+              <div class="block lg:hidden h-px bg-white/10 mx-8"></div>
+
+              <!-- Right: dates -->
+              <div class="p-8 lg:w-56 shrink-0 flex flex-col justify-center gap-3">
+                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
+                  <div class="size-8 rounded-xl bg-white/8 flex items-center justify-center text-white/40 shrink-0">
+                    <lucide-angular [img]="calendarIcon" class="size-4"></lucide-angular>
+                  </div>
+                  <div>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/35 mb-0.5">Début</p>
+                    <p class="text-sm font-bold text-white">{{ j.start_date ? (j.start_date | date:'dd/MM/yyyy') : 'À définir' }}</p>
+                  </div>
+                </div>
+                @if (j.type !== 'CDI') {
+                  <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
+                    <div class="size-8 rounded-xl bg-white/8 flex items-center justify-center text-white/40 shrink-0">
+                      <lucide-angular [img]="calendarIcon" class="size-4"></lucide-angular>
+                    </div>
+                    <div>
+                      <p class="text-[9px] font-black uppercase tracking-widest text-white/35 mb-0.5">Fin prévue</p>
+                      <p class="text-sm font-bold text-white">{{ j.end_date ? (j.end_date | date:'dd/MM/yyyy') : 'Non spécifiée' }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+
             </div>
           </header>
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-8">
-              <!-- Key Info Grid -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
-                    <div class="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                       <lucide-angular [img]="clockIcon" class="size-5"></lucide-angular>
-                    </div>
-                    <div>
-                       <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Périodicité</p>
-                       <p class="font-bold text-white">{{ j.periodicity }}</p>
-                    </div>
-                 </div>
-                 <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
-                    <div class="size-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent-content">
-                       <lucide-angular [img]="globeIcon" class="size-5"></lucide-angular>
-                    </div>
-                    <div>
-                       <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Remote Status</p>
-                       <p class="font-bold text-white">{{ j.remote_status }}</p>
-                    </div>
-                 </div>
-                 <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
-                    <div class="size-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
-                       <lucide-angular [img]="calendarIcon" class="size-5"></lucide-angular>
-                    </div>
-                    <div>
-                       <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Début</p>
-                       <p class="font-bold text-white">{{ j.start_date ? (j.start_date | date:'dd/MM/yyyy') : 'À définir' }}</p>
-                    </div>
-                 </div>
-                 @if (j.type !== 'CDI') {
-                   <div class="glass p-6 rounded-2xl border border-white/10 flex items-center gap-4">
-                      <div class="size-10 rounded-xl bg-white/5 flex items-center justify-center text-white/60">
-                         <lucide-angular [img]="calendarIcon" class="size-5"></lucide-angular>
-                      </div>
-                      <div>
-                         <p class="text-[10px] font-black uppercase tracking-widest text-white/40">Fin prévue</p>
-                         <p class="font-bold text-white">{{ j.end_date ? (j.end_date | date:'dd/MM/yyyy') : 'Non spécifiée' }}</p>
-                      </div>
-                   </div>
-                 }
-              </div>
-
               <div class="glass p-8 rounded-[var(--radius-card)] border border-white/10 shadow-sm text-white">
                 <div class="flex items-center justify-between mb-6">
                   <h2 class="text-2xl font-black flex items-center gap-3">
