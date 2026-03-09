@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LucideAngularModule, Briefcase, MapPin, FileText, Building, Send, ArrowLeft } from 'lucide-angular';
 import { JobService } from '../../../core/services/job.service';
@@ -35,7 +35,7 @@ import { JobService } from '../../../core/services/job.service';
               <input type="text" formControlName="title" placeholder="Ex: Développeur Angular Senior" 
                 class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
             </div>
-            @if (jobForm.get('title')?.touched && jobForm.get('title')?.invalid) {
+            @if (jobForm.controls.title.touched && jobForm.controls.title.invalid) {
               <label class="label">
                 <span class="label-text-alt text-error font-medium">Le titre est requis.</span>
               </label>
@@ -53,7 +53,7 @@ import { JobService } from '../../../core/services/job.service';
               <input type="text" formControlName="company" placeholder="Nom de l'entreprise" 
                 class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
             </div>
-            @if (jobForm.get('company')?.touched && jobForm.get('company')?.invalid) {
+            @if (jobForm.controls.company.touched && jobForm.controls.company.invalid) {
               <label class="label">
                 <span class="label-text-alt text-error font-medium">L'entreprise est requise.</span>
               </label>
@@ -99,7 +99,7 @@ import { JobService } from '../../../core/services/job.service';
             <textarea formControlName="description" rows="6" placeholder="Décrivez les missions, le profil recherché..." 
               class="textarea w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl"></textarea>
           </div>
-          @if (jobForm.get('description')?.touched && jobForm.get('description')?.invalid) {
+          @if (jobForm.controls.description.touched && jobForm.controls.description.invalid) {
             <label class="label">
               <span class="label-text-alt text-error font-medium">La description est requise.</span>
             </label>
@@ -107,8 +107,8 @@ import { JobService } from '../../../core/services/job.service';
         </div>
 
         <div class="pt-4">
-          <button type="submit" [disabled]="jobForm.invalid || isSubmitting" class="btn btn-primary w-full shadow-lg shadow-primary/20 border-none text-primary-content font-bold h-14 text-lg rounded-2xl">
-            @if (isSubmitting) {
+          <button type="submit" [disabled]="jobForm.invalid || isSubmitting()" class="btn btn-primary w-full shadow-lg shadow-primary/20 border-none text-primary-content font-bold h-14 text-lg rounded-2xl">
+            @if (isSubmitting()) {
               <span class="loading loading-spinner"></span>
             } @else {
               <lucide-angular [img]="sendIcon" class="size-5 mr-2"></lucide-angular>
@@ -121,7 +121,6 @@ import { JobService } from '../../../core/services/job.service';
   `
 })
 export class JobCreateComponent {
-  private fb = inject(FormBuilder);
   private jobService = inject(JobService);
   private router = inject(Router);
 
@@ -132,26 +131,26 @@ export class JobCreateComponent {
   readonly sendIcon = Send;
   readonly backIcon = ArrowLeft;
 
-  isSubmitting = false;
+  isSubmitting = signal(false);
 
-  jobForm: FormGroup = this.fb.group({
-    title: ['', [Validators.required]],
-    company: ['', [Validators.required]],
-    type: ['CDI', [Validators.required]],
-    location: [''],
-    description: ['', [Validators.required]]
+  readonly jobForm = new FormGroup({
+    title: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+    company: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+    type: new FormControl<'CDI' | 'CDD' | 'FREELANCE' | 'INTERNSHIP'>('CDI', { validators: [Validators.required], nonNullable: true }),
+    location: new FormControl('', { nonNullable: true }),
+    description: new FormControl('', { validators: [Validators.required], nonNullable: true })
   });
 
   onSubmit() {
     if (this.jobForm.valid) {
-      this.isSubmitting = true;
-      this.jobService.createJob(this.jobForm.value).subscribe({
+      this.isSubmitting.set(true);
+      this.jobService.createJob(this.jobForm.getRawValue()).subscribe({
         next: () => {
           this.router.navigate(['/jobs']);
         },
         error: (err) => {
           console.error('Error creating job:', err);
-          this.isSubmitting = false;
+          this.isSubmitting.set(false);
         }
       });
     }
