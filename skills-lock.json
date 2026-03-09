@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "bright-data": {
+      "source": "vm0-ai/vm0-skills",
+      "sourceType": "github",
+      "computedHash": "a5182b886e09eaa203c6c6f856c9325a924c20acfc429728b79e1935739c17a8"
+    }
+  }
+}
