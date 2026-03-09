@@ -46,8 +46,23 @@ export const routes: Routes = [
   {
     path: 'jobs',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/jobs/job-list/job-list.component').then((m) => m.JobListComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/jobs/job-list/job-list.component').then((m) => m.JobListComponent),
+      },
+      {
+        path: 'my-applications',
+        loadComponent: () =>
+          import('./features/jobs/my-applications/my-applications.component').then((m) => m.MyApplicationsComponent),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/jobs/job-detail/job-detail.component').then((m) => m.JobDetailComponent),
+      }
+    ]
   },
   {
     path: 'events',
@@ -75,6 +90,18 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/user-management/user-list.component').then((m) => m.UserListComponent),
         data: { role: 'SUPER_ADMIN' },
+      },
+      {
+        path: 'promotions',
+        loadComponent: () =>
+          import('./features/admin/promotion-management/promotion-list.component').then((m) => m.PromotionListComponent),
+        data: { role: 'ADMIN' },
+      },
+      {
+        path: 'jobs/create',
+        loadComponent: () =>
+          import('./features/admin/job-management/job-create.component').then((m) => m.JobCreateComponent),
+        data: { role: 'ADMIN' },
       },
     ],
   },

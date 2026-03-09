@@ -1,8 +1,8 @@
-from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
+from accounts.models import Role
 from .models import Profile, Promotion
 
 User = get_user_model()
@@ -15,7 +15,6 @@ class ProfileAPITests(APITestCase):
 
         # Create some users and profiles
         self.user1 = User.objects.create_user(
-            username="user1", 
             email="user1@test.com", 
             password="password",
             first_name="Jean",
@@ -29,7 +28,6 @@ class ProfileAPITests(APITestCase):
         )
 
         self.user2 = User.objects.create_user(
-            username="user2", 
             email="user2@test.com", 
             password="password",
             first_name="Marie",
@@ -43,7 +41,6 @@ class ProfileAPITests(APITestCase):
         )
 
         self.user3 = User.objects.create_user(
-            username="user3", 
             email="user3@test.com", 
             password="password",
             first_name="Jean-Luc",
@@ -94,7 +91,7 @@ class ProfileAPITests(APITestCase):
         self.assertEqual(len(response.data), 2) # Both Jean and Jean-Luc are in 2023
 
     def test_create_profile(self):
-        new_user = User.objects.create_user(username="newuser", password="password")
+        new_user = User.objects.create_user(email="newuser@test.com", password="password")
         data = {
             'user_id': new_user.id,
             'graduation_year': 2025,
@@ -117,3 +114,68 @@ class ProfileAPITests(APITestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Profile.objects.count(), 2)
+
+class PromotionAPITests(APITestCase):
+    def setUp(self):
+        self.admin_user = User.objects.create_user(
+            email="admin@test.com",
+            password="password",
+            role=Role.ADMIN,
+            is_staff=True
+        )
+        self.member_user = User.objects.create_user(
+            email="member@test.com",
+            password="password",
+            role=Role.MEMBER
+        )
+        self.promo = Promotion.objects.create(label="Promotion 2024")
+        self.url = reverse('promotion-list')
+
+    def test_list_promotions_authenticated(self):
+        self.client.force_authenticate(user=self.member_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+
+    def test_create_promotion_admin(self):
+        self.client.force_authenticate(user=self.admin_user)
+        data = {"label": "Promotion 2025"}
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Promotion.objects.count(), 2)
+
+    def test_create_promotion_member_denied(self):
+        self.client.force_authenticate(user=self.member_user)
+        data = {"label": "Promotion 2025"}
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_create_promotion_duplicate_returns_conflict(self):
+        self.client.force_authenticate(user=self.admin_user)
+        data = {"label": "Promotion 2024"}
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+
+    def test_update_promotion_duplicate_returns_conflict(self):
+        self.client.force_authenticate(user=self.admin_user)
+        other_promo = Promotion.objects.create(label="Promotion 2025")
+        url = reverse('promotion-detail', args=[other_promo.id])
+        data = {"label": "Promotion 2024"}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+
+    def test_update_promotion_admin(self):
+        self.client.force_authenticate(user=self.admin_user)
+        url = reverse('promotion-detail', args=[self.promo.id])
+        data = {"label": "Updated Label"}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.promo.refresh_from_db()
+        self.assertEqual(self.promo.label, "Updated Label")
+
+    def test_delete_promotion_admin(self):
+        self.client.force_authenticate(user=self.admin_user)
+        url = reverse('promotion-detail', args=[self.promo.id])
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Promotion.objects.count(), 0)

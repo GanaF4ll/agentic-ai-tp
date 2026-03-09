@@ -17,6 +17,7 @@ export class AuthService {
   isAuthenticated = computed(() => !!this._user());
   isAdmin = computed(() => this._user()?.role === 'ADMIN' || this._user()?.role === 'SUPER_ADMIN');
   isSuperAdmin = computed(() => this._user()?.role === 'SUPER_ADMIN');
+  isMember = computed(() => this._user()?.role === 'MEMBER');
   mustChangePassword = computed(() => this._user()?.must_change_password ?? false);
 
   constructor() {

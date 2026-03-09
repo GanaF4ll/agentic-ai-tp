@@ -15,11 +15,11 @@ class Command(BaseCommand):
 
         with transaction.atomic():
             # 1. Create some Promotions
+            promotion_labels = ['DEV', 'MARKET', 'UXUI', 'DA']
             promotions = []
-            for year in range(2015, 2026):
+            for label in promotion_labels:
                 promo, _ = Promotion.objects.get_or_create(
-                    label=f"Promotion {year}",
-                    defaults={'description': f"Les diplômés de l'année {year}"}
+                    label=label
                 )
                 promotions.append(promo)
 

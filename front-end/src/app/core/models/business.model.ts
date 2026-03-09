@@ -7,6 +7,12 @@ export interface JobOffer {
   description: string;
   posted_by_id: number;
   posted_at: string;
+  applications_count: number;
+  start_date?: string;
+  end_date?: string;
+  remote_status: 'HYBRID' | 'FULL REMOTE' | 'ON SITE';
+  periodicity: 'FULL TIME' | 'PART TIME';
+  source_url?: string;
 }
 
 export interface AlumniEvent {

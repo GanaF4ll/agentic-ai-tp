@@ -12,7 +12,22 @@ class UserSerializer(serializers.ModelSerializer):
 class PromotionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promotion
-        fields = ['id', 'label']
+        fields = ['id', 'label', 'created_at', 'updated_at']
+        read_only_fields = ['created_at', 'updated_at']
+
+    def validate_label(self, value):
+        queryset = Promotion.objects.filter(label=value)
+
+        if self.instance is not None:
+            queryset = queryset.exclude(pk=self.instance.pk)
+
+        if queryset.exists():
+            raise serializers.ValidationError(
+                "Une promotion avec ce libellé existe déjà.",
+                code="unique",
+            )
+
+        return value
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)

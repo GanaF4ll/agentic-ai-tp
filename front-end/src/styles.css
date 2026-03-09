@@ -29,7 +29,8 @@
 
   /* Ombres — Soft Bento Shadows */
   --shadow-card:
-    0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+    0 1px 3px rgba(0,0,0,0.08),
+    0 10px 30px -10px rgba(0,0,0,0.12); 
 
   /* Largeurs max */
   --max-w-page: 1440px;
@@ -44,29 +45,29 @@
 }
 
 /* ─────────────────────────────────────────────
-   Palette Arctic Mint — Surcharge DaisyUI
-   Primary  = menthe fraîche  (hue 172)
-   Secondary = bleu arctique  (hue 213)
-   Accent    = givre / lavande glacée (hue 258)
+   Palette Azure Vif — Surcharge DaisyUI
+   Primary  = bleu électrique  (hue 220)
+   Secondary = bleu ciel       (hue 200)
+   Accent    = lavande / violet doux (hue 258)
    ───────────────────────────────────────────── */
 
 [data-theme="light"] {
-  /* ── Arctic Mint Light — Contraste optimisé ── */
+  /* ── Azure Vif Light — Contraste optimisé ── */
 
   /* Fonds : Blanc pur pour les surfaces glass, gris encore plus léger pour le reste */
   --color-base-100: oklch(100% 0 0); /* Blanc pur pour la clarté */
   --color-base-200: oklch(
-    98% 0.008 185
+    98% 0.008 215
   ); /* Bleu/gris plus subtil et plus clair */
-  --color-base-300: oklch(95% 0.015 182); /* Plus clair également */
-  --color-base-content: oklch(20% 0.03 195); /* Texte un peu plus clair */
+  --color-base-300: oklch(95% 0.015 215); /* Plus clair également */
+  --color-base-content: oklch(20% 0.03 220); /* Texte un peu plus clair */
 
-  /* Primaire : Menthe assombrie pour passer les tests de contraste (WCAG) */
-  --color-primary: oklch(44% 0.15 172); /* Plus foncé pour meilleur contraste */
+  /* Primaire : Bleu électrique vif pour passer les tests de contraste (WCAG) */
+  --color-primary: oklch(50% 0.22 220); /* Bleu vif électrique */
   --color-primary-content: oklch(100% 0 0);
 
-  /* Secondaire : Bleu arctique renforcé */
-  --color-secondary: oklch(42% 0.13 213);
+  /* Secondaire : Bleu ciel lumineux */
+  --color-secondary: oklch(55% 0.18 200);
   --color-secondary-content: oklch(100% 0 0);
 
   /* Accent : Lavande glacier plus saturée pour ne pas disparaître */
@@ -74,48 +75,48 @@
   --color-accent-content: oklch(99% 0.01 258);
 
   /* Variables custom AlumniConnect */
-  --color-brand: oklch(44% 0.15 172);
-  --color-brand-hover: oklch(38% 0.17 172);
+  --color-brand: oklch(50% 0.22 220);
+  --color-brand-hover: oklch(44% 0.24 220);
   --color-surface: oklch(100% 0 0);
-  --color-surface-alt: oklch(97% 0.01 185);
-  --color-border: oklch(88% 0.03 185); /* Bordures plus visibles */
-  --color-text-muted: oklch(37% 0.04 195); /* Gris plus foncé lisible */
-  --color-overlay: rgba(0, 15, 20, 0.2);
+  --color-surface-alt: oklch(97% 0.01 215);
+  --color-border: oklch(88% 0.03 215); /* Bordures plus visibles */
+  --color-text-muted: oklch(37% 0.04 220); /* Gris plus foncé lisible */
+  --color-overlay: rgba(0, 10, 25, 0.2);
 }
 
 [data-theme="dark"] {
-  /* ── Arctic Mint Dark — abîme arctique ── */
+  /* ── Azure Vif Dark — profondeur électrique ── */
 
   /* Fonds : bleu-nuit profond, froid et immersif */
-  --color-base-100: oklch(15% 0.04 215);
-  --color-base-200: oklch(20% 0.045 210);
-  --color-base-300: oklch(26% 0.05 205);
-  --color-base-content: oklch(94% 0.01 185);
+  --color-base-100: oklch(18% 0.05 225); 
+  --color-base-200: oklch(23% 0.05 220);
+  --color-base-300: oklch(26% 0.05 218);
+  --color-base-content: oklch(94% 0.01 215);
 
-  /* Primaire : menthe lumineuse sur fond sombre */
-  --color-primary: oklch(72% 0.19 172);
-  --color-primary-content: oklch(10% 0.03 175);
+  /* Primaire : bleu électrique lumineux sur fond sombre */
+  --color-primary: oklch(70% 0.22 220);
+  --color-primary-content: oklch(10% 0.03 225);
 
-  /* Secondaire : cyan arctique vif */
-  --color-secondary: oklch(68% 0.17 213);
-  --color-secondary-content: oklch(10% 0.03 215);
+  /* Secondaire : bleu ciel vif */
+  --color-secondary: oklch(72% 0.2 200);
+  --color-secondary-content: oklch(10% 0.03 205);
 
   /* Accent : violet glacier lumineux */
   --color-accent: oklch(78% 0.12 258);
   --color-accent-content: oklch(12% 0.04 258);
 
   /* Variables custom AlumniConnect */
-  --color-brand: oklch(72% 0.19 172);
-  --color-brand-hover: oklch(78% 0.17 172);
-  --color-surface: oklch(15% 0.04 215);
-  --color-surface-alt: oklch(20% 0.045 210);
-  --color-border: oklch(30% 0.06 208);
-  --color-text-muted: oklch(62% 0.04 200);
-  --color-overlay: rgba(2, 10, 20, 0.82);
+  --color-brand: oklch(70% 0.22 220);
+  --color-brand-hover: oklch(76% 0.2 220);
+  --color-surface: oklch(15% 0.04 225);
+  --color-surface-alt: oklch(20% 0.045 220);
+  --color-border: oklch(30% 0.06 218);
+  --color-text-muted: oklch(62% 0.04 215);
+  --color-overlay: rgba(2, 8, 25, 0.82);
 
-  /* Ombre : halo menthe glacée */
+  /* Ombre : halo bleu électrique */
   --shadow-card:
-    0 0 0 1px oklch(28% 0.07 205), 0 12px 32px -10px rgba(0, 0, 0, 0.55);
+    0 0 0 1px oklch(28% 0.07 218), 0 12px 32px -10px rgba(0, 0, 0, 0.55);
 }
 
 /* ─────────────────────────────────────────────
@@ -127,27 +128,27 @@ body {
   line-height: var(--line-height-body);
   min-height: 100dvh;
   background-attachment: fixed;
-  /* Light : fond blanc teinté + halos colorés bien visibles aux coins */
-  background-color: oklch(96% 0.01 188);
+  /* Light : fond blanc teinté + halos bleus bien visibles aux coins */
+  background-color: oklch(96% 0.01 215);
   background-image:
     radial-gradient(
       ellipse 70% 60% at top left,
-      oklch(82% 0.14 170 / 0.75) 0%,
+      oklch(82% 0.16 220 / 0.6) 0%,
       transparent 65%
     ),
     radial-gradient(
       ellipse 60% 50% at bottom right,
-      oklch(80% 0.12 213 / 0.7) 0%,
+      oklch(80% 0.14 200 / 0.6) 0%,
       transparent 65%
     );
 }
 
 [data-theme="dark"] body {
-  /* Dark : dégradé profond menthe → arctique → glacier */
-  background-color: oklch(15% 0.04 215);
+  /* Dark : dégradé profond bleu électrique → nuit → glacier */
+  background-color: oklch(15% 0.04 225);
   background-image: linear-gradient(
     135deg,
-    oklch(28% 0.1 175) 0%,
+    oklch(22% 0.1 225) 0%,
     oklch(18% 0.08 215) 50%,
     oklch(22% 0.07 255) 100%
   );
@@ -190,16 +191,32 @@ body {
 
 /* Convertit le texte white des composants glass vers une teinte lisible en light mode */
 [data-theme="light"]
-  :is(.glass, .glass-solid)
+  :is(.glass, .glass-solid, .sidebar-shell)
   :is(
     .text-white,
+    .text-white\/95,
     .text-white\/90,
     .text-white\/80,
     .text-white\/70,
     .text-white\/60,
-    .text-white\/50
+    .text-white\/50,
+    .text-white\/40,
+    .text-white\/30
   ) {
   color: oklch(14% 0.04 195) !important;
+}
+
+/* Force les icônes et les traits de bordures/fonds semi-transparents à être sombres en light mode */
+[data-theme="light"] :is(.glass, .glass-solid, .sidebar-shell) :is(.bg-white\/10, .bg-white\/5) {
+  background-color: oklch(0% 0 0 / 0.05) !important;
+}
+
+[data-theme="light"] :is(.glass, .glass-solid, .sidebar-shell) :is(.border-white\/10, .border-white\/20) {
+  border-color: oklch(0% 0 0 / 0.1) !important;
+}
+
+[data-theme="light"] :is(.glass, .glass-solid, .sidebar-shell) input::placeholder {
+  color: oklch(45% 0.04 195) !important;
 }
 
 [data-theme="dark"] .glass {
@@ -210,6 +227,20 @@ body {
 [data-theme="dark"] .glass-solid {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .sidebar-shell {
+  background-color: oklch(15% 0.04 225 / 0.92);
+  background-image: linear-gradient(
+    135deg,
+    oklch(22% 0.1 225 / 0.96) 0%,
+    oklch(18% 0.08 215 / 0.94) 50%,
+    oklch(22% 0.07 255 / 0.92) 100%
+  );
+  border-right-color: oklch(30% 0.06 218 / 0.7);
+  box-shadow:
+    inset -1px 0 0 oklch(36% 0.06 220 / 0.18),
+    18px 0 48px -32px rgba(0, 0, 0, 0.55);
 }
 
 /* ─────────────────────────────────────────────

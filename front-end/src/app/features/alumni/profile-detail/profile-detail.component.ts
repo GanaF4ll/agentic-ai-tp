@@ -32,17 +32,17 @@ import { map, switchMap } from 'rxjs';
               <div class="card-body items-center text-center pt-20 relative z-10">
                 <div class="avatar placeholder mb-4">
                   <div class="bg-base-100 text-primary border-4 border-base-100 shadow-xl rounded-[2rem] w-32">
-                    <span class="text-4xl font-black">{{ p.first_name[0] }}{{ p.last_name[0] }}</span>
+                    <span class="text-4xl font-black">{{ p.user.first_name[0] }}{{ p.user.last_name[0] }}</span>
                   </div>
                 </div>
                 
-                <h1 class="text-3xl font-black tracking-tight leading-none">{{ p.first_name }} {{ p.last_name }}</h1>
+                <h1 class="text-3xl font-black tracking-tight leading-none">{{ p.user.first_name }} {{ p.user.last_name }}</h1>
                 <p class="text-base-content/50 font-bold uppercase tracking-wider text-xs mt-2">{{ p.degree }}</p>
                 
                 <div class="flex flex-col gap-3 w-full mt-8">
-                  <a [href]="'mailto:' + p.email" class="btn btn-outline btn-primary btn-sm gap-2 rounded-xl font-bold">
+                  <a [href]="'mailto:' + p.user.email" class="btn btn-outline btn-primary btn-sm gap-2 rounded-xl font-bold">
                     <lucide-angular [img]="mailIcon" class="size-4"></lucide-angular>
-                    {{ p.email }}
+                    {{ p.user.email }}
                   </a>
                   @if (p.linkedin_url) {
                     <a [href]="p.linkedin_url" target="_blank" class="btn btn-primary btn-sm gap-2 rounded-xl font-bold shadow-lg shadow-primary/20">
@@ -102,7 +102,7 @@ import { map, switchMap } from 'rxjs';
             </div>
 
             <!-- Verification Status -->
-             @if (p.is_verified) {
+             @if (p.status === 'VERIFIED') {
                <div class="alert bg-success/10 border-success/20 text-success-content shadow-sm rounded-[var(--radius-card)]">
                  <lucide-angular [img]="verifiedIcon" class="size-6 text-success"></lucide-angular>
                  <div>
