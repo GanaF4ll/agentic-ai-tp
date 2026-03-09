@@ -82,6 +82,12 @@ export const routes: Routes = [
           import('./features/admin/promotion-management/promotion-list.component').then((m) => m.PromotionListComponent),
         data: { role: 'ADMIN' },
       },
+      {
+        path: 'jobs/create',
+        loadComponent: () =>
+          import('./features/admin/job-management/job-create.component').then((m) => m.JobCreateComponent),
+        data: { role: 'ADMIN' },
+      },
     ],
   },
 ];
