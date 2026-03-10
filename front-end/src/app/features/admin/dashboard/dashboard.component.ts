@@ -63,7 +63,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">
             En attente de validation
           </div>
-          <div class="stat-value text-warning font-black text-4xl mt-1">12</div>
+          <div class="stat-value text-warning font-black text-4xl mt-1">{{ pendingCount() }}</div>
           <div class="stat-desc font-medium text-warning mt-2">En attente d'examen</div>
         </div>
       </div>
@@ -184,7 +184,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                     </td>
                     <th class="pr-6 text-right">
                       <div class="flex gap-2 justify-end">
-                        <button class="btn btn-ghost btn-xs font-bold hover:bg-base-200">
+                        <button (click)="viewDetails(profile.id)" class="btn btn-ghost btn-xs font-bold hover:bg-base-200">
                           Détails
                         </button>
                         <button
@@ -230,6 +230,7 @@ export class DashboardComponent {
   private router = inject(Router);
 
   pendingProfiles = signal<Profile[]>([]);
+  pendingCount = signal(0);
   
   promotions = toSignal(this.promotionService.getPromotions(), { initialValue: [] });
   totalPromotions = computed(() => this.promotions().length);
@@ -240,72 +241,34 @@ export class DashboardComponent {
   readonly gradIcon = GraduationCap;
 
   constructor() {
-    this.loadPending();
+    this.loadData();
   }
 
   navigateToPromotions() {
     this.router.navigate(['/admin/promotions']);
   }
 
-  loadPending() {
-    // In a real app, this would be a filtered call to the backend
-    this.pendingProfiles.set([
-      {
-        id: 3,
-        user: {
-          id: 1,
-          first_name: 'Claire',
-          last_name: 'Lefebvre',
-          email: 'claire@example.com',
-        },
-        bio: '',
-        current_job_title: '',
-        current_company: '',
-        location: '',
-        avatar_url: null,
-        linkedin_url: '',
-        degree: 'Cybersécurité',
-        graduation_year: 2023,
-        status: 'DRAFT',
-        promotion: { id: 1, label: 'Promotion 2023' },
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 4,
-        user: {
-          id: 2,
-          first_name: 'Damien',
-          last_name: 'Rousseau',
-          email: 'damien@example.com',
-        },
-        bio: 'Bio de Damien Rousseau',
-        current_job_title: 'Data Scientist',
-        current_company: 'Google',
-        location: 'Paris, France',
-        avatar_url: 'https://example.com/avatar.jpg',
-        linkedin_url: 'https://www.linkedin.com/in/damien-rousseau',
-        graduation_year: 2024,
-        degree: 'Data Science',
-        status: 'DRAFT',
-        promotion: {
-          id: 1,
-          label: 'Promotion 2024',
-        },
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-01T00:00:00Z',
-      },
-    ]);
+  viewDetails(id: number) {
+    this.router.navigate(['/alumni', id]);
+  }
+
+  loadData() {
+    this.alumniService.getPendingProfiles().subscribe(profiles => {
+      this.pendingProfiles.set(profiles);
+    });
+    this.alumniService.getPendingCount().subscribe(res => {
+      this.pendingCount.set(res.count);
+    });
   }
 
   validateProfile(id: number) {
     this.alumniService.validateProfile(id).subscribe({
       next: () => {
         this.pendingProfiles.update((p) => p.filter((x) => x.id !== id));
+        this.pendingCount.update(c => c - 1);
       },
       error: () => {
-        // Mock success for demo
-        this.pendingProfiles.update((p) => p.filter((x) => x.id !== id));
+        // Handle error
       },
     });
   }

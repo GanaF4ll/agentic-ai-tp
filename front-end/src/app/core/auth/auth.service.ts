@@ -60,11 +60,15 @@ export class AuthService {
 
   // User Management (Super-Admin only)
   getUsers() {
-    return this.http.get<User[]>(`${environment.apiUrl}/api/users/`);
+    return this.http.get<User[]>(`${this.API_URL}/users/`);
   }
 
   createUser(userData: Partial<User>) {
-    return this.http.post<User>(`${environment.apiUrl}/api/users/create/`, userData);
+    return this.http.post<User>(`${this.API_URL}/users/create_admin/`, userData);
+  }
+
+  toggleActive(id: number) {
+    return this.http.post<{ is_active: boolean }>(`${this.API_URL}/users/${id}/toggle_active/`, {});
   }
 
   logout() {
