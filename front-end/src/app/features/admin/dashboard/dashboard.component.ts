@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { PromotionService } from '../../../core/services/promotion.service';
 import { Profile } from '../../../core/models/profile.model';
-import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap } from 'lucide-angular';
+import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-angular';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -145,7 +145,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 </tr>
               </thead>
               <tbody>
-                @for (profile of pendingProfiles(); track profile.id) {
+                @for (profile of paginatedPendingProfiles(); track profile.id) {
                   <tr class="group hover:bg-base-200/50 transition-colors">
                     <td class="pl-6 py-4">
                       <div class="flex items-center gap-3">
@@ -219,6 +219,49 @@ import { toSignal } from '@angular/core/rxjs-interop';
               </tbody>
             </table>
           </div>
+
+          @if (pendingProfiles().length > 0) {
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-base-200 bg-base-100">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
+                <select
+                  [value]="limit()"
+                  (change)="onLimitChange($event)"
+                  class="select select-xs bg-base-200/50 border-base-200 text-base-content rounded-lg"
+                >
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
+              </div>
+
+              <div class="join">
+                <button
+                  [disabled]="page() === 1"
+                  (click)="onPageChange(page() - 1)"
+                  class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50"
+                >
+                  <lucide-angular [img]="prevIcon" class="size-4"></lucide-angular>
+                </button>
+                <button class="join-item btn btn-sm bg-primary/10 border-base-200 text-primary hover:bg-primary/20 font-black">
+                  Page {{ page() }} sur {{ totalPages() }}
+                </button>
+                <button
+                  [disabled]="page() >= totalPages()"
+                  (click)="onPageChange(page() + 1)"
+                  class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50"
+                >
+                  <lucide-angular [img]="nextIcon" class="size-4"></lucide-angular>
+                </button>
+              </div>
+
+              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+                {{ pendingCount() }} résultats au total
+              </div>
+            </div>
+          }
         </div>
       </section>
     </div>
@@ -231,14 +274,24 @@ export class DashboardComponent {
 
   pendingProfiles = signal<Profile[]>([]);
   pendingCount = signal(0);
+  page = signal(1);
+  limit = signal(10);
   
   promotions = toSignal(this.promotionService.getPromotions(), { initialValue: [] });
   totalPromotions = computed(() => this.promotions().length);
+  totalPages = computed(() => Math.ceil(this.pendingProfiles().length / this.limit()) || 1);
+  paginatedPendingProfiles = computed(() => {
+    const start = (this.page() - 1) * this.limit();
+    const end = start + this.limit();
+    return this.pendingProfiles().slice(start, end);
+  });
 
   readonly checkIcon = CheckCircle;
   readonly clockIcon = Clock;
   readonly searchIcon = Search;
   readonly gradIcon = GraduationCap;
+  readonly prevIcon = ChevronLeft;
+  readonly nextIcon = ChevronRight;
 
   constructor() {
     this.loadData();
@@ -255,6 +308,7 @@ export class DashboardComponent {
   loadData() {
     this.alumniService.getPendingProfiles().subscribe(profiles => {
       this.pendingProfiles.set(profiles);
+      this.page.set(1);
     });
     this.alumniService.getPendingCount().subscribe(res => {
       this.pendingCount.set(res.count);
@@ -266,10 +320,23 @@ export class DashboardComponent {
       next: () => {
         this.pendingProfiles.update((p) => p.filter((x) => x.id !== id));
         this.pendingCount.update(c => c - 1);
+        if (this.page() > this.totalPages()) {
+          this.page.set(this.totalPages());
+        }
       },
       error: () => {
         // Handle error
       },
     });
+  }
+
+  onPageChange(newPage: number) {
+    this.page.set(newPage);
+  }
+
+  onLimitChange(event: Event) {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.limit.set(value);
+    this.page.set(1);
   }
 }

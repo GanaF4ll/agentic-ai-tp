@@ -1,9 +1,9 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { Profile } from '../../../core/models/profile.model';
 import { AlumniCardComponent } from '../../../shared/components/alumni/alumni-card.component';
-import { LucideAngularModule, Search, Filter } from 'lucide-angular';
+import { LucideAngularModule, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-angular';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -60,7 +60,7 @@ import { HttpClient } from '@angular/common/http';
                 Force du réseau
               </div>
               <div class="stat-value text-5xl font-black tabular-nums text-primary">
-                {{ profiles().length }}
+                {{ totalCount() }}
               </div>
               <div class="stat-desc text-base-content/70 mt-2 font-bold flex items-center gap-2">
                 <span class="size-2 rounded-full bg-success animate-pulse"></span>
@@ -132,7 +132,7 @@ import { HttpClient } from '@angular/common/http';
                 (click)="resetFilters()"
                 class="btn btn-primary h-12 font-bold shadow-lg shadow-primary/20 border-none text-primary-content"
               >
-                Appliquer les filtres
+                Réinitialiser
               </button>
             </form>
           </div>
@@ -186,29 +186,53 @@ import { HttpClient } from '@angular/common/http';
           </div>
         } @else if (profiles().length > 0) {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            @for (alumni of profiles(); track alumni.id) {
+            @for (alumni of paginatedProfiles(); track alumni.id) {
               <app-alumni-card [alumni]="alumni"></app-alumni-card>
             }
           </div>
 
-          <div class="flex justify-center mt-12">
-            <div class="join bg-base-100 p-1 rounded-2xl border border-base-200 shadow-sm">
-              <button class="join-item btn btn-ghost btn-sm px-4 text-base-content/60 hover:bg-base-200">
-                Précédent
-              </button>
-              <button
-                class="join-item btn btn-primary btn-sm px-4 rounded-xl border-none text-primary-content"
-              >
-                1
-              </button>
-              <button class="join-item btn btn-ghost btn-sm px-4 text-base-content/60 hover:bg-base-200">
-                2
-              </button>
-              <button class="join-item btn btn-ghost btn-sm px-4 text-base-content/60 hover:bg-base-200">
-                Suivant
-              </button>
+          @if (totalCount() > 0) {
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 bg-base-100 p-4 rounded-2xl border border-base-200">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
+                <select
+                  [value]="limit()"
+                  (change)="onLimitChange($event)"
+                  class="select select-xs bg-base-200/50 border-base-200 text-base-content rounded-lg"
+                >
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="12">12</option>
+                  <option value="16">16</option>
+                </select>
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
+              </div>
+
+              <div class="join">
+                <button
+                  [disabled]="page() === 1"
+                  (click)="onPageChange(page() - 1)"
+                  class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50"
+                >
+                  <lucide-angular [img]="prevIcon" class="size-4"></lucide-angular>
+                </button>
+                <button class="join-item btn btn-sm bg-primary/10 border-base-200 text-primary hover:bg-primary/20 font-black">
+                  Page {{ page() }} sur {{ totalPages() }}
+                </button>
+                <button
+                  [disabled]="page() >= totalPages()"
+                  (click)="onPageChange(page() + 1)"
+                  class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50"
+                >
+                  <lucide-angular [img]="nextIcon" class="size-4"></lucide-angular>
+                </button>
+              </div>
+
+              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+                {{ totalCount() }} résultats au total
+              </div>
             </div>
-          </div>
+          }
         } @else {
           <div
             class="flex flex-col items-center justify-center py-24 bg-base-100 rounded-[var(--radius-card)] border-2 border-dashed border-base-200 shadow-sm"
@@ -239,10 +263,14 @@ export class AlumniListComponent {
   isLoading = signal(true);
   readonly searchIcon = Search;
   readonly filterIcon = Filter;
+  readonly prevIcon = ChevronLeft;
+  readonly nextIcon = ChevronRight;
   private readonly API_URL = environment.apiUrl;
   private http = inject(HttpClient);
 
   years = Array.from({ length: 11 }, (_, i) => 2026 - i);
+  page = signal(1);
+  limit = signal(8);
 
   filterForm = this.fb.group({
     search: [''],
@@ -263,7 +291,10 @@ export class AlumniListComponent {
   // Derived signal for profiles based on filters
   profiles = toSignal(
     toObservable(this.filters).pipe(
-      tap(() => this.isLoading.set(true)),
+      tap(() => {
+        this.page.set(1);
+        this.isLoading.set(true);
+      }),
       switchMap((filters) =>
         this.alumniService.getProfiles(filters as any).pipe(
           catchError(() => {
@@ -277,8 +308,27 @@ export class AlumniListComponent {
     { initialValue: [] as Profile[] },
   );
 
+  totalCount = computed(() => this.profiles().length);
+  totalPages = computed(() => Math.ceil(this.totalCount() / this.limit()) || 1);
+  paginatedProfiles = computed(() => {
+    const start = (this.page() - 1) * this.limit();
+    const end = start + this.limit();
+    return this.profiles().slice(start, end);
+  });
+
   resetFilters() {
     this.filterForm.reset();
+  }
+
+  onPageChange(newPage: number) {
+    this.page.set(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onLimitChange(event: Event) {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.limit.set(value);
+    this.page.set(1);
   }
 
   private getProfiles(): Observable<Profile[]> {
