@@ -2,8 +2,9 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { PromotionService } from '../../../core/services/promotion.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { Profile } from '../../../core/models/profile.model';
-import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap, ChevronLeft, ChevronRight, Users, UserPlus } from 'lucide-angular';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -97,9 +98,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
             <button (click)="navigateToPromotions()" class="btn btn-sm btn-secondary font-bold shadow-sm">
               Gérer les Promotions
             </button>
-            <button class="btn btn-sm btn-outline font-bold">
-              Inviter un utilisateur
-            </button>
+            @if (authService.isSuperAdmin()) {
+              <button (click)="navigateToUsers()" class="btn btn-sm btn-outline font-bold">
+                <lucide-angular [img]="usersIcon" class="size-4 mr-2"></lucide-angular>
+                Gestion des Accès
+              </button>
+              <button (click)="navigateToInviteAdmin()" class="btn btn-sm btn-primary font-bold shadow-sm">
+                <lucide-angular [img]="userPlusIcon" class="size-4 mr-2"></lucide-angular>
+                Inviter un Admin
+              </button>
+            }
           </div>
         </div>
       </div>
@@ -271,6 +279,7 @@ export class DashboardComponent {
   private alumniService = inject(AlumniService);
   private promotionService = inject(PromotionService);
   private router = inject(Router);
+  public authService = inject(AuthService);
 
   pendingProfiles = signal<Profile[]>([]);
   pendingCount = signal(0);
@@ -292,6 +301,8 @@ export class DashboardComponent {
   readonly gradIcon = GraduationCap;
   readonly prevIcon = ChevronLeft;
   readonly nextIcon = ChevronRight;
+  readonly usersIcon = Users;
+  readonly userPlusIcon = UserPlus;
 
   constructor() {
     this.loadData();
@@ -299,6 +310,14 @@ export class DashboardComponent {
 
   navigateToPromotions() {
     this.router.navigate(['/admin/promotions']);
+  }
+
+  navigateToUsers() {
+    this.router.navigate(['/admin/users']);
+  }
+
+  navigateToInviteAdmin() {
+    this.router.navigate(['/admin/users'], { queryParams: { invite: 'true' } });
   }
 
   viewDetails(id: number) {

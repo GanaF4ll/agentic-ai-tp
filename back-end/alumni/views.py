@@ -20,6 +20,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
         profile = self.get_object()
         if profile.status == Profile.Status.VERIFIED:
             return Response({"detail": "Déjà validé."}, status=status.HTTP_400_BAD_REQUEST)
+        if profile.user.role != Role.MEMBER:
+            return Response({"detail": "Seuls les membres peuvent être validés."}, status=status.HTTP_400_BAD_REQUEST)
         
         profile.status = Profile.Status.VERIFIED
         profile.save()

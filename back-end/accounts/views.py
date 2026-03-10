@@ -22,6 +22,29 @@ class UserViewSet(viewsets.ModelViewSet):
         user.save()
         return Response({'is_active': user.is_active})
 
+    @action(detail=True, methods=['post'])
+    def revoke_admin(self, request, pk=None):
+        user = self.get_object()
+        
+        if user == request.user:
+            return Response(
+                {'detail': 'Vous ne pouvez pas révoquer vos propres accès administrateur.'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if user.role == 'MEMBER':
+            return Response(
+                {'detail': 'Cet utilisateur est déjà un membre régulier.'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        from .models import Role
+        user.role = Role.MEMBER
+        user.is_staff = False
+        user.save()
+        
+        return Response(UserSerializer(user).data)
+
     @action(detail=False, methods=['post'], serializer_class=AdminCreationSerializer)
     def create_admin(self, request):
         serializer = self.get_serializer(data=request.data)

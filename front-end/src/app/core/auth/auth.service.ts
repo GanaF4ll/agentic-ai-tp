@@ -71,6 +71,10 @@ export class AuthService {
     return this.http.post<{ is_active: boolean }>(`${this.API_URL}/users/${id}/toggle_active/`, {});
   }
 
+  revokeAdminAccess(id: number) {
+    return this.http.post<User>(`${this.API_URL}/users/${id}/revoke_admin/`, {});
+  }
+
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');

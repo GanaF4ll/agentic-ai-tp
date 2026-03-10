@@ -1,4 +1,5 @@
-import { Component, inject, signal, ChangeDetectionStrategy, computed } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, computed, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { User } from '../../../core/models/user.model';
 import { LucideAngularModule, UserPlus, ShieldCheck, Mail, Calendar } from 'lucide-angular';
@@ -21,7 +22,7 @@ import { switchMap, startWith } from 'rxjs';
         
         <button (click)="showCreateModal.set(true)" class="btn btn-primary btn-lg rounded-2xl shadow-lg shadow-primary/20 font-black">
           <lucide-icon name="user-plus" size="20" class="mr-2"></lucide-icon>
-          Inviter un collaborateur
+          Inviter un administrateur
         </button>
       </div>
 
@@ -111,14 +112,27 @@ import { switchMap, startWith } from 'rxjs';
                     }
                   </td>
                   <td class="text-right">
-                    <button 
-                      (click)="toggleActive(user)"
-                      class="btn btn-sm font-bold"
-                      [class.btn-error]="user.is_active"
-                      [class.btn-success]="!user.is_active"
-                    >
-                      {{ user.is_active ? 'Désactiver' : 'Activer' }}
-                    </button>
+                    <div class="flex justify-end gap-2">
+                      @if (user.role === 'ADMIN' && user.id !== authService.user()?.id) {
+                        <button 
+                          (click)="revokeAdmin(user)"
+                          class="btn btn-sm btn-outline btn-warning font-bold"
+                        >
+                          Révoquer accès
+                        </button>
+                      }
+                      
+                      @if (user.id !== authService.user()?.id) {
+                        <button 
+                          (click)="toggleActive(user)"
+                          class="btn btn-sm font-bold"
+                          [class.btn-error]="user.is_active"
+                          [class.btn-success]="!user.is_active"
+                        >
+                          {{ user.is_active ? 'Désactiver' : 'Activer' }}
+                        </button>
+                      }
+                    </div>
                   </td>
                 </tr>
               } @empty {
@@ -144,8 +158,9 @@ import { switchMap, startWith } from 'rxjs';
     }
   `
 })
-export class UserListComponent {
-  private authService = inject(AuthService);
+export class UserListComponent implements OnInit {
+  public authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
   
   showCreateModal = signal(false);
   private refreshTrigger = signal(0);
@@ -167,6 +182,14 @@ export class UserListComponent {
     };
   });
 
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['invite'] === 'true') {
+        this.showCreateModal.set(true);
+      }
+    });
+  }
+
   onUserCreated() {
     this.showCreateModal.set(false);
     this.refreshTrigger.update(n => n + 1);
@@ -176,5 +199,13 @@ export class UserListComponent {
     this.authService.toggleActive(user.id).subscribe(() => {
       this.refreshTrigger.update(n => n + 1);
     });
+  }
+
+  revokeAdmin(user: User) {
+    if (confirm(`Êtes-vous sûr de vouloir révoquer les accès administrateur de ${user.first_name} ${user.last_name} ?`)) {
+      this.authService.revokeAdminAccess(user.id).subscribe(() => {
+        this.refreshTrigger.update(n => n + 1);
+      });
+    }
   }
 }

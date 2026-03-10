@@ -127,6 +127,7 @@ import { CommonModule } from '@angular/common';
             <a
               routerLink="/admin"
               routerLinkActive="bg-primary/10 text-primary font-bold shadow-sm ring-1 ring-primary/10"
+              [routerLinkActiveOptions]="{ exact: true }"
               title="Tableau de bord"
               aria-label="Tableau de bord"
               class="flex items-center py-3 rounded-xl hover:bg-base-200 transition-colors text-base-content/80"
@@ -139,6 +140,26 @@ import { CommonModule } from '@angular/common';
               >Tableau de bord</span>
             </a>
           </div>
+
+          <!-- Users (Super Admin Only) -->
+          @if (authService.isSuperAdmin()) {
+            <div [ngClass]="sidebarService.isCollapsed() ? 'px-2' : 'px-4'">
+              <a
+                routerLink="/admin/users"
+                routerLinkActive="bg-primary/10 text-primary font-bold shadow-sm ring-1 ring-primary/10"
+                title="Utilisateurs"
+                aria-label="Utilisateurs"
+                class="flex items-center py-3 rounded-xl hover:bg-base-200 transition-colors text-base-content/80"
+                [ngClass]="sidebarService.isCollapsed() ? 'justify-center px-3 gap-0' : 'gap-3 px-4'"
+              >
+                <lucide-angular [img]="userIcon" class="size-5 shrink-0 block"></lucide-angular>
+                <span
+                  class="overflow-hidden whitespace-nowrap transition-all duration-200"
+                  [ngClass]="sidebarService.isCollapsed() ? 'max-w-0 opacity-0' : 'max-w-40 opacity-100'"
+                >Utilisateurs</span>
+              </a>
+            </div>
+          }
         }
 
         @if (authService.isAuthenticated()) {
