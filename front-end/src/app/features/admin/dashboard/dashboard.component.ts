@@ -94,16 +94,25 @@ import { toSignal } from '@angular/core/rxjs-interop';
         </div>
         <div class="card-body p-6">
           <h3 class="font-black text-secondary-content text-lg">Actions Rapides</h3>
-          <div class="flex flex-wrap gap-2 mt-2">
-            <button (click)="navigateToPromotions()" class="btn btn-sm btn-secondary font-bold shadow-sm">
+          <div class="mt-4 flex flex-col gap-3">
+            <button
+              (click)="navigateToPromotions()"
+                class="btn btn-secondary btn-sm w-fit min-w-52 justify-start self-start rounded-xl px-4 font-bold shadow-sm"
+            >
               Gérer les Promotions
             </button>
             @if (authService.isSuperAdmin()) {
-              <button (click)="navigateToUsers()" class="btn btn-sm btn-outline font-bold">
+              <button
+                (click)="navigateToUsers()"
+                class="btn btn-sm w-fit min-w-52 justify-start self-start rounded-xl border border-base-content/20 bg-base-100/70 px-4 font-bold text-base-content shadow-sm hover:bg-base-100"
+              >
                 <lucide-angular [img]="usersIcon" class="size-4 mr-2"></lucide-angular>
                 Gestion des Accès
               </button>
-              <button (click)="navigateToInviteAdmin()" class="btn btn-sm btn-primary font-bold shadow-sm">
+              <button
+                (click)="navigateToInviteAdmin()"
+                class="btn btn-primary btn-sm w-fit min-w-52 justify-start self-start rounded-xl px-4 font-bold shadow-sm"
+              >
                 <lucide-angular [img]="userPlusIcon" class="size-4 mr-2"></lucide-angular>
                 Inviter un Admin
               </button>

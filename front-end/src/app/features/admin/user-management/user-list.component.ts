@@ -168,7 +168,7 @@ export class UserListComponent implements OnInit {
   users = toSignal(
     toObservable(this.refreshTrigger).pipe(
       startWith(0),
-      switchMap(() => this.authService.getUsers())
+      switchMap(() => this.authService.getUsers({ role: 'ADMIN' }))
     ),
     { initialValue: [] as User[] }
   );

@@ -4,16 +4,30 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+import django_filters
 
-from .models import User
+from .models import User, Role
 from .serializers import UserSerializer, AdminCreationSerializer
-from .permissions import IsSuperAdmin
+from .permissions import IsSuperAdmin, IsAdmin
+
+
+class CharInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
+    pass
+
+
+class UserFilter(django_filters.FilterSet):
+    role = CharInFilter(field_name='role', lookup_expr='in')
+
+    class Meta:
+        model = User
+        fields = ['role']
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-id')
     serializer_class = UserSerializer
-    permission_classes = [IsSuperAdmin]
+    permission_classes = [IsAdmin]
+    filterset_class = UserFilter
 
     @action(detail=True, methods=['post'])
     def toggle_active(self, request, pk=None):

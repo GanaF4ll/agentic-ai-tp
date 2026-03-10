@@ -46,7 +46,7 @@ describe('UserListComponent', () => {
     
     component.ngOnInit();
     
-    expect(authService.getUsers).toHaveBeenCalled();
+    expect(authService.getUsers).toHaveBeenCalledWith({ role: 'ADMIN' });
     expect(component.users()).toEqual(mockUsers);
     expect(component.stats().total).toBe(1);
   });

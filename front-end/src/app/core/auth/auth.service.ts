@@ -59,8 +59,8 @@ export class AuthService {
   }
 
   // User Management (Super-Admin only)
-  getUsers() {
-    return this.http.get<User[]>(`${this.API_URL}/users/`);
+  getUsers(params?: Record<string, string>) {
+    return this.http.get<User[]>(`${this.API_URL}/users/`, { params });
   }
 
   createUser(userData: Partial<User>) {
