@@ -1,9 +1,10 @@
 # BACK
 
-- order by created at
-- pagination & filtre sur jobs, events, alumnis
+- events
 
 
 # FRONT
 
 - revoir la palette couleur
+- full responsive
+- events

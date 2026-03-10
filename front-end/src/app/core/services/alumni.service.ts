@@ -18,6 +18,15 @@ export class AlumniService {
     return this.http.get<Profile[]>(`${this.API_URL}/`, { params });
   }
 
+  getPendingProfiles() {
+    let params = new HttpParams().set('status', 'DRAFT');
+    return this.http.get<Profile[]>(`${this.API_URL}/`, { params });
+  }
+
+  getPendingCount() {
+    return this.http.get<{ count: number }>(`${this.API_URL}/count_pending/`);
+  }
+
   validateProfile(id: number) {
     return this.http.post<Profile>(`${this.API_URL}/${id}/validate/`, {});
   }

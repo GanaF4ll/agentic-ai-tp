@@ -27,7 +27,7 @@ import { map, switchMap, startWith } from 'rxjs';
       @if (job(); as j) {
         <div class="flex flex-col gap-8">
           <!-- Header Card -->
-          <header class="glass rounded-[var(--radius-card)] border border-white/20 shadow-[var(--shadow-card)] text-white overflow-hidden">
+          <header class="bg-base-100 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] text-base-content overflow-hidden">
             <div class="flex flex-col lg:flex-row">
 
               <!-- Left: title & meta -->
@@ -38,59 +38,59 @@ import { map, switchMap, startWith } from 'rxjs';
                 <div class="relative z-10 flex flex-col gap-5">
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="badge badge-primary font-black px-4 py-3 h-auto">{{ j.type }}</span>
-                    <span class="badge bg-primary/20 border-white/20 text-white font-bold px-3 py-3 h-auto gap-1.5">
+                    <span class="badge bg-primary/10 border-primary/20 text-primary font-bold px-3 py-3 h-auto gap-1.5">
                       <lucide-angular [img]="clockIcon" class="size-3"></lucide-angular>
                       {{ j.periodicity }}
                     </span>
-                    <span class="badge bg-accent/20 border-white/20  text-white font-bold px-3 py-3 h-auto gap-1.5">
+                    <span class="badge bg-secondary/10 border-secondary/20 text-secondary font-bold px-3 py-3 h-auto gap-1.5">
                       <lucide-angular [img]="globeIcon" class="size-3"></lucide-angular>
                       {{ j.remote_status }}
                     </span>
-                    <span class="badge glass border-white/20 text-white font-bold px-4 py-3 h-auto">
+                    <span class="badge bg-base-200 border-base-300 text-base-content/70 font-bold px-4 py-3 h-auto">
                       {{ j.applications_count }} candidature(s)
                     </span>
                   </div>
 
-                  <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight">{{ j.title }}</h1>
+                  <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight text-base-content">{{ j.title }}</h1>
 
                   <div class="flex flex-wrap gap-5">
-                    <div class="flex items-center gap-2 font-bold text-white/70">
+                    <div class="flex items-center gap-2 font-bold text-base-content/70">
                       <lucide-angular [img]="buildingIcon" class="size-4 text-primary shrink-0"></lucide-angular>
                       {{ j.company }}
                     </div>
-                    <div class="flex items-center gap-2 font-bold text-white/70">
+                    <div class="flex items-center gap-2 font-bold text-base-content/70">
                       <lucide-angular [img]="locationIcon" class="size-4 text-primary shrink-0"></lucide-angular>
                       {{ j.location }}
                     </div>
                   </div>
                 </div>
 
-                <p class="relative z-10 text-white/30 font-semibold text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</p>
+                <p class="relative z-10 text-base-content/30 font-semibold text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</p>
               </div>
 
               <!-- Divider -->
-              <div class="hidden lg:block w-px bg-white/10 my-6"></div>
-              <div class="block lg:hidden h-px bg-white/10 mx-8"></div>
+              <div class="hidden lg:block w-px bg-base-200 my-6"></div>
+              <div class="block lg:hidden h-px bg-base-200 mx-8"></div>
 
               <!-- Right: dates -->
               <div class="p-8 lg:w-56 shrink-0 flex flex-col justify-center gap-3">
-                <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
-                  <div class="size-8 rounded-xl bg-white/8 flex items-center justify-center text-white/40 shrink-0">
+                <div class="bg-base-200/50 rounded-2xl p-4 flex items-center gap-3">
+                  <div class="size-8 rounded-xl bg-base-200 flex items-center justify-center text-base-content/40 shrink-0">
                     <lucide-angular [img]="calendarIcon" class="size-4"></lucide-angular>
                   </div>
                   <div>
-                    <p class="text-[9px] font-black uppercase tracking-widest text-white/35 mb-0.5">Début</p>
-                    <p class="text-sm font-bold text-white">{{ j.start_date ? (j.start_date | date:'dd/MM/yyyy') : 'À définir' }}</p>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-base-content/35 mb-0.5">Début</p>
+                    <p class="text-sm font-bold text-base-content">{{ j.start_date ? (j.start_date | date:'dd/MM/yyyy') : 'À définir' }}</p>
                   </div>
                 </div>
                 @if (j.type !== 'CDI') {
-                  <div class="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
-                    <div class="size-8 rounded-xl bg-white/8 flex items-center justify-center text-white/40 shrink-0">
+                  <div class="bg-base-200/50 rounded-2xl p-4 flex items-center gap-3">
+                    <div class="size-8 rounded-xl bg-base-200 flex items-center justify-center text-base-content/40 shrink-0">
                       <lucide-angular [img]="calendarIcon" class="size-4"></lucide-angular>
                     </div>
                     <div>
-                      <p class="text-[9px] font-black uppercase tracking-widest text-white/35 mb-0.5">Fin prévue</p>
-                      <p class="text-sm font-bold text-white">{{ j.end_date ? (j.end_date | date:'dd/MM/yyyy') : 'Non spécifiée' }}</p>
+                      <p class="text-[9px] font-black uppercase tracking-widest text-base-content/35 mb-0.5">Fin prévue</p>
+                      <p class="text-sm font-bold text-base-content">{{ j.end_date ? (j.end_date | date:'dd/MM/yyyy') : 'Non spécifiée' }}</p>
                     </div>
                   </div>
                 }
@@ -102,7 +102,7 @@ import { map, switchMap, startWith } from 'rxjs';
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-8">
-              <div class="glass p-8 rounded-[var(--radius-card)] border border-white/10 shadow-sm text-white">
+              <div class="bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-sm text-base-content">
                 <div class="flex items-center justify-between mb-6">
                   <h2 class="text-2xl font-black flex items-center gap-3">
                     Description du poste
@@ -120,11 +120,11 @@ import { map, switchMap, startWith } from 'rxjs';
                     <textarea 
                       [(ngModel)]="editedDescription"
                       rows="12"
-                      class="textarea textarea-bordered w-full bg-white/5 border-white/20 text-white font-medium leading-relaxed focus:border-primary/50"
+                      class="textarea textarea-bordered w-full bg-base-200/50 border-base-200 text-base-content font-medium leading-relaxed focus:border-primary/50"
                       placeholder="Modifier la description..."
                     ></textarea>
                     <div class="flex justify-end gap-2">
-                      <button (click)="cancelEdit()" class="btn btn-ghost btn-sm gap-2 font-bold text-white/60">
+                      <button (click)="cancelEdit()" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60">
                         <lucide-angular [img]="cancelIcon" class="size-4"></lucide-angular>
                         Annuler
                       </button>
@@ -143,7 +143,7 @@ import { map, switchMap, startWith } from 'rxjs';
                     </div>
                   </div>
                 } @else {
-                  <div class="prose prose-invert max-w-none text-white/70 font-medium leading-relaxed whitespace-pre-wrap">
+                  <div class="prose max-w-none text-base-content/70 font-medium leading-relaxed whitespace-pre-wrap">
                     {{ j.description }}
                   </div>
                 }
@@ -154,13 +154,13 @@ import { map, switchMap, startWith } from 'rxjs';
             <div class="lg:col-span-1">
               <div class="sticky top-24 space-y-6">
                 @if (isMember()) {
-                  <div class="card glass border border-primary/20 shadow-xl shadow-primary/5 rounded-[var(--radius-card)] overflow-hidden">
+                  <div class="card bg-base-100 border border-primary/20 shadow-xl shadow-primary/5 rounded-[var(--radius-card)] overflow-hidden">
                     <div class="card-body p-8 items-center text-center">
                       <div class="size-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
                         <lucide-angular [img]="sendIcon" class="size-8 text-primary"></lucide-angular>
                       </div>
-                      <h3 class="text-xl font-black text-white">Intéressé par ce poste ?</h3>
-                      <p class="text-white/60 text-sm font-medium mt-2 mb-8">Postulez directement via notre plateforme AlumniConnect.</p>
+                      <h3 class="text-xl font-black text-base-content">Intéressé par ce poste ?</h3>
+                      <p class="text-base-content/60 text-sm font-medium mt-2 mb-8">Postulez directement via notre plateforme AlumniConnect.</p>
                       
                       <button 
                         (click)="apply()" 
@@ -177,18 +177,18 @@ import { map, switchMap, startWith } from 'rxjs';
                   </div>
                 }
 
-                <div class="card glass border border-white/10 rounded-[var(--radius-card)] overflow-hidden">
+                <div class="card bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden">
                   <div class="card-body p-6">
                     @if (j.source_url) {
-                      <a [href]="j.source_url" target="_blank" class="btn btn-outline btn-block btn-sm gap-2 rounded-xl font-bold mb-6">
+                      <a [href]="j.source_url" target="_blank" class="btn btn-outline btn-block btn-sm gap-2 rounded-xl font-bold mb-6 text-base-content">
                          <lucide-angular [img]="externalIcon" class="size-4"></lucide-angular>
                          Annonce d'origine
                       </a>
                     }
-                    <h4 class="text-xs font-black uppercase tracking-widest text-white/40 mb-4">Partager</h4>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-base-content/40 mb-4">Partager</h4>
                     <div class="flex gap-2">
-                       <button class="btn btn-ghost btn-sm btn-square rounded-xl text-white/60 hover:text-white hover:bg-white/10 flex-1">LinkedIn</button>
-                       <button class="btn btn-ghost btn-sm btn-square rounded-xl text-white/60 hover:text-white hover:bg-white/10 flex-1">Copier le lien</button>
+                       <button class="btn btn-ghost btn-sm btn-square rounded-xl text-base-content/60 hover:text-primary hover:bg-base-200 flex-1">LinkedIn</button>
+                       <button class="btn btn-ghost btn-sm btn-square rounded-xl text-base-content/60 hover:text-primary hover:bg-base-200 flex-1">Lien</button>
                     </div>
                   </div>
                 </div>

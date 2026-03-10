@@ -2,8 +2,9 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { PromotionService } from '../../../core/services/promotion.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { Profile } from '../../../core/models/profile.model';
-import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap } from 'lucide-angular';
+import { LucideAngularModule, CheckCircle, Clock, Search, GraduationCap, ChevronLeft, ChevronRight, Users, UserPlus } from 'lucide-angular';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -20,8 +21,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             Tableau de bord <span class="text-base-content/30">Admin</span>
           </h1>
           <p class="text-base-content/50 font-medium mt-3">
-            Gérez les profils des alumni, les promotions et surveillez l'activité de
-            la plateforme.
+            Administration des alumnis, des promotions et des utilisateurs.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">
             En attente de validation
           </div>
-          <div class="stat-value text-warning font-black text-4xl mt-1">12</div>
+          <div class="stat-value text-warning font-black text-4xl mt-1">{{ pendingCount() }}</div>
           <div class="stat-desc font-medium text-warning mt-2">En attente d'examen</div>
         </div>
       </div>
@@ -94,13 +94,29 @@ import { toSignal } from '@angular/core/rxjs-interop';
         </div>
         <div class="card-body p-6">
           <h3 class="font-black text-secondary-content text-lg">Actions Rapides</h3>
-          <div class="flex flex-wrap gap-2 mt-2">
-            <button (click)="navigateToPromotions()" class="btn btn-sm btn-secondary font-bold shadow-sm">
+          <div class="mt-4 flex flex-col gap-3">
+            <button
+              (click)="navigateToPromotions()"
+                class="btn btn-secondary btn-sm w-fit min-w-52 justify-start self-start rounded-xl px-4 font-bold shadow-sm"
+            >
               Gérer les Promotions
             </button>
-            <button class="btn btn-sm btn-outline font-bold">
-              Inviter un utilisateur
-            </button>
+            @if (authService.isSuperAdmin()) {
+              <button
+                (click)="navigateToUsers()"
+                class="btn btn-sm w-fit min-w-52 justify-start self-start rounded-xl border border-base-content/20 bg-base-100/70 px-4 font-bold text-base-content shadow-sm hover:bg-base-100"
+              >
+                <lucide-angular [img]="usersIcon" class="size-4 mr-2"></lucide-angular>
+                Gestion des Accès
+              </button>
+              <button
+                (click)="navigateToInviteAdmin()"
+                class="btn btn-primary btn-sm w-fit min-w-52 justify-start self-start rounded-xl px-4 font-bold shadow-sm"
+              >
+                <lucide-angular [img]="userPlusIcon" class="size-4 mr-2"></lucide-angular>
+                Inviter un Admin
+              </button>
+            }
           </div>
         </div>
       </div>
@@ -146,7 +162,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 </tr>
               </thead>
               <tbody>
-                @for (profile of pendingProfiles(); track profile.id) {
+                @for (profile of paginatedPendingProfiles(); track profile.id) {
                   <tr class="group hover:bg-base-200/50 transition-colors">
                     <td class="pl-6 py-4">
                       <div class="flex items-center gap-3">
@@ -185,7 +201,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                     </td>
                     <th class="pr-6 text-right">
                       <div class="flex gap-2 justify-end">
-                        <button class="btn btn-ghost btn-xs font-bold hover:bg-base-200">
+                        <button (click)="viewDetails(profile.id)" class="btn btn-ghost btn-xs font-bold hover:bg-base-200">
                           Détails
                         </button>
                         <button
@@ -220,6 +236,49 @@ import { toSignal } from '@angular/core/rxjs-interop';
               </tbody>
             </table>
           </div>
+
+          @if (pendingProfiles().length > 0) {
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-base-200 bg-base-100">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
+                <select
+                  [value]="limit()"
+                  (change)="onLimitChange($event)"
+                  class="select select-xs bg-base-200/50 border-base-200 text-base-content rounded-lg"
+                >
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
+              </div>
+
+              <div class="join">
+                <button
+                  [disabled]="page() === 1"
+                  (click)="onPageChange(page() - 1)"
+                  class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50"
+                >
+                  <lucide-angular [img]="prevIcon" class="size-4"></lucide-angular>
+                </button>
+                <button class="join-item btn btn-sm bg-primary/10 border-base-200 text-primary hover:bg-primary/20 font-black">
+                  Page {{ page() }} sur {{ totalPages() }}
+                </button>
+                <button
+                  [disabled]="page() >= totalPages()"
+                  (click)="onPageChange(page() + 1)"
+                  class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50"
+                >
+                  <lucide-angular [img]="nextIcon" class="size-4"></lucide-angular>
+                </button>
+              </div>
+
+              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+                {{ pendingCount() }} résultats au total
+              </div>
+            </div>
+          }
         </div>
       </section>
     </div>
@@ -229,85 +288,83 @@ export class DashboardComponent {
   private alumniService = inject(AlumniService);
   private promotionService = inject(PromotionService);
   private router = inject(Router);
+  public authService = inject(AuthService);
 
   pendingProfiles = signal<Profile[]>([]);
+  pendingCount = signal(0);
+  page = signal(1);
+  limit = signal(10);
   
   promotions = toSignal(this.promotionService.getPromotions(), { initialValue: [] });
   totalPromotions = computed(() => this.promotions().length);
+  totalPages = computed(() => Math.ceil(this.pendingProfiles().length / this.limit()) || 1);
+  paginatedPendingProfiles = computed(() => {
+    const start = (this.page() - 1) * this.limit();
+    const end = start + this.limit();
+    return this.pendingProfiles().slice(start, end);
+  });
 
   readonly checkIcon = CheckCircle;
   readonly clockIcon = Clock;
   readonly searchIcon = Search;
   readonly gradIcon = GraduationCap;
+  readonly prevIcon = ChevronLeft;
+  readonly nextIcon = ChevronRight;
+  readonly usersIcon = Users;
+  readonly userPlusIcon = UserPlus;
 
   constructor() {
-    this.loadPending();
+    this.loadData();
   }
 
   navigateToPromotions() {
     this.router.navigate(['/admin/promotions']);
   }
 
-  loadPending() {
-    // In a real app, this would be a filtered call to the backend
-    this.pendingProfiles.set([
-      {
-        id: 3,
-        user: {
-          id: 1,
-          first_name: 'Claire',
-          last_name: 'Lefebvre',
-          email: 'claire@example.com',
-        },
-        bio: '',
-        current_job_title: '',
-        current_company: '',
-        location: '',
-        avatar_url: null,
-        linkedin_url: '',
-        degree: 'Cybersécurité',
-        graduation_year: 2023,
-        status: 'DRAFT',
-        promotion: { id: 1, label: 'Promotion 2023' },
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      {
-        id: 4,
-        user: {
-          id: 2,
-          first_name: 'Damien',
-          last_name: 'Rousseau',
-          email: 'damien@example.com',
-        },
-        bio: 'Bio de Damien Rousseau',
-        current_job_title: 'Data Scientist',
-        current_company: 'Google',
-        location: 'Paris, France',
-        avatar_url: 'https://example.com/avatar.jpg',
-        linkedin_url: 'https://www.linkedin.com/in/damien-rousseau',
-        graduation_year: 2024,
-        degree: 'Data Science',
-        status: 'DRAFT',
-        promotion: {
-          id: 1,
-          label: 'Promotion 2024',
-        },
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-01T00:00:00Z',
-      },
-    ]);
+  navigateToUsers() {
+    this.router.navigate(['/admin/users']);
+  }
+
+  navigateToInviteAdmin() {
+    this.router.navigate(['/admin/users'], { queryParams: { invite: 'true' } });
+  }
+
+  viewDetails(id: number) {
+    this.router.navigate(['/alumni', id]);
+  }
+
+  loadData() {
+    this.alumniService.getPendingProfiles().subscribe(profiles => {
+      this.pendingProfiles.set(profiles);
+      this.page.set(1);
+    });
+    this.alumniService.getPendingCount().subscribe(res => {
+      this.pendingCount.set(res.count);
+    });
   }
 
   validateProfile(id: number) {
     this.alumniService.validateProfile(id).subscribe({
       next: () => {
         this.pendingProfiles.update((p) => p.filter((x) => x.id !== id));
+        this.pendingCount.update(c => c - 1);
+        if (this.page() > this.totalPages()) {
+          this.page.set(this.totalPages());
+        }
       },
       error: () => {
-        // Mock success for demo
-        this.pendingProfiles.update((p) => p.filter((x) => x.id !== id));
+        // Handle error
       },
     });
+  }
+
+  onPageChange(newPage: number) {
+    this.page.set(newPage);
+  }
+
+  onLimitChange(event: Event) {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.limit.set(value);
+    this.page.set(1);
   }
 }

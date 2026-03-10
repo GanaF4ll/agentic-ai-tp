@@ -12,7 +12,7 @@ import { LucideAngularModule, X, Send } from 'lucide-angular';
       <div class="card bg-base-100 w-full max-w-lg shadow-2xl border border-base-200 rounded-[2.5rem] overflow-hidden animate-in fade-in zoom-in duration-300">
         <div class="card-body p-8">
           <div class="flex items-center justify-between mb-8">
-            <h2 class="text-3xl font-black tracking-tighter text-primary">Nouvelle Invitation</h2>
+            <h2 class="text-3xl font-black tracking-tighter text-primary">Nouvel Administrateur</h2>
             <button (click)="close.emit()" class="btn btn-ghost btn-circle btn-sm">
               <lucide-icon name="x" size="24"></lucide-icon>
             </button>
@@ -57,7 +57,6 @@ import { LucideAngularModule, X, Send } from 'lucide-angular';
                 formControlName="role" 
                 class="select select-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-12"
               >
-                <option value="MEMBER">Membre (Alumni)</option>
                 <option value="ADMIN">Administrateur</option>
                 <option value="SUPER_ADMIN">Super Administrateur</option>
               </select>
@@ -119,7 +118,7 @@ export class UserCreateComponent {
     first_name: ['', [Validators.required]],
     last_name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    role: ['MEMBER', [Validators.required]]
+    role: ['ADMIN', [Validators.required]]
   });
 
   onSubmit() {

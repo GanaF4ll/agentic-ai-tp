@@ -1,4 +1,5 @@
 from rest_framework import viewsets, status
+from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -13,6 +14,23 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.filter(user__role=Role.MEMBER).select_related('user', 'promotion')
     serializer_class = ProfileSerializer
     filterset_class = ProfileFilter
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAdmin])
+    def validate(self, request, pk=None):
+        profile = self.get_object()
+        if profile.status == Profile.Status.VERIFIED:
+            return Response({"detail": "Déjà validé."}, status=status.HTTP_400_BAD_REQUEST)
+        if profile.user.role != Role.MEMBER:
+            return Response({"detail": "Seuls les membres peuvent être validés."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        profile.status = Profile.Status.VERIFIED
+        profile.save()
+        return Response(self.get_serializer(profile).data)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAdmin])
+    def count_pending(self, request):
+        count = Profile.objects.filter(status=Profile.Status.DRAFT).count()
+        return Response({"count": count})
 
 class PromotionViewSet(viewsets.ModelViewSet):
     queryset = Promotion.objects.all().order_by('label')

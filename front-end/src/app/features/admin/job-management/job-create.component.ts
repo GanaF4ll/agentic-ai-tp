@@ -15,28 +15,28 @@ import { JobOffer } from '../../../core/models/business.model';
     <div class="max-w-3xl mx-auto py-8 px-4">
       <header class="flex items-center justify-between mb-8">
         <div>
-          <h1 class="text-3xl font-black text-white tracking-tighter">Publier une Offre</h1>
-          <p class="text-white/60 font-medium mt-1">Créez une nouvelle opportunité pour notre réseau.</p>
+          <h1 class="text-3xl font-black text-base-content tracking-tighter">Publier une Offre</h1>
+          <p class="text-base-content/60 font-medium mt-1">Créez une nouvelle opportunité pour notre réseau.</p>
         </div>
-        <button routerLink="/jobs" class="btn btn-ghost btn-sm text-white/70 hover:text-white">
+        <button routerLink="/jobs" class="btn btn-ghost btn-sm text-base-content/70 hover:text-primary">
           <lucide-angular [img]="backIcon" class="size-4 mr-2"></lucide-angular>
           Retour
         </button>
       </header>
 
-      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="glass p-8 rounded-[var(--radius-card)] border border-white/20 shadow-[var(--shadow-card)] space-y-6">
+      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] space-y-6">
         <!-- Basic Info -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Titre du poste</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Titre du poste</span>
             </label>
             <div class="relative group">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                 <lucide-angular [img]="briefcaseIcon" class="size-5"></lucide-angular>
               </div>
               <input type="text" formControlName="title" placeholder="Ex: Développeur Angular Senior" 
-                class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+                class="input w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
             </div>
             @if (jobForm.controls.title.touched && jobForm.controls.title.invalid) {
               <label class="label">
@@ -47,14 +47,14 @@ import { JobOffer } from '../../../core/models/business.model';
 
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Entreprise</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Entreprise</span>
             </label>
             <div class="relative group">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                 <lucide-angular [img]="buildingIcon" class="size-5"></lucide-angular>
               </div>
               <input type="text" formControlName="company" placeholder="Nom de l'entreprise" 
-                class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+                class="input w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
             </div>
             @if (jobForm.controls.company.touched && jobForm.controls.company.invalid) {
               <label class="label">
@@ -68,9 +68,9 @@ import { JobOffer } from '../../../core/models/business.model';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Type de contrat</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Type de contrat</span>
             </label>
-            <select formControlName="type" class="select w-full bg-white/5 border-white/10 text-white focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+            <select formControlName="type" class="select w-full bg-base-200/50 border-base-200 text-base-content focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
               <option value="CDI">CDI</option>
               <option value="CDD">CDD</option>
               <option value="FREELANCE">Freelance</option>
@@ -80,14 +80,14 @@ import { JobOffer } from '../../../core/models/business.model';
 
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Localisation</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Localisation</span>
             </label>
             <div class="relative group">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                 <lucide-angular [img]="locationIcon" class="size-5"></lucide-angular>
               </div>
               <input type="text" formControlName="location" placeholder="Ex: Paris, France (Remote)" 
-                class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+                class="input w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
             </div>
           </div>
         </div>
@@ -96,28 +96,28 @@ import { JobOffer } from '../../../core/models/business.model';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Date de prise de poste</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Date de prise de poste</span>
             </label>
             <div class="relative group">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                 <lucide-angular [img]="calendarIcon" class="size-5"></lucide-angular>
               </div>
               <input type="date" formControlName="start_date" 
-                class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+                class="input w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
             </div>
           </div>
 
           @if (showEndDate()) {
             <div class="form-control w-full animate-in fade-in duration-300">
               <label class="label">
-                <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Date de fin</span>
+                <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Date de fin</span>
               </label>
               <div class="relative group">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                   <lucide-angular [img]="calendarIcon" class="size-5"></lucide-angular>
                 </div>
                 <input type="date" formControlName="end_date" 
-                  class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+                  class="input w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
               </div>
               @if (jobForm.controls.end_date.touched && jobForm.controls.end_date.invalid) {
                 <label class="label">
@@ -132,13 +132,13 @@ import { JobOffer } from '../../../core/models/business.model';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Remote Status</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Remote Status</span>
             </label>
             <div class="relative group">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                 <lucide-angular [img]="globeIcon" class="size-5"></lucide-angular>
               </div>
-              <select formControlName="remote_status" class="select w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+              <select formControlName="remote_status" class="select w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
                 <option value="ON SITE">Sur site</option>
                 <option value="HYBRID">Hybride</option>
                 <option value="FULL REMOTE">Télétravail complet</option>
@@ -148,13 +148,13 @@ import { JobOffer } from '../../../core/models/business.model';
 
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Périodicité</span>
+              <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Périodicité</span>
             </label>
             <div class="relative group">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
                 <lucide-angular [img]="clockIcon" class="size-5"></lucide-angular>
               </div>
-              <select formControlName="periodicity" class="select w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+              <select formControlName="periodicity" class="select w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
                 <option value="FULL TIME">Temps plein</option>
                 <option value="PART TIME">Temps partiel</option>
               </select>
@@ -165,28 +165,28 @@ import { JobOffer } from '../../../core/models/business.model';
         <!-- Source -->
         <div class="form-control w-full">
           <label class="label">
-            <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Lien de l'annonce (Source)</span>
+            <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Lien de l'annonce (Source)</span>
           </label>
           <div class="relative group">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
               <lucide-angular [img]="linkIcon" class="size-5"></lucide-angular>
             </div>
             <input type="url" formControlName="source_url" placeholder="https://..." 
-              class="input w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl">
+              class="input w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl">
           </div>
         </div>
 
         <!-- Description -->
         <div class="form-control w-full">
           <label class="label">
-            <span class="label-text text-white/70 font-bold uppercase tracking-widest text-xs">Description du poste</span>
+            <span class="label-text text-base-content/70 font-bold uppercase tracking-widest text-xs">Description du poste</span>
           </label>
           <div class="relative group">
-            <div class="absolute top-4 left-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-primary transition-colors">
+            <div class="absolute top-4 left-4 flex items-center pointer-events-none text-base-content/40 group-focus-within:text-primary transition-colors">
               <lucide-angular [img]="fileTextIcon" class="size-5"></lucide-angular>
             </div>
             <textarea formControlName="description" rows="6" placeholder="Décrivez les missions, le profil recherché..." 
-              class="textarea w-full bg-white/5 border-white/10 text-white pl-12 focus:border-primary/50 focus:bg-white/10 transition-all rounded-xl"></textarea>
+              class="textarea w-full bg-base-200/50 border-base-200 text-base-content pl-12 focus:border-primary/50 focus:bg-base-100 transition-all rounded-xl"></textarea>
           </div>
           @if (jobForm.controls.description.touched && jobForm.controls.description.invalid) {
             <label class="label">

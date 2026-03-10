@@ -54,6 +54,7 @@ class ProfileAPITests(APITestCase):
         )
 
         self.url = reverse('profile-list')
+        self.client.force_authenticate(user=self.user1)
 
     def test_get_profiles_list(self):
         response = self.client.get(self.url)
