@@ -24,8 +24,11 @@ import { AuthService } from '../../../core/auth/auth.service';
 
       @for (event of events(); track event.id) {
         <div class="group card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 hover:border-primary/30 hover:bg-base-200/50 transition-all duration-300 rounded-[var(--radius-card)] overflow-hidden">
-          <figure class="bg-base-200/50 h-48 flex items-center justify-center border-b border-base-200 relative overflow-hidden group-hover:bg-base-200 transition-colors">
-             <lucide-angular [img]="calendarIcon" class="size-20 text-base-content opacity-10 group-hover:scale-110 transition-transform duration-500"></lucide-angular>
+          <figure class="h-48 flex items-center justify-center border-b border-base-200 relative overflow-hidden bg-gradient-to-br from-base-200 via-base-100 to-base-200 group-hover:from-base-200 group-hover:to-base-300 transition-colors">
+             <div class="absolute inset-0 bg-primary/5"></div>
+             <div class="relative flex size-24 items-center justify-center rounded-3xl border border-base-300 bg-base-100/80 shadow-sm backdrop-blur-sm">
+               <lucide-angular [img]="calendarIcon" class="size-12 text-primary/60 group-hover:scale-110 group-hover:text-primary transition-all duration-500"></lucide-angular>
+             </div>
              <div class="absolute top-4 right-4">
                 <div class="badge bg-base-300 border-none text-base-content font-black text-[10px] px-3 py-3 shadow-sm">{{ event.is_online ? 'EN LIGNE' : 'PRÉSENTIEL' }}</div>
              </div>
