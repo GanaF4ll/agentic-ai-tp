@@ -14,14 +14,14 @@ import { ToastService } from '../../../core/services/toast.service';
   imports: [CommonModule, LucideAngularModule, RouterLink, FormsModule],
   template: `
     <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
-      <header class="col-span-full flex flex-col md:flex-row justify-between items-start md:items-end gap-6 glass p-8 rounded-[var(--radius-card)] border border-white/20 shadow-[var(--shadow-card)] text-white">
+      <header class="col-span-full flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] text-base-content">
         <div>
-          <h1 class="text-4xl font-black text-white tracking-tighter">Offres d'Emploi</h1>
-          <p class="text-white/70 font-medium mt-2">Opportunités exclusives pour notre réseau d'alumni.</p>
+          <h1 class="text-4xl font-black text-base-content tracking-tighter">Offres d'Emploi</h1>
+          <p class="text-base-content/70 font-medium mt-2">Opportunités exclusives pour notre réseau d'alumni.</p>
         </div>
         
         <div class="flex gap-3">
-          <button (click)="toggleFilters()" class="btn btn-ghost border-white/20 text-white font-bold rounded-xl lg:hidden">
+          <button (click)="toggleFilters()" class="btn btn-ghost border-base-200 text-base-content font-bold rounded-xl lg:hidden">
             <lucide-angular [img]="filterIcon" class="size-4 mr-2"></lucide-angular>
             Filtres
           </button>
@@ -37,60 +37,73 @@ import { ToastService } from '../../../core/services/toast.service';
 
       <aside class="col-span-full lg:col-span-2 flex flex-col gap-6" [ngClass]="{'hidden lg:flex': !showMobileFilters()}">
         <!-- Filters Card -->
-        <div class="card glass border border-white/20 rounded-[var(--radius-card)] overflow-hidden bg-white/5">
+        <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
           <div class="card-body p-6">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-black text-white uppercase tracking-widest text-xs">Filtres Avancés</h3>
-              <button (click)="resetFilters()" class="btn btn-ghost btn-xs text-white/40 hover:text-white">Réinitialiser</button>
-            </div>
+            <h2 class="text-xs font-black uppercase tracking-widest text-base-content/40 mb-4 flex items-center gap-2">
+              <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
+              Recherche & Filtres
+            </h2>
 
-            <div class="space-y-4">
-              <div class="form-control w-full">
-                <label class="label py-1"><span class="label-text text-white/60 text-[10px] font-black uppercase">Type de contrat</span></label>
-                <select [(ngModel)]="filters().type" (ngModelChange)="onFilterChange()" class="select select-sm bg-white/5 border-white/10 text-white focus:border-primary/50 transition-all rounded-lg">
+            <div class="flex flex-col gap-5">
+              <fieldset class="fieldset p-0">
+                <legend class="fieldset-legend font-bold text-sm text-base-content/80">Type de contrat</legend>
+                <select [(ngModel)]="filters().type" (ngModelChange)="onFilterChange()" 
+                  class="select glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content">
                   <option value="">Tous les types</option>
                   <option value="CDI">CDI</option>
                   <option value="CDD">CDD</option>
                   <option value="FREELANCE">Freelance</option>
                   <option value="INTERNSHIP">Stage</option>
                 </select>
-              </div>
+              </fieldset>
 
-              <div class="form-control w-full">
-                <label class="label py-1"><span class="label-text text-white/60 text-[10px] font-black uppercase">Remote Policy</span></label>
-                <select [(ngModel)]="filters().remote_status" (ngModelChange)="onFilterChange()" class="select select-sm bg-white/5 border-white/10 text-white focus:border-primary/50 transition-all rounded-lg">
+              <fieldset class="fieldset p-0">
+                <legend class="fieldset-legend font-bold text-sm text-base-content/80">Remote Policy</legend>
+                <select [(ngModel)]="filters().remote_status" (ngModelChange)="onFilterChange()" 
+                  class="select glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content">
                   <option value="">Peu importe</option>
                   <option value="ON SITE">Sur site</option>
                   <option value="HYBRID">Hybride</option>
                   <option value="FULL REMOTE">Télétravail complet</option>
                 </select>
-              </div>
+              </fieldset>
 
-              <div class="form-control w-full">
-                <label class="label py-1"><span class="label-text text-white/60 text-[10px] font-black uppercase">Périodicité</span></label>
-                <select [(ngModel)]="filters().periodicity" (ngModelChange)="onFilterChange()" class="select select-sm bg-white/5 border-white/10 text-white focus:border-primary/50 transition-all rounded-lg">
+              <fieldset class="fieldset p-0">
+                <legend class="fieldset-legend font-bold text-sm text-base-content/80">Périodicité</legend>
+                <select [(ngModel)]="filters().periodicity" (ngModelChange)="onFilterChange()" 
+                  class="select glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content">
                   <option value="">Peu importe</option>
                   <option value="FULL TIME">Temps plein</option>
                   <option value="PART TIME">Temps partiel</option>
                 </select>
-              </div>
+              </fieldset>
 
-              <div class="form-control w-full">
-                <label class="label py-1"><span class="label-text text-white/60 text-[10px] font-black uppercase">Disponible à partir de</span></label>
-                <input type="date" [(ngModel)]="filters().start_date" (ngModelChange)="onFilterChange()" class="input input-sm bg-white/5 border-white/10 text-white focus:border-primary/50 transition-all rounded-lg" />
+              <fieldset class="fieldset p-0">
+                <legend class="fieldset-legend font-bold text-sm text-base-content/80">Disponible à partir de</legend>
+                <input type="date" [(ngModel)]="filters().start_date" (ngModelChange)="onFilterChange()" 
+                  class="input glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content" />
+              </fieldset>
+
+              <div class="divider opacity-10 my-0 before:bg-base-content after:bg-base-content"></div>
+
+              <div class="flex flex-col gap-2">
+                <button type="button" (click)="resetFilters()" 
+                  class="btn btn-primary h-12 font-bold shadow-lg shadow-primary/20 border-none text-primary-content">
+                  Réinitialiser
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         @if (isMember()) {
-          <div class="card glass border border-white/20 rounded-[var(--radius-card)] overflow-hidden bg-white/5">
+          <div class="card bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden">
             <div class="card-body p-6">
-               <div class="size-10 rounded-xl bg-accent/20 flex items-center justify-center mb-4 text-accent-content">
-                 <lucide-angular [img]="jobIcon" class="size-5 text-accent"></lucide-angular>
+               <div class="size-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4 text-accent">
+                 <lucide-angular [img]="jobIcon" class="size-5"></lucide-angular>
                </div>
-               <h3 class="font-black text-white leading-tight">Services Carrière</h3>
-               <p class="text-sm text-white/70 mt-2">Besoin d'aide pour votre CV ou préparation d'entretien ? Nos experts sont là.</p>
+               <h3 class="font-black text-base-content leading-tight">Services Carrière</h3>
+               <p class="text-sm text-base-content/70 mt-2">Besoin d'aide pour votre CV ou préparation d'entretien ? Nos experts sont là.</p>
                <button class="btn btn-accent btn-sm mt-4 font-bold border-none text-accent-content rounded-lg">Réserver une session</button>
             </div>
           </div>
@@ -104,23 +117,23 @@ import { ToastService } from '../../../core/services/toast.service';
           </div>
         } @else {
           @for (job of jobs(); track job.id) {
-            <div class="group card glass shadow-[var(--shadow-card)] border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300 rounded-[var(--radius-card)] overflow-hidden">
+            <div class="group card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 hover:border-primary/30 hover:bg-base-200/50 transition-all duration-300 rounded-[var(--radius-card)] overflow-hidden">
               <div class="card-body p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div class="flex gap-5">
-                  <div class="bg-white/10 group-hover:bg-white/20 p-4 rounded-2xl h-fit border border-white/10 transition-colors">
-                     <lucide-angular [img]="jobIcon" class="size-6 text-white"></lucide-angular>
+                  <div class="bg-base-200 group-hover:bg-base-300 p-4 rounded-2xl h-fit border border-base-200 transition-colors">
+                     <lucide-angular [img]="jobIcon" class="size-6 text-base-content"></lucide-angular>
                   </div>
                   <div>
-                    <h3 class="text-xl font-black tracking-tight text-white group-hover:text-primary transition-colors">{{ job.title }}</h3>
-                    <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs font-bold text-white/60 mt-2 uppercase tracking-wide">
-                      <span class="flex items-center gap-1.5 text-white font-black">
+                    <h3 class="text-xl font-black tracking-tight text-base-content group-hover:text-primary transition-colors">{{ job.title }}</h3>
+                    <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs font-bold text-base-content/60 mt-2 uppercase tracking-wide">
+                      <span class="flex items-center gap-1.5 text-base-content font-black">
                         {{ job.company }}
                       </span>
                       <span class="flex items-center gap-1.5">
                         <lucide-angular [img]="locationIcon" class="size-3"></lucide-angular>
                         {{ job.location }}
                       </span>
-                      <span class="flex items-center gap-1.5 bg-white/10 px-2 py-0.5 rounded-md text-white">
+                      <span class="flex items-center gap-1.5 bg-base-200 px-2 py-0.5 rounded-md text-base-content">
                         <lucide-angular [img]="clockIcon" class="size-3"></lucide-angular>
                         {{ job.type }}
                       </span>
@@ -131,19 +144,19 @@ import { ToastService } from '../../../core/services/toast.service';
                     </div>
                     <!-- New enriched badges -->
                     <div class="flex flex-wrap gap-2 mt-3">
-                       <div class="badge badge-sm bg-primary/20 text-white border border-primary/30 font-black py-3 px-3 shadow-sm">
+                       <div class="badge badge-sm bg-primary/10 text-primary border border-primary/20 font-black py-3 px-3 shadow-sm">
                           <lucide-angular [img]="clockIcon" class="size-3 mr-1.5"></lucide-angular>
                           {{ job.periodicity }}
                        </div>
-                       <div class="badge badge-sm bg-accent/20 text-white border border-accent/30 font-black py-3 px-3 shadow-sm">
+                       <div class="badge badge-sm bg-accent/10 text-accent border border-accent/20 font-black py-3 px-3 shadow-sm">
                           <lucide-angular [img]="globeIcon" class="size-3 mr-1.5"></lucide-angular>
                           {{ job.remote_status }}
                        </div>
                     </div>
                   </div>
                 </div>
-                <div class="flex gap-2 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/10">
-                  <a [routerLink]="['/jobs', job.id]" class="btn btn-ghost btn-sm font-bold flex-1 md:flex-none px-6 text-white hover:bg-white/10 rounded-lg">Détails</a>
+                <div class="flex gap-2 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-base-200">
+                  <a [routerLink]="['/jobs', job.id]" class="btn btn-ghost btn-sm font-bold flex-1 md:flex-none px-6 text-base-content hover:bg-base-200/50 rounded-lg">Détails</a>
                   @if (isMember()) {
                     <button (click)="onApply(job)" class="btn btn-primary btn-sm font-bold flex-1 md:flex-none px-6 shadow-md shadow-primary/10 border-none text-primary-content rounded-lg">Postuler</button>
                   }
@@ -151,39 +164,39 @@ import { ToastService } from '../../../core/services/toast.service';
               </div>
             </div>
           } @empty {
-             <div class="flex flex-col items-center justify-center py-20 glass rounded-[var(--radius-card)] border-2 border-dashed border-white/20 shadow-sm">
-               <lucide-angular [img]="jobIcon" class="size-12 text-white/20 mb-4"></lucide-angular>
-               <p class="text-white/40 font-bold italic">Aucune offre d'emploi disponible pour le moment.</p>
+             <div class="flex flex-col items-center justify-center py-20 bg-base-100 rounded-[var(--radius-card)] border-2 border-dashed border-base-200 shadow-sm">
+               <lucide-angular [img]="jobIcon" class="size-12 text-base-content/20 mb-4"></lucide-angular>
+               <p class="text-base-content/40 font-bold italic">Aucune offre d'emploi disponible pour le moment.</p>
              </div>
           }
 
           <!-- Pagination Controls -->
           @if (totalCount() > 0) {
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 glass p-4 rounded-2xl border border-white/10">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 bg-base-100 p-4 rounded-2xl border border-base-200">
               <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-white/40 uppercase tracking-widest">Afficher</span>
-                <select [ngModel]="limit()" (ngModelChange)="onLimitChange($event)" class="select select-xs bg-white/5 border-white/10 text-white rounded-lg">
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
+                <select [ngModel]="limit()" (ngModelChange)="onLimitChange($event)" class="select select-xs bg-base-200/50 border-base-200 text-base-content rounded-lg">
                   <option [value]="5">5</option>
                   <option [value]="10">10</option>
                   <option [value]="15">15</option>
                   <option [value]="20">20</option>
                 </select>
-                <span class="text-xs font-bold text-white/40 uppercase tracking-widest">par page</span>
+                <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
               </div>
 
               <div class="join">
-                <button [disabled]="page() === 1" (click)="onPageChange(page() - 1)" class="join-item btn btn-sm bg-white/5 border-white/10 text-white hover:bg-white/10">
+                <button [disabled]="page() === 1" (click)="onPageChange(page() - 1)" class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50">
                   <lucide-angular [img]="prevIcon" class="size-4"></lucide-angular>
                 </button>
-                <button class="join-item btn btn-sm bg-primary/20 border-white/10 text-white hover:bg-primary/30 font-black">
+                <button class="join-item btn btn-sm bg-primary/10 border-base-200 text-primary hover:bg-primary/20 font-black">
                   Page {{ page() }} sur {{ totalPages() }}
                 </button>
-                <button [disabled]="page() >= totalPages()" (click)="onPageChange(page() + 1)" class="join-item btn btn-sm bg-white/5 border-white/10 text-white hover:bg-white/10">
+                <button [disabled]="page() >= totalPages()" (click)="onPageChange(page() + 1)" class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content hover:bg-base-200/50">
                   <lucide-angular [img]="nextIcon" class="size-4"></lucide-angular>
                 </button>
               </div>
 
-              <div class="text-xs font-bold text-white/40 uppercase tracking-widest">
+              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
                 {{ totalCount() }} résultats au total
               </div>
             </div>

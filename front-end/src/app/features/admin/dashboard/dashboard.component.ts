@@ -20,8 +20,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             Tableau de bord <span class="text-base-content/30">Admin</span>
           </h1>
           <p class="text-base-content/50 font-medium mt-3">
-            Gérez les profils des alumni, les promotions et surveillez l'activité de
-            la plateforme.
+            Administration des alumnis, des promotions et des utilisateurs.
           </p>
         </div>
 

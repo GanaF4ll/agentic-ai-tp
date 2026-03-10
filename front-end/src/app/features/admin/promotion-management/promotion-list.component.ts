@@ -100,7 +100,7 @@ import { switchMap, startWith } from 'rxjs';
               <input 
                 type="text" 
                 [(ngModel)]="editLabel" 
-                placeholder="Ex: Promotion 2024" 
+                placeholder="Ex: BIG DATA" 
                 class="input input-bordered w-full rounded-2xl font-bold bg-base-200/50 border-base-300 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                 (keyup.enter)="savePromotion()"
               />
