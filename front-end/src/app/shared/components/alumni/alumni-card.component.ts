@@ -16,11 +16,11 @@ import {
   imports: [LucideAngularModule, RouterLink],
   template: `
     <div
-      class="card bg-base-100 border border-base-200 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-2xl hover:bg-base-200/50 hover:-translate-y-1 rounded-[var(--radius-card)] overflow-hidden"
+      class="card h-full bg-base-100 border border-base-200 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-2xl hover:bg-base-200/50 hover:-translate-y-1 rounded-[var(--radius-card)] overflow-hidden"
     >
-      <div class="card-body p-6">
-        <div class="flex items-start justify-between">
-          <div class="flex gap-4">
+      <div class="card-body h-full p-6 flex flex-col">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex gap-4 min-w-0 flex-1">
             <div class="avatar placeholder">
               <div class="bg-primary/10 text-primary rounded-2xl size-14 border border-primary/20">
                 <span class="text-xl font-black"
@@ -28,15 +28,15 @@ import {
                 >
               </div>
             </div>
-            <div>
-              <h2 class="card-title text-xl font-black tracking-tight leading-tight text-base-content">
+            <div class="min-w-0 flex-1">
+              <h2 class="card-title text-xl font-black tracking-tight leading-tight text-base-content break-words">
                 {{ alumni().user.first_name }} {{ alumni().user.last_name }}
               </h2>
               <div
-                class="flex items-center gap-1.5 text-xs font-bold text-base-content/60 mt-1 uppercase tracking-wider"
+                class="mt-1 flex items-start gap-1.5 text-xs font-bold text-base-content/60 uppercase tracking-wider"
               >
-                <lucide-angular [img]="graduationIcon" class="size-3"></lucide-angular>
-                <span
+                <lucide-angular [img]="graduationIcon" class="size-3 shrink-0"></lucide-angular>
+                <span class="break-words"
                   >{{ alumni().degree }} <span class="mx-1 text-base-content/40">•</span> Promotion
                   {{ alumni().graduation_year }}</span
                 >
@@ -56,12 +56,12 @@ import {
           }
         </div>
 
-        <p class="mt-5 text-sm font-medium text-base-content/70 line-clamp-2 leading-relaxed italic">
+        <p class="mt-5 min-h-[4.5rem] text-sm font-medium text-base-content/70 leading-relaxed italic line-clamp-3">
           "À la recherche d'opportunités en ingénierie logicielle et architecture cloud. Passionné
           par l'IA agentique et les frameworks web modernes."
         </p>
 
-        <div class="card-actions justify-between items-center mt-6 pt-5 border-t border-base-200">
+        <div class="card-actions justify-between items-center mt-auto pt-5 border-t border-base-200">
           <div class="flex gap-2">
             @if (alumni().linkedin_url) {
               <a

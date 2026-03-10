@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { Profile } from '../../../core/models/profile.model';
 import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCircle, ArrowLeft, User } from 'lucide-angular';
@@ -9,15 +10,15 @@ import { map, switchMap } from 'rxjs';
 @Component({
   selector: 'app-profile-detail',
   standalone: true,
-  imports: [RouterLink, LucideAngularModule],
+  imports: [LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex flex-col gap-8">
       <nav>
-        <a routerLink="/alumni" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60 hover:text-primary">
+        <button type="button" (click)="goBack()" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60 hover:text-primary">
           <lucide-angular [img]="backIcon" class="size-4"></lucide-angular>
-          Retour à l'annuaire
-        </a>
+          Retour
+        </button>
       </nav>
 
       @if (profile(); as p) {
@@ -126,6 +127,7 @@ import { map, switchMap } from 'rxjs';
   `
 })
 export class ProfileDetailComponent {
+  private location = inject(Location);
   private route = inject(ActivatedRoute);
   private alumniService = inject(AlumniService);
   
@@ -145,4 +147,8 @@ export class ProfileDetailComponent {
       ))
     )
   );
+
+  goBack() {
+    this.location.back();
+  }
 }
