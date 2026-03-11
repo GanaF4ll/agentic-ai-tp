@@ -1,12 +1,14 @@
 import random
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils import timezone
 from faker import Faker
 from accounts.models import User, Role
 from alumni.models import Profile, Promotion, Education, Experience
+from events.models import Event
 
 class Command(BaseCommand):
-    help = 'Seeds the database with realistic alumni data, including Super Admin and Admins'
+    help = 'Seeds the database with realistic alumni data and events'
 
     def handle(self, *args, **options):
         fake = Faker('fr_FR')
@@ -38,6 +40,8 @@ class Command(BaseCommand):
                     bio="Super Administrateur de la plateforme.",
                     status=Profile.Status.VERIFIED
                 )
+            else:
+                super_admin = User.objects.get(email='mds.school@gmail.com')
 
             # 3. Create Admins
             if User.objects.filter(role=Role.ADMIN).count() < 3:
@@ -117,4 +121,47 @@ class Command(BaseCommand):
                     if (i + 1) % 20 == 0:
                         self.stdout.write(f"Created {i + 1} profiles...")
 
-        self.stdout.write(self.style.SUCCESS('Database successfully seeded with Admins and Members!'))
+            # 7. Create Events
+            self.stdout.write('Creating 15 Mock Events...')
+            # Clear existing events for a clean seed of events if needed, or just add more.
+            # Here we'll just ensure we have at least 15 diverse ones.
+            event_templates = [
+                ('Soirée de Gala Annuelle', False),
+                ('Conférence IA et Futur', True),
+                ('Atelier Recherche d\'Emploi', True),
+                ('Meetup Développeurs', False),
+                ('Networking Marketing', False),
+                ('Conférence sur le Freelancing', True),
+                ('Hackathon Alumni', False),
+                ('Webinaire : Travailler à l\'étranger', True),
+                ('Afterwork Promotion DEV', False),
+                ('Atelier Design Thinking', False),
+                ('Session Coaching CV', True),
+                ('Table Ronde : Entrepreneuriat', False),
+                ('Petit-déjeuner Networking', False),
+                ('Workshop React & Signals', True),
+                ('Soirée de Clôture Année', False),
+            ]
+            
+            for i, (title, is_online) in enumerate(event_templates):
+                # Mix of past and future dates
+                if i < 5:
+                    # 5 Past events
+                    event_date = timezone.now() - timezone.timedelta(days=random.randint(7, 30))
+                else:
+                    # 10 Future events
+                    event_date = timezone.now() + timezone.timedelta(days=random.randint(1, 60))
+
+                Event.objects.get_or_create(
+                    title=title,
+                    defaults={
+                        'description': fake.paragraph(nb_sentences=3),
+                        'location': 'En ligne' if is_online else random.choice([fake.city(), 'Campus Paris', 'Espace Coworking']),
+                        'date': event_date,
+                        'is_online': is_online,
+                        'organizer': random.choice(['BDE', 'Association Alumni', 'School Tech Hub', 'Administration']),
+                        'created_by': super_admin
+                    }
+                )
+
+        self.stdout.write(self.style.SUCCESS('Database successfully seeded!'))

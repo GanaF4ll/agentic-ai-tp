@@ -23,4 +23,6 @@ export interface AlumniEvent {
   location: string;
   is_online: boolean;
   organizer: string;
+  is_registered?: boolean;
+  participants_count?: number;
 }
