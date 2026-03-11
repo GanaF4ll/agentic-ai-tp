@@ -30,4 +30,12 @@ export class AlumniService {
   validateProfile(id: number) {
     return this.http.post<Profile>(`${this.API_URL}/${id}/validate/`, {});
   }
+
+  getMyProfile() {
+    return this.http.get<Profile>(`${this.API_URL}/me/`);
+  }
+
+  updateMyProfile(data: Partial<Profile>) {
+    return this.http.patch<Profile>(`${this.API_URL}/me/`, data);
+  }
 }

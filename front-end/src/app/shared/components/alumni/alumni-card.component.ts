@@ -63,7 +63,7 @@ import {
 
         <div class="card-actions justify-between items-center mt-auto pt-5 border-t border-base-200">
           <div class="flex gap-2">
-            @if (alumni().linkedin_url) {
+            @if (alumni().linkedin_url && alumni().linkedin_url !== 'Privé') {
               <a
                 [href]="alumni().linkedin_url"
                 target="_blank"

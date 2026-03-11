@@ -32,6 +32,7 @@ class Profile(models.Model):
         choices=Status.choices,
         default=Status.DRAFT
     )
+    is_visible = models.BooleanField(default=True)
     promotion = models.ForeignKey(
         Promotion,
         on_delete=models.SET_NULL,

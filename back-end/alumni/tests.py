@@ -91,6 +91,31 @@ class ProfileAPITests(APITestCase):
         response = self.client.get(self.url, {'prenom': 'Jean', 'promo': '2023'})
         self.assertEqual(len(response.data), 2) # Both Jean and Jean-Luc are in 2023
 
+    def test_frontend_filter_search(self):
+        # Test searching by name
+        response = self.client.get(self.url, {'search': 'Marie'})
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['user']['first_name'], 'Marie')
+
+        # Test searching by company (none set in setUp, let's update one)
+        self.profile1.current_company = "Google"
+        self.profile1.save()
+        response = self.client.get(self.url, {'search': 'Google'})
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['user']['first_name'], 'Jean')
+
+    def test_frontend_filter_graduation_year(self):
+        response = self.client.get(self.url, {'graduation_year': 2024})
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['graduation_year'], 2024)
+
+    def test_frontend_filter_degree(self):
+        self.profile1.degree = "Master AI"
+        self.profile1.save()
+        response = self.client.get(self.url, {'degree': 'AI'})
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['degree'], 'Master AI')
+
     def test_create_profile(self):
         new_user = User.objects.create_user(email="newuser@test.com", password="password")
         data = {

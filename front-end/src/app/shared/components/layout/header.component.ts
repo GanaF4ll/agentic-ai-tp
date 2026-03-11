@@ -67,7 +67,7 @@ import { ThemeToggleComponent } from './theme-toggle.component';
             </div>
             <ul tabindex="0" class="mt-3 z-70 p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 border border-base-200 rounded-box w-52 text-base-content">
               <li class="px-4 py-2 font-semibold text-xs uppercase text-base-content/50">Mon Compte</li>
-              <li><a routerLink="/profile" class="hover:bg-base-200 transition-colors">Paramètres du profil</a></li>
+              <li><a routerLink="/profiles" class="hover:bg-base-200 transition-colors">Mon Profil</a></li>
               <div class="divider my-1 before:bg-base-content/10 after:bg-base-content/10"></div>
               <li><a (click)="logout()" class="text-error font-semibold hover:bg-error/10 transition-colors"><lucide-angular [img]="logoutIcon" class="size-4"></lucide-angular> Déconnexion</a></li>
             </ul>
@@ -101,7 +101,7 @@ export class HeaderComponent {
     if (url.includes('/jobs')) return 'Emplois';
     if (url.includes('/events')) return 'Événements';
     if (url.includes('/admin')) return 'Tableau de bord';
-    if (url.includes('/profile')) return 'Mon Profil';
+    if (url.includes('/profiles')) return 'Mon Profil';
     if (url.includes('/login')) return 'Connexion';
     if (url.includes('/register')) return 'Inscription';
     return 'Plateforme';
