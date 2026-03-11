@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { Profile } from '../../../core/models/profile.model';
 import { AlumniCardComponent } from '../../../shared/components/alumni/alumni-card.component';
-import { LucideAngularModule, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, Search, Filter, ChevronLeft, ChevronRight, X } from 'lucide-angular';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
     <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
       <!-- Header Bento Block -->
       <header
-        class="col-span-full relative overflow-hidden rounded-[var(--radius-card)] bg-base-100 px-8 py-12 text-base-content shadow-[var(--shadow-card)] border border-base-200"
+        class="col-span-full relative overflow-hidden rounded-[var(--radius-card)] bg-base-100 px-6 py-10 md:px-8 md:py-12 text-base-content shadow-[var(--shadow-card)] border border-base-200"
       >
         <!-- Abstract background pattern -->
         <div
@@ -41,25 +41,33 @@ import { HttpClient } from '@angular/common/http';
           class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
         >
           <div class="max-w-2xl">
-            <h1 class="text-5xl font-black tracking-tighter leading-none mb-4 text-base-content">
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-4 text-base-content">
               Annuaire <span class="text-base-content/40">des Alumni</span>
             </h1>
-            <p class="text-xl text-base-content/70 font-medium leading-relaxed">
+            <p class="text-lg md:text-xl text-base-content/70 font-medium leading-relaxed">
               Explorez le réseau de nos brillants diplômés. Connectez-vous, partagez et grandissez
               ensemble au sein de notre communauté professionnelle.
             </p>
+            
+            <button 
+              (click)="toggleFilters()" 
+              class="btn btn-ghost border-base-200 text-base-content font-bold rounded-xl lg:hidden mt-6"
+            >
+              <lucide-angular [img]="filterIcon" class="size-4 mr-2"></lucide-angular>
+              {{ showMobileFilters() ? 'Masquer les filtres' : 'Afficher les filtres' }}
+            </button>
           </div>
 
           <div
-            class="stats bg-base-100 border border-base-200 text-base-content shadow-2xl rounded-2xl bg-base-200/50"
+            class="stats stats-vertical sm:stats-horizontal bg-base-100 border border-base-200 text-base-content shadow-2xl rounded-2xl bg-base-200/50 w-full md:w-auto"
           >
-            <div class="stat px-8 py-6">
+            <div class="stat px-6 py-4 md:px-8 md:py-6">
               <div
                 class="stat-title text-base-content/60 uppercase tracking-[0.2em] text-[10px] font-black"
               >
                 Force du réseau
               </div>
-              <div class="stat-value text-5xl font-black tabular-nums text-primary">
+              <div class="stat-value text-4xl md:text-5xl font-black tabular-nums text-primary">
                 {{ totalCount() }}
               </div>
               <div class="stat-desc text-base-content/70 mt-2 font-bold flex items-center gap-2">
@@ -72,17 +80,26 @@ import { HttpClient } from '@angular/common/http';
       </header>
 
       <!-- Sidebar Filter Block -->
-      <aside class="col-span-full lg:col-span-2 flex flex-col gap-6">
+      <aside 
+        class="col-span-full lg:col-span-2 flex flex-col gap-6"
+        [class.hidden]="!showMobileFilters() && !isLargeScreen()"
+        [class.lg:flex]="true"
+      >
         <section
           class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]"
         >
           <div class="card-body p-6">
-            <h2
-              class="text-xs font-black uppercase tracking-widest text-base-content/40 mb-4 flex items-center gap-2"
-            >
-              <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
-              Recherche & Filtres
-            </h2>
+            <div class="flex justify-between items-center mb-4 lg:mb-0">
+              <h2
+                class="text-xs font-black uppercase tracking-widest text-base-content/40 flex items-center gap-2"
+              >
+                <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
+                Recherche & Filtres
+              </h2>
+              <button (click)="toggleFilters()" class="btn btn-ghost btn-xs lg:hidden">
+                <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
+              </button>
+            </div>
 
             <form [formGroup]="filterForm" class="flex flex-col gap-5">
               <fieldset class="fieldset p-0">
@@ -261,10 +278,25 @@ export class AlumniListComponent {
   private alumniService = inject(AlumniService);
 
   isLoading = signal(true);
+  showMobileFilters = signal(false);
+  isLargeScreen = signal(window.innerWidth >= 1024);
+
   readonly searchIcon = Search;
   readonly filterIcon = Filter;
+  readonly closeIcon = X;
   readonly prevIcon = ChevronLeft;
   readonly nextIcon = ChevronRight;
+
+  constructor() {
+    window.addEventListener('resize', () => {
+      this.isLargeScreen.set(window.innerWidth >= 1024);
+    });
+  }
+
+  toggleFilters() {
+    this.showMobileFilters.update((v) => !v);
+  }
+
   private readonly API_URL = environment.apiUrl;
   private http = inject(HttpClient);
 

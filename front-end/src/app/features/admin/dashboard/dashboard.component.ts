@@ -12,12 +12,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
   standalone: true,
   imports: [LucideAngularModule],
   template: `
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <header
-        class="col-span-full bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative overflow-hidden"
+        class="col-span-full bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative overflow-hidden"
       >
         <div class="relative z-10">
-          <h1 class="text-4xl font-black text-primary tracking-tighter leading-none">
+          <h1 class="text-3xl md:text-4xl font-black text-primary tracking-tighter leading-none">
             Tableau de bord <span class="text-base-content/30">Admin</span>
           </h1>
           <p class="text-base-content/50 font-medium mt-3">
@@ -127,29 +127,29 @@ import { toSignal } from '@angular/core/rxjs-interop';
       >
         <div class="card-body p-0">
           <div
-            class="p-6 border-b border-base-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-base-100/50"
+            class="p-4 md:p-6 border-b border-base-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-base-100/50"
           >
             <div class="flex items-center gap-3">
               <div class="p-2 bg-primary/10 rounded-lg text-primary">
                 <lucide-angular [img]="clockIcon" class="size-5"></lucide-angular>
               </div>
-              <h2 class="card-title font-black tracking-tight">File d'attente de validation</h2>
+              <h2 class="card-title font-black tracking-tight text-lg md:text-xl">File d'attente de validation</h2>
             </div>
 
             <div
-              class="input input-bordered input-sm flex items-center gap-2 bg-base-200/50 focus-within:bg-base-100 focus-within:w-64 transition-all duration-300"
+              class="input input-bordered input-sm flex items-center gap-2 bg-base-200/50 focus-within:bg-base-100 w-full md:w-64 transition-all duration-300 h-10 md:h-8"
             >
               <lucide-angular [img]="searchIcon" class="size-4 opacity-40"></lucide-angular>
               <input
                 type="text"
-                placeholder="Rechercher des profils en attente..."
+                placeholder="Rechercher..."
                 class="grow font-medium placeholder:text-base-content/30"
               />
             </div>
           </div>
 
-          <div class="overflow-x-auto">
-            <table class="table table-zebra w-full">
+          <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
+            <table class="table table-zebra w-full min-w-[800px] md:min-w-full">
               <thead>
                 <tr
                   class="bg-base-200/30 text-xs uppercase text-base-content/50 font-bold tracking-wider"

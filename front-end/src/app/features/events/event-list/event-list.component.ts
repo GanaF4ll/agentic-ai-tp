@@ -1,5 +1,5 @@
 import { Component, signal, inject, OnInit, computed } from '@angular/core';
-import { LucideAngularModule, Calendar, MapPin, ExternalLink, CheckCircle, Filter, ChevronLeft, ChevronRight, Search } from 'lucide-angular';
+import { LucideAngularModule, Calendar, MapPin, ExternalLink, CheckCircle, Filter, ChevronLeft, ChevronRight, Search, X } from 'lucide-angular';
 import { AlumniEvent } from '../../../core/models/business.model';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EventService, EventFilters } from '../../../core/services/event.service';
@@ -15,12 +15,20 @@ import { RouterLink } from '@angular/router';
   imports: [LucideAngularModule, DatePipe, EventCreateComponent, FormsModule, CommonModule, RouterLink],
   template: `
     <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
-      <header class="col-span-full bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-base-content">
-        <div>
-          <h1 class="text-4xl font-black text-base-content tracking-tighter leading-none">Événements <span class="text-base-content/40">Communauté</span></h1>
+      <header class="col-span-full bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-base-content relative overflow-hidden">
+        <div class="relative z-10">
+          <h1 class="text-3xl md:text-4xl font-black text-base-content tracking-tighter leading-none">Événements <span class="text-base-content/40">Communauté</span></h1>
           <p class="text-base-content/60 font-medium mt-3">Networking, ateliers et vie de l'école.</p>
+          
+          <button 
+            (click)="toggleFilters()" 
+            class="btn btn-ghost border-base-200 text-base-content font-bold rounded-xl lg:hidden mt-6"
+          >
+            <lucide-angular [img]="filterIcon" class="size-4 mr-2"></lucide-angular>
+            {{ showMobileFilters() ? 'Masquer les filtres' : 'Afficher les filtres' }}
+          </button>
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2 relative z-10">
            @if (isMember()) {
              <button routerLink="/events/my-events" class="btn btn-ghost font-bold rounded-xl border-base-200 text-base-content hover:bg-base-200/50">Mes inscriptions</button>
            }
@@ -31,13 +39,22 @@ import { RouterLink } from '@angular/router';
       </header>
 
       <!-- Sidebar Filters -->
-      <aside class="col-span-full lg:col-span-2 flex flex-col gap-6">
+      <aside 
+        class="col-span-full lg:col-span-2 flex flex-col gap-6"
+        [class.hidden]="!showMobileFilters() && !isLargeScreen()"
+        [class.lg:flex]="true"
+      >
         <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
           <div class="card-body p-6">
-            <h2 class="text-xs font-black uppercase tracking-widest text-base-content/40 mb-4 flex items-center gap-2">
-              <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
-              Recherche & Filtres
-            </h2>
+            <div class="flex justify-between items-center mb-4 lg:mb-0">
+              <h2 class="text-xs font-black uppercase tracking-widest text-base-content/40 flex items-center gap-2">
+                <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
+                Recherche & Filtres
+              </h2>
+              <button (click)="toggleFilters()" class="btn btn-ghost btn-xs lg:hidden">
+                <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
+              </button>
+            </div>
 
             <div class="flex flex-col gap-5">
               <fieldset class="fieldset p-0">
@@ -184,6 +201,7 @@ export class EventListComponent implements OnInit {
   readonly prevIcon = ChevronLeft;
   readonly nextIcon = ChevronRight;
   readonly searchIcon = Search;
+  readonly closeIcon = X;
 
   isAdmin = this.authService.isAdmin;
   isMember = this.authService.isMember;
@@ -191,6 +209,18 @@ export class EventListComponent implements OnInit {
   events = signal<AlumniEvent[]>([]);
   isLoading = signal(true);
   showCreateModal = signal(false);
+  showMobileFilters = signal(false);
+  isLargeScreen = signal(window.innerWidth >= 1024);
+
+  constructor() {
+    window.addEventListener('resize', () => {
+      this.isLargeScreen.set(window.innerWidth >= 1024);
+    });
+  }
+
+  toggleFilters() {
+    this.showMobileFilters.update(v => !v);
+  }
 
   // Filters & Pagination State
   filters = signal<EventFilters>({
