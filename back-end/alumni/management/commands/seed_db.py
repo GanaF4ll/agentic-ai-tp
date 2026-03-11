@@ -64,7 +64,7 @@ ALUMNI_DATA = {
         {"fields": {"user": 155, "bio": "Mahylan Veclin - Wangarden", "current_job_title": "Alternant", "current_company": "Wangarden", "location": "Paris, Île-de-France, France", "linkedin_url": "https://fr.linkedin.com/in/mahylan-veclin-59aa40242"}, "pk": 128},
         {"fields": {"user": 156, "bio": "Étudiant en MBA développeur full-stack en alternance chez AXA", "current_job_title": "Développeur Full Stack", "current_company": "AXA en France", "location": "Paris, Île-de-France, France", "linkedin_url": "https://fr.linkedin.com/in/amrou-ben-abdessalem-8b4324294"}, "pk": 129},
         {"fields": {"user": 157, "bio": "Sarah OTMANE - Crédit Agricole Assurances", "current_job_title": "Développeuse Full Stack", "current_company": "Crédit Agricole Assurances", "location": "Paris, Île-de-France, France", "linkedin_url": "https://fr.linkedin.com/in/sarah-otmane-b03212251"}, "pk": 130},
-        {"fields": {"user": 158, "bio": "", "current_job_title": "", "current_company": "", "location": "", "linkedin_url": null}, "pk": 131},
+        {"fields": {"user": 158, "bio": "", "current_job_title": "", "current_company": "", "location": "", "linkedin_url": None}, "pk": 131},
         {"fields": {"user": 160, "bio": "Mattéo HOUILLON - EVERTRUST", "current_job_title": "Alternant", "current_company": "EVERTRUST", "location": "Vaires-sur-Marne, Île-de-France, France", "linkedin_url": "https://fr.linkedin.com/in/mattéo-houillon"}, "pk": 133}
     ],
     "education": [
