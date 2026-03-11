@@ -64,64 +64,6 @@ class Command(BaseCommand):
                             status=Profile.Status.VERIFIED
                         )
 
-            # 4. Create at least 100 MEMBER Profiles
-            current_member_count = User.objects.filter(role=Role.MEMBER).count()
-            profiles_to_create = max(0, 100 - current_member_count)
-            
-            if profiles_to_create > 0:
-                self.stdout.write(f'Creating {profiles_to_create} Member profiles...')
-                for i in range(profiles_to_create):
-                    # Create a User first
-                    first_name = fake.first_name()
-                    last_name = fake.last_name()
-                    email = fake.unique.email()
-                    
-                    user = User.objects.create_user(
-                        email=email,
-                        password='password123',
-                        first_name=first_name,
-                        last_name=last_name,
-                        role=Role.MEMBER,
-                        degree=fake.job(),
-                        graduation_year=random.choice(range(2015, 2026))
-                    )
-
-                    # Create the Profile (OneToOne with User)
-                    profile = Profile.objects.create(
-                        user=user,
-                        bio=fake.text(max_nb_chars=200),
-                        current_job_title=user.degree,
-                        current_company=fake.company(),
-                        location=fake.city(),
-                        linkedin_url=f"https://www.linkedin.com/in/{first_name.lower()}.{last_name.lower()}",
-                        graduation_year=user.graduation_year,
-                        degree=user.degree,
-                        status=random.choice([Profile.Status.DRAFT, Profile.Status.VERIFIED]),
-                        promotion=random.choice(promotions)
-                    )
-
-                    # 5. Add some Education history
-                    for _ in range(random.randint(1, 3)):
-                        Education.objects.create(
-                            profile=profile,
-                            school=fake.company() + " University",
-                            degree=fake.catch_phrase(),
-                            year=random.randint(2010, 2024)
-                        )
-
-                    # 6. Add some Experience history
-                    for _ in range(random.randint(1, 4)):
-                        Experience.objects.create(
-                            profile=profile,
-                            title=fake.job(),
-                            company=fake.company(),
-                            start_date=fake.date_between(start_date='-10y', end_date='-1y'),
-                            description=fake.paragraph(nb_sentences=2)
-                        )
-
-                    if (i + 1) % 20 == 0:
-                        self.stdout.write(f"Created {i + 1} profiles...")
-
             # 7. Create Events
             self.stdout.write('Creating 15 Mock Events...')
             # Clear existing events for a clean seed of events if needed, or just add more.
@@ -164,7 +106,6 @@ class Command(BaseCommand):
                         'created_by': super_admin
                     }
                 )
-
 
             # 8. Create Job Offers
             self.stdout.write('Creating 15 Mock Job Offers...')
