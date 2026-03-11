@@ -5,6 +5,7 @@ from django.utils import timezone
 from faker import Faker
 from accounts.models import User, Role
 from alumni.models import Profile, Promotion, Education, Experience
+from jobs.models import Job
 from events.models import Event
 
 class Command(BaseCommand):
@@ -164,4 +165,40 @@ class Command(BaseCommand):
                     }
                 )
 
+
+            # 8. Create Job Offers
+            self.stdout.write('Creating 15 Mock Job Offers...')
+            job_templates = [
+                ("Développeur Fullstack Senior (Angular/Node.js)", "TechNova Solutions", "Paris, France", Job.Type.CDI, "Nous recherchons un expert Fullstack pour rejoindre notre équipe produit. Vous travaillerez sur des architectures micro-services et participerez à la refonte de notre interface client en Angular 18.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-05-01", None),
+                ("Data Scientist - Intelligence Artificielle", "Cognitive AI", "Lyon, France", Job.Type.CDI, "Directement rattaché au CTO, vous concevrez des modèles de Machine Learning pour l'analyse prédictive de données logistiques.", Job.RemoteStatus.FULL_REMOTE, Job.Periodicity.FULL_TIME, "2026-04-15", None),
+                ("Développeur Front-end Junior", "Creative Pixels", "Bordeaux, France", Job.Type.INTERNSHIP, "Stage de fin d'études de 6 mois. Vous épaulerez nos développeurs seniors dans la création de sites web vitrines et e-commerce haut de gamme.", Job.RemoteStatus.ON_SITE, Job.Periodicity.FULL_TIME, "2026-04-01", "2026-09-30"),
+                ("Ingénieur DevOps Cloud", "SkyCloud Ops", "Nantes, France", Job.Type.CDI, "Automatisation, CI/CD et gestion d'infrastructures AWS/GCP. Nous cherchons quelqu'un capable de faire évoluer nos pipelines de déploiement.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-06-01", None),
+                ("Consultant Cybersécurité Freelance", "SecureGuardian", "Lille, France", Job.Type.FREELANCE, "Mission de 3 mois renouvelable pour un audit de sécurité complet d'une application bancaire.", Job.RemoteStatus.FULL_REMOTE, Job.Periodicity.PART_TIME, "2026-03-25", None),
+                ("Chef de Projet Digital", "Global Agency", "Paris, France", Job.Type.CDD, "Remplacement congé maternité (9 mois). Vous piloterez des projets transverses (SEO, SEA, Social Media) pour nos grands comptes luxe.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-04-01", "2026-12-31"),
+                ("Lead Développeur Mobile iOS", "SwiftMotion", "Toulouse, France", Job.Type.CDI, "Prenez la tête du pôle mobile iOS. Vous serez garant de la qualité du code et de l'architecture de notre application phare.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-05-15", None),
+                ("Développeur Python Back-end (Django)", "PyExpert", "Marseille, France", Job.Type.CDI, "Évoluez au sein d'une startup en forte croissance. Vous participerez au développement d'APIs robustes pour des services fintech.", Job.RemoteStatus.FULL_REMOTE, Job.Periodicity.FULL_TIME, "2026-04-20", None),
+                ("Product Designer UI/UX", "DesignFirst", "Montpellier, France", Job.Type.CDI, "Créez des expériences utilisateurs exceptionnelles. Vous travaillerez main dans la main avec les Product Managers et les développeurs.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-05-01", None),
+                ("Ingénieur Systèmes Linux", "Infrastructure Pro", "Strasbourg, France", Job.Type.CDI, "Gestion de serveurs critiques, monitoring et optimisation de performances.", Job.RemoteStatus.ON_SITE, Job.Periodicity.FULL_TIME, "2026-04-01", None),
+                ("Data Analyst Junior", "DataInsight", "Rennes, France", Job.Type.CDD, "Contrat de 12 mois. Vous aiderez le département marketing à interpréter les données de campagnes.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-03-15", "2027-03-14"),
+                ("Développeur Blockchain (Solidity)", "Web3 Innovate", "Nice, France", Job.Type.FREELANCE, "Développement de Smart Contracts sur Ethereum et Polygon. Audit de sécurité et intégration de protocoles DeFi.", Job.RemoteStatus.FULL_REMOTE, Job.Periodicity.FULL_TIME, "2026-03-10", None),
+                ("Business Developer IT", "SalesTech", "Paris, France", Job.Type.CDI, "Chasse de nouveaux comptes et gestion du portefeuille existant pour nos solutions SaaS.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-04-01", None),
+                ("Architecte Cloud Solutions", "Big Cloud Corp", "Lyon, France", Job.Type.CDI, "Conception d'architectures cloud scalables et sécurisées pour des environnements hybrides.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-06-01", None),
+                ("Stagiaire Growth Marketing", "Viral Startup", "Nantes, France", Job.Type.INTERNSHIP, "Apprenez les ficelles du Growth Hacking : A/B testing, automation, content strategy.", Job.RemoteStatus.HYBRID, Job.Periodicity.FULL_TIME, "2026-04-01", "2026-09-30"),
+            ]
+
+            for title, company, location, j_type, desc, remote, per, start, end in job_templates:
+                Job.objects.get_or_create(
+                    title=title,
+                    company=company,
+                    defaults={
+                        'location': location,
+                        'job_type': j_type,
+                        'description': desc,
+                        'remote_status': remote,
+                        'periodicity': per,
+                        'start_date': start,
+                        'end_date': end,
+                        'posted_by': super_admin
+                    }
+                )
         self.stdout.write(self.style.SUCCESS('Database successfully seeded!'))
