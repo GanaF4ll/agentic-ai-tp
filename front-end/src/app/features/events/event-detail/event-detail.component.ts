@@ -13,46 +13,46 @@ import { EventCreateComponent } from '../event-list/event-create.component';
   standalone: true,
   imports: [CommonModule, LucideAngularModule, DatePipe, RouterLink, EventCreateComponent],
   template: `
-    <div class="max-w-5xl mx-auto px-4 py-8">
-      <button routerLink="/events" class="btn btn-ghost gap-2 mb-8 font-bold text-base-content/60 hover:text-primary">
+    <div class="max-w-5xl mx-auto px-4 py-6 md:py-8">
+      <button routerLink="/events" class="btn btn-ghost gap-2 mb-6 md:mb-8 font-bold text-base-content/60 hover:text-primary">
         <lucide-angular [img]="backIcon" class="size-4"></lucide-angular>
-        Retour aux événements
+        Retour
       </button>
 
       @if (isLoading()) {
         <div class="skeleton h-96 w-full rounded-[var(--radius-card)]"></div>
       } @else if (event(); as e) {
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           <!-- Main Content -->
           <div class="lg:col-span-2 flex flex-col gap-6">
-            <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[2.5rem] overflow-hidden">
-              <div class="h-48 bg-gradient-to-br from-primary/20 via-primary/5 to-accent/10 flex items-center justify-center border-b border-base-200">
-                <lucide-angular [img]="calendarIcon" class="size-20 text-primary/40"></lucide-angular>
+            <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden">
+              <div class="h-40 md:h-48 bg-gradient-to-br from-primary/20 via-primary/5 to-accent/10 flex items-center justify-center border-b border-base-200">
+                <lucide-angular [img]="calendarIcon" class="size-16 md:size-20 text-primary/40"></lucide-angular>
               </div>
-              <div class="card-body p-10">
-                <div class="flex justify-between items-start mb-4">
+              <div class="card-body p-6 md:p-10">
+                <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6">
                   <div class="badge badge-primary font-black px-4 py-3 shadow-sm">{{ e.is_online ? 'EN LIGNE' : 'PRÉSENTIEL' }}</div>
                   @if (isAdmin()) {
-                    <div class="flex flex-wrap gap-2">
-                      <button (click)="showEditModal.set(true)" class="btn btn-warning btn-sm font-bold gap-2 rounded-xl border-none">
+                    <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                      <button (click)="showEditModal.set(true)" class="btn btn-warning btn-sm font-bold gap-2 rounded-xl border-none flex-1 sm:flex-none">
                         <lucide-angular [img]="editIcon" class="size-4"></lucide-angular>
-                        Modifier l'événement
+                        Modifier
                       </button>
-                      <button (click)="deleteEvent()" class="btn btn-error btn-sm font-bold gap-2 rounded-xl border-none">
+                      <button (click)="deleteEvent()" class="btn btn-error btn-sm font-bold gap-2 rounded-xl border-none flex-1 sm:flex-none">
                         <lucide-angular [img]="deleteIcon" class="size-4"></lucide-angular>
-                        Annuler l'événement
+                        Annuler
                       </button>
                     </div>
                   }
                 </div>
-                <h1 class="text-4xl font-black tracking-tighter text-base-content leading-tight mb-6">{{ e.title }}</h1>
-                <p class="text-lg text-base-content/70 leading-relaxed font-medium whitespace-pre-line">{{ e.description }}</p>
+                <h1 class="text-3xl md:text-4xl font-black tracking-tighter text-base-content leading-tight mb-6">{{ e.title }}</h1>
+                <p class="text-base md:text-lg text-base-content/70 leading-relaxed font-medium whitespace-pre-line">{{ e.description }}</p>
                 
-                <div class="divider opacity-5 my-8"></div>
+                <div class="divider opacity-5 my-6 md:my-8"></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                   <div class="flex items-start gap-4">
-                    <div class="size-12 rounded-2xl bg-base-200 flex items-center justify-center text-primary">
+                    <div class="size-12 rounded-2xl bg-base-200 flex items-center justify-center text-primary shrink-0">
                       <lucide-angular [img]="calendarIcon" class="size-6"></lucide-angular>
                     </div>
                     <div>
@@ -62,7 +62,7 @@ import { EventCreateComponent } from '../event-list/event-create.component';
                     </div>
                   </div>
                   <div class="flex items-start gap-4">
-                    <div class="size-12 rounded-2xl bg-base-200 flex items-center justify-center text-primary">
+                    <div class="size-12 rounded-2xl bg-base-200 flex items-center justify-center text-primary shrink-0">
                       <lucide-angular [img]="locationIcon" class="size-6"></lucide-angular>
                     </div>
                     <div>
@@ -78,9 +78,9 @@ import { EventCreateComponent } from '../event-list/event-create.component';
           <!-- Sidebar -->
           <div class="flex flex-col gap-6">
             <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[2rem]">
-              <div class="card-body p-8">
+              <div class="card-body p-6 md:p-8">
                 <div class="flex items-center gap-3 mb-6">
-                  <div class="size-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+                  <div class="size-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
                     <lucide-angular [img]="usersIcon" class="size-5"></lucide-angular>
                   </div>
                   <div>
@@ -97,7 +97,7 @@ import { EventCreateComponent } from '../event-list/event-create.component';
                     @for (participant of e.participants; track participant.id) {
                       <div class="flex items-center gap-3 p-2 rounded-xl bg-base-200/50 hover:bg-base-200 transition-colors">
                         <div class="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
-                          {{ participant.first_name?.[0] || '?' }}{{ participant.last_name?.[0] || '' }}
+                          {{ participant.first_name[0] || '?' }}{{ participant.last_name[0] || '' }}
                         </div>
                         <div class="flex flex-col min-w-0">
                           <span class="text-xs font-black text-base-content truncate">{{ participant.full_name }}</span>

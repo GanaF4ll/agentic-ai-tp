@@ -16,64 +16,61 @@ import { map, switchMap, startWith } from 'rxjs';
   imports: [CommonModule, RouterLink, LucideAngularModule, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex flex-col gap-8 max-w-4xl mx-auto py-8 px-4">
+    <div class="flex flex-col gap-6 md:gap-6 md:p-8 max-w-4xl mx-auto py-6 md:py-8 px-4">
       <nav>
         <a routerLink="/jobs" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60 hover:text-primary transition-colors">
           <lucide-angular [img]="backIcon" class="size-4"></lucide-angular>
-          Retour aux offres
+          Retour
         </a>
       </nav>
 
       @if (job(); as j) {
-        <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-6 md:gap-6 md:p-8">
           <!-- Header Card -->
           <header class="bg-base-100 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] text-base-content overflow-hidden">
             <div class="flex flex-col lg:flex-row">
 
               <!-- Left: title & meta -->
-              <div class="flex-1 min-w-0 p-8 relative flex flex-col justify-between gap-6">
+              <div class="flex-1 min-w-0 p-6 md:p-6 md:p-8 relative flex flex-col justify-between gap-6">
                 <div class="absolute right-4 top-1/2 -translate-y-1/3 opacity-[0.04] pointer-events-none">
-                  <lucide-angular [img]="jobIcon" class="size-48"></lucide-angular>
+                  <lucide-angular [img]="jobIcon" class="size-32 md:size-48"></lucide-angular>
                 </div>
                 <div class="relative z-10 flex flex-col gap-5">
                   <div class="flex flex-wrap items-center gap-2">
-                    <span class="badge badge-primary font-black px-4 py-3 h-auto">{{ j.type }}</span>
-                    <span class="badge bg-primary/10 border-primary/20 text-primary font-bold px-3 py-3 h-auto gap-1.5">
+                    <span class="badge badge-primary font-black px-3 md:px-4 py-3 h-auto">{{ j.type }}</span>
+                    <span class="badge bg-primary/10 border-primary/20 text-primary font-bold px-3 py-3 h-auto gap-1.5 text-[10px] md:text-xs">
                       <lucide-angular [img]="clockIcon" class="size-3"></lucide-angular>
                       {{ j.periodicity }}
                     </span>
-                    <span class="badge bg-secondary/10 border-secondary/20 text-secondary font-bold px-3 py-3 h-auto gap-1.5">
+                    <span class="badge bg-secondary/10 border-secondary/20 text-secondary font-bold px-3 py-3 h-auto gap-1.5 text-[10px] md:text-xs">
                       <lucide-angular [img]="globeIcon" class="size-3"></lucide-angular>
                       {{ j.remote_status }}
                     </span>
-                    <span class="badge bg-base-200 border-base-300 text-base-content/70 font-bold px-4 py-3 h-auto">
-                      {{ j.applications_count }} candidature(s)
-                    </span>
                   </div>
 
-                  <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight text-base-content">{{ j.title }}</h1>
+                  <h1 class="text-3xl md:text-5xl font-black tracking-tighter leading-tight text-base-content">{{ j.title }}</h1>
 
-                  <div class="flex flex-wrap gap-5">
-                    <div class="flex items-center gap-2 font-bold text-base-content/70">
+                  <div class="flex flex-wrap gap-4 md:gap-5">
+                    <div class="flex items-center gap-2 font-bold text-base-content/70 text-sm md:text-base">
                       <lucide-angular [img]="buildingIcon" class="size-4 text-primary shrink-0"></lucide-angular>
                       {{ j.company }}
                     </div>
-                    <div class="flex items-center gap-2 font-bold text-base-content/70">
+                    <div class="flex items-center gap-2 font-bold text-base-content/70 text-sm md:text-base">
                       <lucide-angular [img]="locationIcon" class="size-4 text-primary shrink-0"></lucide-angular>
                       {{ j.location }}
                     </div>
                   </div>
                 </div>
 
-                <p class="relative z-10 text-base-content/30 font-semibold text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</p>
+                <p class="relative z-10 text-base-content/30 font-semibold text-[10px] md:text-xs">Publié le {{ j.posted_at | date:'dd MMMM yyyy' }}</p>
               </div>
 
               <!-- Divider -->
               <div class="hidden lg:block w-px bg-base-200 my-6"></div>
-              <div class="block lg:hidden h-px bg-base-200 mx-8"></div>
+              <div class="block lg:hidden h-px bg-base-200 mx-6 md:mx-8"></div>
 
               <!-- Right: dates -->
-              <div class="p-8 lg:w-56 shrink-0 flex flex-col justify-center gap-3">
+              <div class="p-6 md:p-6 md:p-8 lg:w-56 shrink-0 flex flex-col justify-center gap-3">
                 <div class="bg-base-200/50 rounded-2xl p-4 flex items-center gap-3">
                   <div class="size-8 rounded-xl bg-base-200 flex items-center justify-center text-base-content/40 shrink-0">
                     <lucide-angular [img]="calendarIcon" class="size-4"></lucide-angular>
@@ -99,10 +96,10 @@ import { map, switchMap, startWith } from 'rxjs';
             </div>
           </header>
 
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:p-8">
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-8">
-              <div class="bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-sm text-base-content">
+              <div class="bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-sm text-base-content">
                 <div class="flex items-center justify-between mb-6">
                   <h2 class="text-2xl font-black flex items-center gap-3">
                     Description du poste
@@ -155,7 +152,7 @@ import { map, switchMap, startWith } from 'rxjs';
               <div class="sticky top-24 space-y-6">
                 @if (isMember()) {
                   <div class="card bg-base-100 border border-primary/20 shadow-xl shadow-primary/5 rounded-[var(--radius-card)] overflow-hidden">
-                    <div class="card-body p-8 items-center text-center">
+                    <div class="card-body p-6 md:p-8 items-center text-center">
                       <div class="size-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
                         <lucide-angular [img]="sendIcon" class="size-8 text-primary"></lucide-angular>
                       </div>
@@ -197,9 +194,9 @@ import { map, switchMap, startWith } from 'rxjs';
           </div>
         </div>
       } @else {
-        <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-6 md:p-8">
           <div class="skeleton h-64 w-full rounded-[var(--radius-card)]"></div>
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:p-8">
             <div class="lg:col-span-2 skeleton h-96 rounded-[var(--radius-card)]"></div>
             <div class="lg:col-span-1 skeleton h-64 rounded-[var(--radius-card)]"></div>
           </div>

@@ -13,35 +13,35 @@ import { switchMap, startWith } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   template: `
-    <div class="p-6 max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div class="p-4 md:p-6 max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
-          <h1 class="text-4xl font-black tracking-tighter text-base-content">Gestion des Promotions</h1>
-          <p class="text-base-content/60 font-medium mt-1">Gérez les cohortes et les promotions de l'école.</p>
+          <h1 class="text-3xl md:text-4xl font-black tracking-tighter text-base-content leading-none">Gestion des Promotions</h1>
+          <p class="text-base-content/60 font-medium mt-2">Gérez les cohortes et les promotions de l'école.</p>
         </div>
         
-        <button (click)="openModal()" class="btn btn-primary btn-lg rounded-2xl shadow-lg shadow-primary/20 font-black">
+        <button (click)="openModal()" class="btn btn-primary btn-lg rounded-2xl shadow-lg shadow-primary/20 font-black h-12 md:h-14">
           <lucide-angular [img]="plusIcon" class="size-5 mr-2"></lucide-angular>
           Nouvelle Promotion
         </button>
       </div>
 
       <div class="card bg-base-100 border border-base-200 shadow-sm rounded-3xl overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="table table-lg">
+        <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
+          <table class="table table-lg min-w-[600px] md:min-w-full">
             <thead>
               <tr class="bg-base-200/50">
-                <th class="font-black text-xs uppercase tracking-wider text-base-content/50 pl-8">Libellé</th>
+                <th class="font-black text-xs uppercase tracking-wider text-base-content/50 pl-6 md:pl-8">Libellé</th>
                 <th class="font-black text-xs uppercase tracking-wider text-base-content/50">Date de création</th>
-                <th class="font-black text-xs uppercase tracking-wider text-base-content/50 text-right pr-8">Actions</th>
+                <th class="font-black text-xs uppercase tracking-wider text-base-content/50 text-right pr-6 md:pr-8">Actions</th>
               </tr>
             </thead>
             <tbody>
               @for (promo of promotions(); track promo.id) {
                 <tr class="hover:bg-base-200/30 transition-colors">
-                  <td class="pl-8">
+                  <td class="pl-6 md:pl-8">
                     <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                      <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                         <lucide-angular [img]="gradIcon" class="size-5"></lucide-angular>
                       </div>
                       <div class="font-black text-base">{{ promo.label }}</div>
@@ -52,7 +52,7 @@ import { switchMap, startWith } from 'rxjs';
                       {{ promo.created_at | date:'dd/MM/yyyy' }}
                     </div>
                   </td>
-                  <td class="text-right pr-8">
+                  <td class="text-right pr-6 md:pr-8">
                     <div class="flex justify-end gap-2">
                       <button (click)="openModal(promo)" class="btn btn-ghost btn-sm btn-square rounded-xl text-info hover:bg-info/10">
                         <lucide-angular [img]="editIcon" class="size-4"></lucide-angular>
@@ -81,10 +81,10 @@ import { switchMap, startWith } from 'rxjs';
 
     <!-- Modal for Create/Edit -->
     @if (showModal()) {
-      <div class="modal modal-open">
-        <div class="modal-box rounded-3xl border border-base-200 shadow-2xl p-0 overflow-hidden max-w-md">
+      <div class="modal modal-open modal-bottom sm:modal-middle">
+        <div class="modal-box rounded-t-3xl sm:rounded-3xl border border-base-200 shadow-2xl p-0 overflow-hidden max-w-md">
           <div class="bg-primary p-6 text-primary-content flex justify-between items-center">
-            <h3 class="font-black text-2xl tracking-tight">
+            <h3 class="font-black text-xl md:text-2xl tracking-tight">
               {{ isEditing() ? 'Modifier la Promotion' : 'Nouvelle Promotion' }}
             </h3>
             <button (click)="closeModal()" class="btn btn-ghost btn-sm btn-circle text-primary-content/80">
@@ -92,7 +92,7 @@ import { switchMap, startWith } from 'rxjs';
             </button>
           </div>
           
-          <div class="p-8">
+          <div class="p-6 md:p-8">
             <div class="form-control w-full">
               <label class="label mb-1">
                 <span class="label-text font-bold text-base-content/60 uppercase text-xs tracking-widest">Nom de la promotion</span>
@@ -101,7 +101,7 @@ import { switchMap, startWith } from 'rxjs';
                 type="text" 
                 [(ngModel)]="editLabel" 
                 placeholder="Ex: BIG DATA" 
-                class="input input-bordered w-full rounded-2xl font-bold bg-base-200/50 border-base-300 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                class="input input-bordered w-full rounded-2xl font-bold bg-base-200/50 border-base-300 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all h-12"
                 (keyup.enter)="savePromotion()"
               />
               <p class="mt-4 text-xs font-medium text-base-content/40 italic">
@@ -109,12 +109,12 @@ import { switchMap, startWith } from 'rxjs';
               </p>
             </div>
 
-            <div class="modal-action mt-10 gap-3">
-              <button (click)="closeModal()" class="btn btn-ghost rounded-2xl font-black px-8">Annuler</button>
+            <div class="modal-action mt-8 md:mt-10 gap-3">
+              <button (click)="closeModal()" class="btn btn-ghost rounded-2xl font-black px-6 md:px-8">Annuler</button>
               <button 
                 (click)="savePromotion()" 
                 [disabled]="!editLabel.trim()" 
-                class="btn btn-primary rounded-2xl font-black px-8 shadow-lg shadow-primary/20"
+                class="btn btn-primary rounded-2xl font-black px-6 md:px-8 shadow-lg shadow-primary/20"
               >
                 {{ isEditing() ? 'Mettre à jour' : 'Créer' }}
               </button>

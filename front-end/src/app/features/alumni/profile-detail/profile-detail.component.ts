@@ -74,7 +74,7 @@ import { map, switchMap } from 'rxjs';
             
             <!-- About Section -->
             <div class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
-              <div class="card-body p-8">
+              <div class="card-body p-6 md:p-8">
                 <h2 class="text-xl font-black tracking-tight flex items-center gap-3 mb-6">
                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg">
                       <lucide-angular [img]="userIcon" class="size-5"></lucide-angular>
@@ -90,7 +90,7 @@ import { map, switchMap } from 'rxjs';
 
             <!-- Experience Section -->
             <div class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
-              <div class="card-body p-8">
+              <div class="card-body p-6 md:p-8">
                 <h2 class="text-xl font-black tracking-tight flex items-center gap-3 mb-6">
                    <div class="p-2 bg-info/10 text-info rounded-lg">
                       <lucide-angular [img]="briefcaseIcon" class="size-5"></lucide-angular>
@@ -128,7 +128,7 @@ import { map, switchMap } from 'rxjs';
 
              <!-- Academic Section -->
             <div class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
-               <div class="card-body p-8">
+               <div class="card-body p-6 md:p-8">
                   <h2 class="text-xl font-black tracking-tight flex items-center gap-3 mb-6">
                      <div class="p-2 bg-accent/10 text-accent-content rounded-lg">
                         <lucide-angular [img]="gradIcon" class="size-5"></lucide-angular>
