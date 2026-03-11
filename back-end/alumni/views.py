@@ -11,9 +11,21 @@ from .serializers import ProfileSerializer, PromotionSerializer
 from .filters import ProfileFilter
 
 class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Profile.objects.filter(user__role=Role.MEMBER).select_related('user', 'promotion')
+    queryset = Profile.objects.filter(user__role=Role.MEMBER).select_related('user', 'promotion').prefetch_related('experiences')
     serializer_class = ProfileSerializer
     filterset_class = ProfileFilter
+
+    @action(detail=False, methods=['get', 'patch'], permission_classes=[IsAuthenticated])
+    def me(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        if request.method == 'PATCH':
+            serializer = self.get_serializer(profile, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        
+        serializer = self.get_serializer(profile)
+        return Response(serializer.data)
 
     @action(detail=True, methods=['post'], permission_classes=[IsAdmin])
     def validate(self, request, pk=None):

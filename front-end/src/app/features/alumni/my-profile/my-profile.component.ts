@@ -1,25 +1,38 @@
-import { Location, DatePipe } from '@angular/common';
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { AlumniService } from '../../../core/services/alumni.service';
 import { Profile } from '../../../core/models/profile.model';
-import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCircle, ArrowLeft, User, Briefcase } from 'lucide-angular';
+import { LucideAngularModule, GraduationCap, Mail, Linkedin, Calendar, CheckCircle, User, Briefcase, Shield, ShieldOff, Eye, EyeOff } from 'lucide-angular';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-profile-detail',
+  selector: 'app-my-profile',
   standalone: true,
   imports: [LucideAngularModule, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex flex-col gap-8">
-      <nav>
-        <button type="button" (click)="goBack()" class="btn btn-ghost btn-sm gap-2 font-bold text-base-content/60 hover:text-primary">
-          <lucide-angular [img]="backIcon" class="size-4"></lucide-angular>
-          Retour
-        </button>
-      </nav>
+      <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 class="text-4xl font-black tracking-tight text-base-content">Mon Profil</h1>
+          <p class="text-base-content/50 font-bold uppercase tracking-widest text-xs mt-1">Gérez vos informations et votre visibilité</p>
+        </div>
+
+        @if (profile(); as p) {
+          <div class="flex items-center gap-3 bg-base-100 p-1.5 pr-4 rounded-2xl border border-base-200 shadow-sm">
+             <div [class]="'p-2 rounded-xl ' + (p.is_visible ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning')">
+                <lucide-angular [img]="p.is_visible ? eyeIcon : eyeOffIcon" class="size-5"></lucide-angular>
+             </div>
+             <div class="flex flex-col">
+                <span class="text-xs font-black uppercase tracking-wider text-base-content/40">Visibilité du profil</span>
+                <div class="flex items-center gap-3">
+                   <span class="font-bold text-sm">{{ p.is_visible ? 'Public' : 'Privé' }}</span>
+                   <input type="checkbox" class="toggle toggle-primary toggle-sm" [checked]="p.is_visible" (change)="toggleVisibility(p)" />
+                </div>
+             </div>
+          </div>
+        }
+      </header>
 
       @if (profile(); as p) {
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -41,29 +54,24 @@ import { map, switchMap } from 'rxjs';
                 <p class="text-base-content/50 font-bold uppercase tracking-wider text-xs mt-2">{{ p.current_job_title }} @ {{ p.current_company }}</p>
                 
                 <div class="flex flex-col gap-3 w-full mt-8">
-                  @if (p.user.email && p.user.email !== 'Privé') {
-                    <a [href]="'mailto:' + p.user.email" class="btn btn-outline btn-primary btn-sm gap-2 rounded-xl font-bold overflow-hidden text-ellipsis">
-                      <lucide-angular [img]="mailIcon" class="size-4"></lucide-angular>
-                      {{ p.user.email }}
-                    </a>
-                  } @else {
-                    <div class="btn btn-disabled btn-sm gap-2 rounded-xl font-bold italic opacity-50">
-                       <lucide-angular [img]="mailIcon" class="size-4"></lucide-angular>
-                       Email Privé
-                    </div>
-                  }
-
-                  @if (p.linkedin_url && p.linkedin_url !== 'Privé') {
+                  <div class="flex items-center gap-3 p-3 bg-base-200/50 rounded-xl border border-base-200">
+                    <lucide-angular [img]="mailIcon" class="size-4 text-primary"></lucide-angular>
+                    <span class="font-bold text-sm truncate">{{ p.user.email }}</span>
+                  </div>
+                  
+                  @if (p.linkedin_url) {
                     <a [href]="p.linkedin_url" target="_blank" class="btn btn-primary btn-sm gap-2 rounded-xl font-bold shadow-lg shadow-primary/20">
                       <lucide-angular [img]="linkedinIcon" class="size-4"></lucide-angular>
                       Profil LinkedIn
                     </a>
-                  } @else {
-                    <div class="btn btn-disabled btn-sm gap-2 rounded-xl font-bold italic opacity-50">
-                       <lucide-angular [img]="linkedinIcon" class="size-4"></lucide-angular>
-                       LinkedIn Privé
-                    </div>
                   }
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-base-200 w-full">
+                   <div class="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest" [class.text-success]="p.is_visible" [class.text-warning]="!p.is_visible">
+                      <lucide-angular [img]="p.is_visible ? shieldIcon : shieldOffIcon" class="size-3"></lucide-angular>
+                      {{ p.is_visible ? 'Visible par les autres membres' : 'Masqué pour les autres membres' }}
+                   </div>
                 </div>
               </div>
             </div>
@@ -83,7 +91,7 @@ import { map, switchMap } from 'rxjs';
                 </h2>
                 
                 <p class="text-base-content/70 leading-relaxed font-medium text-lg whitespace-pre-line">
-                  {{ p.bio || 'Cet alumnus n\\'a pas encore complété sa bio.' }}
+                  {{ p.bio || 'Vous n\\'avez pas encore renseigné votre bio.' }}
                 </p>
               </div>
             </div>
@@ -95,13 +103,13 @@ import { map, switchMap } from 'rxjs';
                    <div class="p-2 bg-info/10 text-info rounded-lg">
                       <lucide-angular [img]="briefcaseIcon" class="size-5"></lucide-angular>
                    </div>
-                   Expériences Professionnelles
+                   Mes Expériences Professionnelles
                 </h2>
 
                 <div class="flex flex-col gap-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-base-200">
                   @for (exp of p.experiences; track exp.id) {
                     <div class="flex gap-6 relative">
-                       <div class="size-9 rounded-full bg-base-100 border-2 border-primary/20 flex items-center justify-center shrink-0 z-10 shadow-sm group-hover:border-primary transition-colors">
+                       <div class="size-9 rounded-full bg-base-100 border-2 border-primary/20 flex items-center justify-center shrink-0 z-10 shadow-sm">
                           <div class="size-2 rounded-full bg-primary animate-pulse"></div>
                        </div>
                        <div class="flex flex-col min-w-0">
@@ -120,7 +128,7 @@ import { map, switchMap } from 'rxjs';
                        </div>
                     </div>
                   } @empty {
-                    <p class="text-base-content/40 font-medium italic pl-10">Aucune expérience renseignée.</p>
+                    <p class="text-base-content/40 font-medium italic pl-10">Vous n'avez pas encore ajouté d'expériences.</p>
                   }
                 </div>
               </div>
@@ -133,7 +141,7 @@ import { map, switchMap } from 'rxjs';
                      <div class="p-2 bg-accent/10 text-accent-content rounded-lg">
                         <lucide-angular [img]="gradIcon" class="size-5"></lucide-angular>
                      </div>
-                     Parcours Académique
+                     Mon Parcours Académique
                   </h2>
 
                   <div class="flex items-start gap-4">
@@ -151,8 +159,8 @@ import { map, switchMap } from 'rxjs';
                <div class="alert bg-success/10 border-success/20 text-success-content shadow-sm rounded-[var(--radius-card)]">
                  <lucide-angular [img]="verifiedIcon" class="size-6 text-success"></lucide-angular>
                  <div>
-                    <h3 class="font-bold">Alumni Vérifié</h3>
-                    <div class="text-xs opacity-80">Ce profil a été vérifié par l'administration de l'école.</div>
+                    <h3 class="font-bold">Profil Vérifié</h3>
+                    <div class="text-xs opacity-80">Votre profil a été vérifié par l'administration.</div>
                  </div>
                </div>
              }
@@ -170,12 +178,9 @@ import { map, switchMap } from 'rxjs';
     </div>
   `
 })
-export class ProfileDetailComponent {
-  private location = inject(Location);
-  private route = inject(ActivatedRoute);
+export class MyProfileComponent {
   private alumniService = inject(AlumniService);
   
-  readonly backIcon = ArrowLeft;
   readonly mailIcon = Mail;
   readonly linkedinIcon = Linkedin;
   readonly gradIcon = GraduationCap;
@@ -183,17 +188,21 @@ export class ProfileDetailComponent {
   readonly calendarIcon = Calendar;
   readonly userIcon = User;
   readonly briefcaseIcon = Briefcase;
+  readonly shieldIcon = Shield;
+  readonly shieldOffIcon = ShieldOff;
+  readonly eyeIcon = Eye;
+  readonly eyeOffIcon = EyeOff;
 
+  refreshTrigger = signal(0);
   profile = toSignal(
-    this.route.params.pipe(
-      map(params => params['id']),
-      switchMap(id => this.alumniService.getProfiles().pipe(
-        map(profiles => profiles.find(p => p.id === +id) || null)
-      ))
-    )
+    this.alumniService.getMyProfile()
   );
 
-  goBack() {
-    this.location.back();
+  toggleVisibility(p: Profile) {
+    this.alumniService.updateMyProfile({ is_visible: !p.is_visible }).subscribe(() => {
+        // Simple way to refresh: trigger a reload or manually update the signal
+        // For brevity in this task, we'll assume the user might need to refresh or we could use a more complex signal setup
+        window.location.reload(); 
+    });
   }
 }

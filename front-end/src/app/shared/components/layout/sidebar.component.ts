@@ -68,6 +68,7 @@ import { CommonModule } from '@angular/common';
           <a
             routerLink="/jobs"
             routerLinkActive="bg-primary/10 text-primary font-bold shadow-sm ring-1 ring-primary/10"
+            [routerLinkActiveOptions]="{ exact: true }"
             title="Emplois"
             aria-label="Emplois"
             class="flex items-center py-3 rounded-xl hover:bg-base-200 transition-colors text-base-content/80"
@@ -168,7 +169,7 @@ import { CommonModule } from '@angular/common';
           <!-- Profil nav -->
           <div [ngClass]="sidebarService.isCollapsed() ? 'px-2' : 'px-4'">
             <a
-              routerLink="/profile"
+              routerLink="/profiles"
               routerLinkActive="bg-primary/10 text-primary font-bold shadow-sm ring-1 ring-primary/10"
               title="Mon Profil"
               aria-label="Mon Profil"
@@ -188,7 +189,7 @@ import { CommonModule } from '@angular/common';
       <!-- Footer utilisateur -->
       <div class="shrink-0 border-t border-base-200 bg-base-200/30">
         <a
-          [routerLink]="authService.isAuthenticated() ? '/profile' : '/login'"
+          [routerLink]="authService.isAuthenticated() ? '/profiles' : '/login'"
           [attr.aria-label]="authService.isAuthenticated() ? 'Mon Profil' : 'Connexion'"
           [attr.title]="authService.isAuthenticated() ? 'Mon Profil' : 'Connexion'"
           class="flex items-center transition-colors hover:bg-base-200"
