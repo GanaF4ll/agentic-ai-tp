@@ -14,9 +14,9 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [LucideAngularModule, DatePipe, EventCreateComponent, FormsModule, CommonModule, RouterLink],
   template: `
-    <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
-      <header class="col-span-full bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-base-content relative overflow-hidden">
-        <div class="relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 md:gap-6">
+      <header class="col-span-full bg-base-100 p-4 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-base-content relative overflow-hidden">
+        <div class="relative z-10 min-w-0">
           <h1 class="text-3xl md:text-4xl font-black text-base-content tracking-tighter leading-none">Événements <span class="text-base-content/40">Communauté</span></h1>
           <p class="text-base-content/60 font-medium mt-3">Networking, ateliers et vie de l'école.</p>
           
@@ -28,22 +28,70 @@ import { RouterLink } from '@angular/router';
             {{ showMobileFilters() ? 'Masquer les filtres' : 'Afficher les filtres' }}
           </button>
         </div>
-        <div class="flex flex-wrap gap-2 relative z-10">
+        <div class="flex w-full md:w-auto flex-col sm:flex-row flex-wrap gap-2 relative z-10">
            @if (isMember()) {
-             <button routerLink="/events/my-events" class="btn btn-ghost font-bold rounded-xl border-base-200 text-base-content hover:bg-base-200/50">Mes inscriptions</button>
+             <button routerLink="/events/my-events" class="btn btn-ghost w-full sm:w-auto font-bold rounded-xl border-base-200 text-base-content hover:bg-base-200/50">Mes inscriptions</button>
            }
            @if (isAdmin()) {
-             <button (click)="showCreateModal.set(true)" class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Proposer un événement</button>
+             <button (click)="showCreateModal.set(true)" class="btn btn-primary w-full sm:w-auto px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Proposer un événement</button>
            }
         </div>
       </header>
 
-      <!-- Sidebar Filters -->
-      <aside 
-        class="col-span-full lg:col-span-2 flex flex-col gap-6"
-        [class.hidden]="!showMobileFilters() && !isLargeScreen()"
-        [class.lg:flex]="true"
-      >
+      @if (showMobileFilters() && !isLargeScreen()) {
+        <div class="fixed inset-0 z-40 bg-base-content/40 backdrop-blur-sm lg:hidden" (click)="toggleFilters()"></div>
+        <aside class="fixed inset-x-4 top-20 bottom-4 z-50 overflow-y-auto rounded-[var(--radius-card)] lg:hidden">
+          <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
+            <div class="card-body p-5">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xs font-black uppercase tracking-widest text-base-content/40 flex items-center gap-2">
+                  <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
+                  Recherche & Filtres
+                </h2>
+                <button (click)="toggleFilters()" class="btn btn-ghost btn-xs">
+                  <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
+                </button>
+              </div>
+
+              <div class="flex flex-col gap-5">
+                <fieldset class="fieldset p-0">
+                  <legend class="fieldset-legend font-bold text-sm text-base-content/80">Nom de l'événement</legend>
+                  <div class="relative">
+                    <lucide-angular [img]="searchIcon" class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-base-content/40"></lucide-angular>
+                    <input type="text" [(ngModel)]="filters().title" (ngModelChange)="onFilterChange()" 
+                      placeholder="Rechercher..."
+                      class="input glass border-base-200 w-full h-12 pl-10 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content" />
+                  </div>
+                </fieldset>
+
+                <fieldset class="fieldset p-0">
+                  <legend class="fieldset-legend font-bold text-sm text-base-content/80">Format</legend>
+                  <select [(ngModel)]="filters().is_online" (ngModelChange)="onFilterChange()" 
+                    class="select glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content">
+                    <option [ngValue]="undefined">Peu importe</option>
+                    <option [ngValue]="true">En ligne</option>
+                    <option [ngValue]="false">Présentiel</option>
+                  </select>
+                </fieldset>
+
+                <fieldset class="fieldset p-0">
+                  <legend class="fieldset-legend font-bold text-sm text-base-content/80">À partir du</legend>
+                  <input type="date" [(ngModel)]="filters().date_from" (ngModelChange)="onFilterChange()" 
+                    class="input glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content" />
+                </fieldset>
+
+                <div class="divider opacity-10 my-0 before:bg-base-content after:bg-base-content"></div>
+
+                <button (click)="resetFilters()" class="btn btn-primary h-12 font-bold shadow-lg shadow-primary/20 border-none text-primary-content">
+                  Réinitialiser les filtres
+                </button>
+              </div>
+            </div>
+          </section>
+        </aside>
+      }
+
+      <aside class="col-span-full hidden lg:col-span-2 lg:flex lg:flex-col lg:gap-6">
         <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
           <div class="card-body p-6">
             <div class="flex justify-between items-center mb-4 lg:mb-0">
@@ -51,9 +99,6 @@ import { RouterLink } from '@angular/router';
                 <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
                 Recherche & Filtres
               </h2>
-              <button (click)="toggleFilters()" class="btn btn-ghost btn-xs lg:hidden">
-                <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
-              </button>
             </div>
 
             <div class="flex flex-col gap-5">
@@ -94,7 +139,7 @@ import { RouterLink } from '@angular/router';
       </aside>
 
       <!-- Event List -->
-      <main class="col-span-full lg:col-span-4 flex flex-col gap-6">
+      <main class="col-span-full min-w-0 lg:col-span-4 flex flex-col gap-4 md:gap-6">
         @if (isLoading()) {
           @for (i of [1,2,3]; track i) {
             <div class="skeleton h-48 w-full rounded-[var(--radius-card)] bg-base-100 border border-base-200"></div>
@@ -102,14 +147,14 @@ import { RouterLink } from '@angular/router';
         } @else {
           @for (event of events(); track event.id) {
             <div [routerLink]="['/events', event.id]" class="group card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 hover:border-primary/30 hover:bg-base-200/50 transition-all duration-300 rounded-[var(--radius-card)] overflow-hidden cursor-pointer">
-              <div class="card-body p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div class="flex gap-5">
+              <div class="card-body p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 min-w-0">
                   <div class="relative flex size-16 items-center justify-center rounded-2xl border border-base-300 bg-base-200/50 group-hover:bg-primary/10 transition-colors">
                     <lucide-angular [img]="calendarIcon" class="size-8 text-primary/60 group-hover:text-primary"></lucide-angular>
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <h3 class="text-xl font-black tracking-tight text-base-content group-hover:text-primary transition-colors">{{ event.title }}</h3>
-                    <p class="text-sm font-medium text-base-content/60 mt-1 line-clamp-1">{{ event.description }}</p>
+                    <p class="text-sm font-medium text-base-content/60 mt-1 line-clamp-2 sm:line-clamp-1">{{ event.description }}</p>
                     
                     <div class="flex flex-wrap gap-4 mt-3">
                       <div class="flex items-center gap-2 text-xs font-bold text-base-content/70">
@@ -127,7 +172,7 @@ import { RouterLink } from '@angular/router';
                   </div>
                 </div>
                 
-                <div class="flex flex-col items-end gap-2 shrink-0">
+                <div class="flex w-full md:w-auto flex-col items-start md:items-end gap-2 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-base-200">
                   @if (isMember()) {
                     @if (event.is_registered) {
                       <div class="flex items-center gap-2 text-success font-black text-xs uppercase tracking-widest">
@@ -148,8 +193,8 @@ import { RouterLink } from '@angular/router';
 
           <!-- Pagination -->
           @if (totalCount() > 0) {
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 bg-base-100 p-4 rounded-2xl border border-base-200">
-              <div class="flex items-center gap-2">
+            <div class="flex flex-col items-stretch sm:flex-row sm:items-center justify-between gap-4 mt-6 bg-base-100 p-4 rounded-2xl border border-base-200">
+              <div class="flex flex-wrap items-center gap-2">
                 <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
                 <select [ngModel]="limit()" (ngModelChange)="onLimitChange($event)" class="select select-xs bg-base-200/50 border-base-200 text-base-content rounded-lg">
                   <option [value]="5">5</option>
@@ -159,7 +204,7 @@ import { RouterLink } from '@angular/router';
                 <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
               </div>
 
-              <div class="join">
+              <div class="join self-center sm:self-auto">
                 <button [disabled]="page() === 1" (click)="onPageChange(page() - 1)" class="join-item btn btn-sm bg-base-200/50 border-base-200 text-base-content">
                   <lucide-angular [img]="prevIcon" class="size-4"></lucide-angular>
                 </button>
@@ -171,7 +216,7 @@ import { RouterLink } from '@angular/router';
                 </button>
               </div>
 
-              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+              <div class="text-center sm:text-right text-xs font-bold text-base-content/40 uppercase tracking-widest">
                 {{ totalCount() }} résultats
               </div>
             </div>

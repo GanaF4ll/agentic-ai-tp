@@ -18,18 +18,18 @@ import {
     <div
       class="card h-full bg-base-100 border border-base-200 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-2xl hover:bg-base-200/50 hover:-translate-y-1 rounded-[var(--radius-card)] overflow-hidden"
     >
-      <div class="card-body h-full p-6 flex flex-col">
-        <div class="flex items-start justify-between gap-4">
-          <div class="flex gap-4 min-w-0 flex-1">
+      <div class="card-body h-full p-5 md:p-6 flex flex-col">
+        <div class="flex items-start justify-between gap-3 md:gap-4">
+          <div class="flex gap-3 md:gap-4 min-w-0 flex-1">
             <div class="avatar placeholder">
-              <div class="bg-primary/10 text-primary rounded-2xl size-14 border border-primary/20">
-                <span class="text-xl font-black"
+              <div class="bg-primary/10 text-primary rounded-2xl size-12 md:size-14 border border-primary/20">
+                <span class="text-lg md:text-xl font-black"
                   >{{ alumni().user.first_name[0] }}{{ alumni().user.last_name[0] }}</span
                 >
               </div>
             </div>
             <div class="min-w-0 flex-1">
-              <h2 class="card-title text-xl font-black tracking-tight leading-tight text-base-content break-words">
+              <h2 class="card-title text-lg md:text-xl font-black tracking-tight leading-tight text-base-content break-words">
                 {{ alumni().user.first_name }} {{ alumni().user.last_name }}
               </h2>
               <div
@@ -56,13 +56,13 @@ import {
           }
         </div>
 
-        <p class="mt-5 min-h-[4.5rem] text-sm font-medium text-base-content/70 leading-relaxed italic line-clamp-3">
+        <p class="mt-4 md:mt-5 min-h-[auto] md:min-h-[4.5rem] text-sm font-medium text-base-content/70 leading-relaxed italic line-clamp-3">
           "À la recherche d'opportunités en ingénierie logicielle et architecture cloud. Passionné
           par l'IA agentique et les frameworks web modernes."
         </p>
 
-        <div class="card-actions justify-between items-center mt-auto pt-5 border-t border-base-200">
-          <div class="flex gap-2">
+        <div class="card-actions flex-col items-stretch sm:flex-row sm:justify-between sm:items-center mt-auto pt-5 border-t border-base-200 gap-3">
+          <div class="flex flex-wrap gap-2">
             @if (alumni().linkedin_url && alumni().linkedin_url !== 'Privé') {
               <a
                 [href]="alumni().linkedin_url"
@@ -88,7 +88,7 @@ import {
 
           <a
             [routerLink]="['/alumni', alumni().id]"
-            class="btn btn-primary btn-sm px-5 font-bold shadow-md shadow-primary/20 rounded-xl border-none text-primary-content"
+            class="btn btn-primary btn-sm w-full sm:w-auto px-5 font-bold shadow-md shadow-primary/20 rounded-xl border-none text-primary-content"
           >
             Voir Détails
           </a>

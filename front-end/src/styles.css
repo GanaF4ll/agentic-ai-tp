@@ -127,6 +127,7 @@ body {
   font-family: var(--font-sans);
   line-height: var(--line-height-body);
   min-height: 100dvh;
+  overflow-x: hidden;
   background-attachment: fixed;
   /* Light : fond blanc teinté + halos bleus bien visibles aux coins */
   background-color: oklch(96% 0.01 215);
@@ -250,4 +251,13 @@ body {
   max-width: var(--max-w-page);
   margin-inline: auto;
   padding-inline: var(--spacing-page-x);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --spacing-page-x: 1rem;
+    --spacing-section: 2rem;
+    --spacing-card: 1.25rem;
+    --radius-card: 1.25rem;
+  }
 }

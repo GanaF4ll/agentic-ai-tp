@@ -8,14 +8,14 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   template: `
-    <div class="min-h-[80vh] flex justify-center items-center relative overflow-hidden py-12">
+    <div class="min-h-[80vh] flex justify-center items-center relative overflow-hidden px-4 py-8 sm:py-12">
       <!-- Abstract Background -->
        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-square bg-secondary/10 rounded-full blur-[100px] -z-10"></div>
 
       <div class="card bg-base-100 w-full max-w-md shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)] overflow-hidden">
-        <div class="card-body p-8">
-          <div class="text-center mb-8">
-            <h2 class="text-3xl font-black tracking-tighter text-primary">Rejoindre AlumniConnect</h2>
+        <div class="card-body p-5 sm:p-8">
+          <div class="text-center mb-6 sm:mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tighter text-primary">Rejoindre AlumniConnect</h2>
             <p class="text-base-content/60 font-medium mt-2">Connectez-vous avec vos pairs et développez votre réseau</p>
           </div>
           

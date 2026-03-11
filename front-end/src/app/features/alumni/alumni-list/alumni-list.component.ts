@@ -24,10 +24,10 @@ import { HttpClient } from '@angular/common/http';
   imports: [ReactiveFormsModule, AlumniCardComponent, LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 md:gap-6">
       <!-- Header Bento Block -->
       <header
-        class="col-span-full relative overflow-hidden rounded-[var(--radius-card)] bg-base-100 px-6 py-10 md:px-8 md:py-12 text-base-content shadow-[var(--shadow-card)] border border-base-200"
+        class="col-span-full relative overflow-hidden rounded-[var(--radius-card)] bg-base-100 px-4 py-8 md:px-8 md:py-12 text-base-content shadow-[var(--shadow-card)] border border-base-200"
       >
         <!-- Abstract background pattern -->
         <div
@@ -38,13 +38,13 @@ import { HttpClient } from '@angular/common/http';
         ></div>
 
         <div
-          class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8"
+          class="relative z-10 flex min-w-0 flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8"
         >
-          <div class="max-w-2xl">
-            <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-4 text-base-content">
+          <div class="min-w-0 max-w-2xl">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-none mb-4 text-base-content">
               Annuaire <span class="text-base-content/40">des Alumni</span>
             </h1>
-            <p class="text-lg md:text-xl text-base-content/70 font-medium leading-relaxed">
+            <p class="text-base sm:text-lg md:text-xl text-base-content/70 font-medium leading-relaxed">
               Explorez le réseau de nos brillants diplômés. Connectez-vous, partagez et grandissez
               ensemble au sein de notre communauté professionnelle.
             </p>
@@ -59,7 +59,7 @@ import { HttpClient } from '@angular/common/http';
           </div>
 
           <div
-            class="stats stats-vertical sm:stats-horizontal bg-base-100 border border-base-200 text-base-content shadow-2xl rounded-2xl bg-base-200/50 w-full md:w-auto"
+            class="stats stats-vertical bg-base-100 border border-base-200 text-base-content shadow-2xl rounded-2xl bg-base-200/50 w-full max-w-full md:w-auto"
           >
             <div class="stat px-6 py-4 md:px-8 md:py-6">
               <div
@@ -79,12 +79,78 @@ import { HttpClient } from '@angular/common/http';
         </div>
       </header>
 
+      @if (showMobileFilters() && !isLargeScreen()) {
+        <div class="fixed inset-0 z-40 bg-base-content/40 backdrop-blur-sm lg:hidden" (click)="toggleFilters()"></div>
+        <aside
+          class="fixed inset-x-4 top-20 bottom-4 z-50 flex flex-col gap-4 overflow-y-auto rounded-[var(--radius-card)] lg:hidden"
+        >
+          <section
+            class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]"
+          >
+            <div class="card-body p-5">
+              <div class="flex justify-between items-center mb-4">
+                <h2
+                  class="text-xs font-black uppercase tracking-widest text-base-content/40 flex items-center gap-2"
+                >
+                  <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
+                  Recherche & Filtres
+                </h2>
+                <button (click)="toggleFilters()" class="btn btn-ghost btn-xs">
+                  <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
+                </button>
+              </div>
+
+              <form [formGroup]="filterForm" class="flex flex-col gap-5">
+                <fieldset class="fieldset p-0">
+                  <legend class="fieldset-legend font-bold text-sm text-base-content/80">Mot-clé</legend>
+                  <div
+                    class="input glass border-base-200 flex items-center gap-3 w-full h-12 focus-within:ring-2 ring-primary/50 transition-all bg-base-200/50 text-base-content"
+                  >
+                    <lucide-angular
+                      [img]="searchIcon"
+                      class="size-4 opacity-40 text-base-content"
+                    ></lucide-angular>
+                    <input
+                      type="text"
+                      formControlName="search"
+                      class="grow min-w-0 text-sm font-medium placeholder:text-base-content/40 bg-transparent border-none focus:outline-none"
+                      placeholder="Nom, compétences, ou poste..."
+                    />
+                  </div>
+                </fieldset>
+
+                <fieldset class="fieldset p-0">
+                  <legend class="fieldset-legend font-bold text-sm text-base-content/80">
+                    Année de promotion
+                  </legend>
+                  <select
+                    formControlName="graduation_year"
+                    class="select glass border-base-200 w-full h-12 text-sm font-medium focus:ring-2 ring-primary/50 bg-base-200/50 text-base-content"
+                  >
+                    <option [value]="null">Toutes les promos</option>
+                    @for (year of years; track year) {
+                      <option [value]="year">Promotion {{ year }}</option>
+                    }
+                  </select>
+                </fieldset>
+
+                <div class="divider opacity-10 my-0 before:bg-base-content after:bg-base-content"></div>
+
+                <button
+                  type="button"
+                  (click)="resetFilters()"
+                  class="btn btn-primary h-12 font-bold shadow-lg shadow-primary/20 border-none text-primary-content"
+                >
+                  Réinitialiser
+                </button>
+              </form>
+            </div>
+          </section>
+        </aside>
+      }
+
       <!-- Sidebar Filter Block -->
-      <aside 
-        class="col-span-full lg:col-span-2 flex flex-col gap-6"
-        [class.hidden]="!showMobileFilters() && !isLargeScreen()"
-        [class.lg:flex]="true"
-      >
+      <aside class="col-span-full hidden lg:col-span-2 lg:flex lg:flex-col lg:gap-6">
         <section
           class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]"
         >
@@ -96,9 +162,6 @@ import { HttpClient } from '@angular/common/http';
                 <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
                 Recherche & Filtres
               </h2>
-              <button (click)="toggleFilters()" class="btn btn-ghost btn-xs lg:hidden">
-                <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
-              </button>
             </div>
 
             <form [formGroup]="filterForm" class="flex flex-col gap-5">
@@ -114,7 +177,7 @@ import { HttpClient } from '@angular/common/http';
                   <input
                     type="text"
                     formControlName="search"
-                    class="grow text-sm font-medium placeholder:text-base-content/40 bg-transparent border-none focus:outline-none"
+                    class="grow min-w-0 text-sm font-medium placeholder:text-base-content/40 bg-transparent border-none focus:outline-none"
                     placeholder="Nom, compétences, ou poste..."
                   />
                 </div>
@@ -155,9 +218,8 @@ import { HttpClient } from '@angular/common/http';
           </div>
         </section>
 
-        <!-- Informational Bento Block -->
         <section
-          class="card bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden "
+          class="card bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
         >
           <div class="card-body p-6">
             <div
@@ -179,9 +241,9 @@ import { HttpClient } from '@angular/common/http';
       </aside>
 
       <!-- Main Results Grid -->
-      <main class="col-span-full lg:col-span-4">
+      <main class="col-span-full min-w-0 lg:col-span-4">
         @if (isLoading()) {
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             @for (i of [1, 2, 3, 4]; track i) {
               <div
                 class="flex flex-col gap-4 w-full p-6 bg-base-100 rounded-[var(--radius-card)] border border-base-200 shadow-sm"
@@ -202,15 +264,15 @@ import { HttpClient } from '@angular/common/http';
             }
           </div>
         } @else if (profiles().length > 0) {
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             @for (alumni of paginatedProfiles(); track alumni.id) {
               <app-alumni-card [alumni]="alumni"></app-alumni-card>
             }
           </div>
 
           @if (totalCount() > 0) {
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 bg-base-100 p-4 rounded-2xl border border-base-200">
-              <div class="flex items-center gap-2">
+            <div class="flex flex-col items-stretch sm:flex-row sm:items-center justify-between gap-4 mt-6 bg-base-100 p-4 rounded-2xl border border-base-200">
+              <div class="flex flex-wrap items-center gap-2">
                 <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
                 <select
                   [value]="limit()"
@@ -225,7 +287,7 @@ import { HttpClient } from '@angular/common/http';
                 <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
               </div>
 
-              <div class="join">
+              <div class="join self-center sm:self-auto">
                 <button
                   [disabled]="page() === 1"
                   (click)="onPageChange(page() - 1)"
@@ -245,7 +307,7 @@ import { HttpClient } from '@angular/common/http';
                 </button>
               </div>
 
-              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+              <div class="text-center sm:text-right text-xs font-bold text-base-content/40 uppercase tracking-widest">
                 {{ totalCount() }} résultats au total
               </div>
             </div>

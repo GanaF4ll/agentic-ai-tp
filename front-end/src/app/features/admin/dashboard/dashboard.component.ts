@@ -12,9 +12,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
   standalone: true,
   imports: [LucideAngularModule],
   template: `
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       <header
-        class="col-span-full bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative overflow-hidden"
+        class="col-span-full bg-base-100 p-4 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative overflow-hidden"
       >
         <div class="relative z-10">
           <h1 class="text-3xl md:text-4xl font-black text-primary tracking-tighter leading-none">
@@ -36,17 +36,19 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
       <!-- Stat Card 1 -->
       <div
-        class="stats shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
+        class="shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
       >
-        <div class="stat p-6">
-          <div class="stat-figure text-primary bg-primary/10 p-3 rounded-xl">
-            <lucide-angular [img]="checkIcon" class="size-6"></lucide-angular>
+        <div class="p-6 flex flex-col gap-5 h-full">
+          <div class="flex items-start justify-between gap-4">
+            <div class="text-base-content/60 font-bold text-xs uppercase tracking-wider">
+              Alumni Vérifiés
+            </div>
+            <div class="shrink-0 text-primary bg-primary/10 p-3 rounded-xl">
+              <lucide-angular [img]="checkIcon" class="size-6"></lucide-angular>
+            </div>
           </div>
-          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">
-            Alumni Vérifiés
-          </div>
-          <div class="stat-value text-primary font-black text-4xl mt-1">842</div>
-          <div class="stat-desc font-medium text-success mt-2 flex items-center gap-1">
+          <div class="text-primary font-black text-4xl mt-1">842</div>
+          <div class="font-medium text-success mt-auto flex items-center gap-1">
             <span class="inline-block size-1.5 rounded-full bg-success"></span>
             21% de plus que le mois dernier
           </div>
@@ -55,33 +57,37 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
       <!-- Stat Card 2 -->
       <div
-        class="stats shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
+        class="shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
       >
-        <div class="stat p-6">
-          <div class="stat-figure text-warning bg-warning/10 p-3 rounded-xl">
-            <lucide-angular [img]="clockIcon" class="size-6"></lucide-angular>
+        <div class="p-6 flex flex-col gap-5 h-full">
+          <div class="flex items-start justify-between gap-4">
+            <div class="text-base-content/60 font-bold text-xs uppercase tracking-wider">
+              En attente de validation
+            </div>
+            <div class="shrink-0 text-warning bg-warning/10 p-3 rounded-xl">
+              <lucide-angular [img]="clockIcon" class="size-6"></lucide-angular>
+            </div>
           </div>
-          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">
-            En attente de validation
-          </div>
-          <div class="stat-value text-warning font-black text-4xl mt-1">{{ pendingCount() }}</div>
-          <div class="stat-desc font-medium text-warning mt-2">En attente d'examen</div>
+          <div class="text-warning font-black text-4xl mt-1">{{ pendingCount() }}</div>
+          <div class="font-medium text-warning mt-auto">En attente d'examen</div>
         </div>
       </div>
 
       <!-- Stat Card 3: Promotions -->
       <div
-        class="stats shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
+        class="shadow-[var(--shadow-card)] bg-base-100 border border-base-200 rounded-[var(--radius-card)] overflow-hidden"
       >
-        <div class="stat p-6">
-          <div class="stat-figure text-secondary bg-secondary/10 p-3 rounded-xl">
-            <lucide-angular [img]="gradIcon" class="size-6"></lucide-angular>
+        <div class="p-6 flex flex-col gap-5 h-full">
+          <div class="flex items-start justify-between gap-4">
+            <div class="text-base-content/60 font-bold text-xs uppercase tracking-wider">
+              Promotions
+            </div>
+            <div class="shrink-0 text-secondary bg-secondary/10 p-3 rounded-xl">
+              <lucide-angular [img]="gradIcon" class="size-6"></lucide-angular>
+            </div>
           </div>
-          <div class="stat-title text-base-content/60 font-bold text-xs uppercase tracking-wider">
-            Promotions
-          </div>
-          <div class="stat-value text-secondary font-black text-4xl mt-1">{{ totalPromotions() }}</div>
-          <div class="stat-desc font-medium text-secondary mt-2">Cohortes actives</div>
+          <div class="text-secondary font-black text-4xl mt-1">{{ totalPromotions() }}</div>
+          <div class="font-medium text-secondary mt-auto">Cohortes actives</div>
         </div>
       </div>
 
@@ -89,29 +95,29 @@ import { toSignal } from '@angular/core/rxjs-interop';
       <div
         class="col-span-1 card bg-secondary/10 border border-secondary/20 rounded-[var(--radius-card)] overflow-hidden relative"
       >
-        <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+        <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none hidden sm:block">
           <lucide-angular [img]="checkIcon" class="size-32 -mb-8 -mr-8 rotate-12"></lucide-angular>
         </div>
-        <div class="card-body p-6">
-          <h3 class="font-black text-secondary-content text-lg">Actions Rapides</h3>
+        <div class="card-body p-5 md:p-6">
+          <h3 class="font-black text-secondary-content text-xl leading-tight">Actions Rapides</h3>
           <div class="mt-4 flex flex-col gap-3">
             <button
               (click)="navigateToPromotions()"
-                class="btn btn-secondary btn-sm w-fit min-w-52 justify-start self-start rounded-xl px-4 font-bold shadow-sm"
+                class="btn btn-secondary btn-sm w-full justify-start rounded-xl px-4 font-bold shadow-sm text-secondary-content"
             >
               Gérer les Promotions
             </button>
             @if (authService.isSuperAdmin()) {
               <button
                 (click)="navigateToUsers()"
-                class="btn btn-sm w-fit min-w-52 justify-start self-start rounded-xl border border-base-content/20 bg-base-100/70 px-4 font-bold text-base-content shadow-sm hover:bg-base-100"
+                class="btn btn-sm w-full justify-start rounded-xl border border-base-content/20 bg-base-100/70 px-4 font-bold text-base-content shadow-sm hover:bg-base-100"
               >
                 <lucide-angular [img]="usersIcon" class="size-4 mr-2"></lucide-angular>
                 Gestion des Accès
               </button>
               <button
                 (click)="navigateToInviteAdmin()"
-                class="btn btn-primary btn-sm w-fit min-w-52 justify-start self-start rounded-xl px-4 font-bold shadow-sm"
+                class="btn btn-primary btn-sm w-full justify-start rounded-xl px-4 font-bold shadow-sm text-primary-content"
               >
                 <lucide-angular [img]="userPlusIcon" class="size-4 mr-2"></lucide-angular>
                 Inviter un Admin
@@ -148,7 +154,71 @@ import { toSignal } from '@angular/core/rxjs-interop';
             </div>
           </div>
 
-          <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
+          <div class="block md:hidden px-4 pb-4 space-y-3">
+            @for (profile of paginatedPendingProfiles(); track profile.id) {
+              <article class="rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm">
+                <div class="flex items-start gap-3">
+                  <div class="avatar placeholder">
+                    <div class="bg-neutral text-neutral-content rounded-xl w-10">
+                      <span class="text-xs font-black"
+                        >{{ profile.user.first_name[0] }}{{ profile.user.last_name[0] }}</span
+                      >
+                    </div>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <p class="font-bold text-base-content">
+                      {{ profile.user.first_name }} {{ profile.user.last_name }}
+                    </p>
+                    <p class="text-xs text-base-content/50 font-medium break-all">
+                      {{ profile.user.email }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="badge badge-ghost badge-sm font-bold bg-base-200 border-base-300 text-base-content/70">
+                    Promo {{ profile.graduation_year }}
+                  </span>
+                  <span class="badge badge-ghost badge-sm font-bold bg-base-200 border-base-300 text-base-content/70">
+                    {{ profile.degree }}
+                  </span>
+                  <span class="badge badge-outline badge-info badge-sm font-bold gap-1 pl-1 pr-2">
+                    <div class="size-1.5 rounded-full bg-info"></div>
+                    LinkedIn
+                  </span>
+                </div>
+
+                <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                  <button (click)="viewDetails(profile.id)" class="btn btn-ghost btn-sm font-bold sm:flex-1">
+                    Détails
+                  </button>
+                  <button
+                    class="btn btn-success btn-sm gap-1 font-bold shadow-sm shadow-success/20 sm:flex-1"
+                    (click)="validateProfile(profile.id)"
+                  >
+                    <lucide-angular [img]="checkIcon" class="size-3"></lucide-angular>
+                    Valider
+                  </button>
+                </div>
+              </article>
+            } @empty {
+              <div class="text-center py-12">
+                <div class="flex flex-col items-center justify-center gap-4">
+                  <div class="size-16 rounded-full bg-success/10 flex items-center justify-center text-success">
+                    <lucide-angular [img]="checkIcon" class="size-8"></lucide-angular>
+                  </div>
+                  <div>
+                    <p class="font-black text-lg text-base-content/80">Tout est à jour !</p>
+                    <p class="text-sm text-base-content/50 font-medium">
+                      Aucun profil en attente de validation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="hidden md:block overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
             <table class="table table-zebra w-full min-w-[800px] md:min-w-full">
               <thead>
                 <tr
@@ -238,8 +308,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
           </div>
 
           @if (pendingProfiles().length > 0) {
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-t border-base-200 bg-base-100">
-              <div class="flex items-center gap-2">
+            <div class="flex flex-col items-stretch sm:flex-row sm:items-center justify-between gap-4 p-4 border-t border-base-200 bg-base-100">
+              <div class="flex flex-wrap items-center gap-2">
                 <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">Afficher</span>
                 <select
                   [value]="limit()"
@@ -254,7 +324,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 <span class="text-xs font-bold text-base-content/40 uppercase tracking-widest">par page</span>
               </div>
 
-              <div class="join">
+              <div class="join self-center sm:self-auto">
                 <button
                   [disabled]="page() === 1"
                   (click)="onPageChange(page() - 1)"
@@ -274,7 +344,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 </button>
               </div>
 
-              <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+              <div class="text-center sm:text-right text-xs font-bold text-base-content/40 uppercase tracking-widest">
                 {{ pendingCount() }} résultats au total
               </div>
             </div>

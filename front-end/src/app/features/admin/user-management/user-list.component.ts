@@ -20,7 +20,7 @@ import { switchMap, startWith } from 'rxjs';
           <p class="text-base-content/60 font-medium mt-2">Gérez les invitations et les rôles des collaborateurs.</p>
         </div>
         
-        <button (click)="showCreateModal.set(true)" class="btn btn-primary btn-lg rounded-2xl shadow-lg shadow-primary/20 font-black h-12 md:h-14">
+        <button (click)="showCreateModal.set(true)" class="btn btn-primary btn-lg w-full md:w-auto rounded-2xl shadow-lg shadow-primary/20 font-black h-12 md:h-14">
           <lucide-icon name="user-plus" size="20" class="mr-2"></lucide-icon>
           Inviter un administrateur
         </button>
@@ -65,7 +65,70 @@ import { switchMap, startWith } from 'rxjs';
       </div>
 
       <div class="card bg-base-100 border border-base-200 shadow-sm rounded-3xl overflow-hidden">
-        <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
+        <div class="block md:hidden space-y-3 p-4">
+          @for (user of users(); track user.id) {
+            <article class="rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm">
+              <div class="flex items-start gap-3">
+                <div class="avatar placeholder">
+                  <div class="bg-primary text-primary-content rounded-xl w-10 h-10 font-black">
+                    {{ user.first_name[0] }}{{ user.last_name[0] }}
+                  </div>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="font-black text-base">{{ user.first_name }} {{ user.last_name }}</div>
+                  <div class="text-xs font-bold text-base-content/40 break-all">{{ user.email }}</div>
+                </div>
+              </div>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                <div
+                  class="badge badge-ghost font-bold text-xs uppercase tracking-widest px-3 py-3 rounded-lg"
+                  [class.badge-primary]="user.role === 'SUPER_ADMIN'"
+                  [class.badge-secondary]="user.role === 'ADMIN'"
+                >
+                  {{ user.role }}
+                </div>
+
+                @if (user.is_active) {
+                  <div class="badge badge-outline badge-success font-black text-xs uppercase">Actif</div>
+                } @else {
+                  <div class="badge badge-outline badge-error font-black text-xs uppercase">Inactif</div>
+                }
+              </div>
+
+              <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                @if (user.role === 'ADMIN' && user.id !== authService.user()?.id) {
+                  <button
+                    (click)="revokeAdmin(user)"
+                    class="btn btn-sm btn-outline btn-warning font-bold sm:flex-1"
+                  >
+                    Révoquer accès
+                  </button>
+                }
+
+                @if (user.id !== authService.user()?.id) {
+                  <button
+                    (click)="toggleActive(user)"
+                    class="btn btn-sm font-bold sm:flex-1"
+                    [class.btn-error]="user.is_active"
+                    [class.btn-success]="!user.is_active"
+                  >
+                    {{ user.is_active ? 'Désactiver' : 'Activer' }}
+                  </button>
+                }
+              </div>
+            </article>
+          } @empty {
+            <div class="text-center py-12">
+              <div class="flex flex-col items-center gap-2 opacity-20">
+                <lucide-icon name="calendar" size="48"></lucide-icon>
+                <span class="font-black">Aucun utilisateur trouvé</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="hidden md:block overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
           <table class="table table-lg min-w-[800px] md:min-w-full">
             <thead>
               <tr class="bg-base-200/50">
