@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
+    'django_celery_results',
+    'django_celery_beat',
     'accounts',
     'alumni',
     'scraping',
@@ -193,3 +195,26 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-reply@alumniconnect.fr'
+
+# --- Celery ---
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Paris'
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'refresh-alumni-positions-every-6-months': {
+        'task': 'scraping.tasks.refresh_all_alumni_positions',
+        'schedule': crontab(0, 0, day_of_month='1', month_of_year='*/6'),
+    },
+}
+
+# --- Apify ---
+APIFY_API_TOKEN = os.getenv('APIFY_API_TOKEN', '')
+APIFY_LINKEDIN_ACTOR_ID = os.getenv('APIFY_LINKEDIN_ACTOR_ID', 'dev_fusion/linkedin-profile-scraper')
+APIFY_GOOGLE_ACTOR_ID = os.getenv('APIFY_GOOGLE_ACTOR_ID', 'epctex/google-search-scraper')
+APIFY_MAX_ITEMS = int(os.getenv('APIFY_MAX_ITEMS', '100'))

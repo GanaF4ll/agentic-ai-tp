@@ -52,3 +52,7 @@ back-end/venv/
 Thumbs.db
 
 cours/
+.env.local
+alumni_export.sql
+alumni.csv
+linkedin_scraped_all.json

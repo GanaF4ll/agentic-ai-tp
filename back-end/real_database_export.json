@@ -1,0 +1,2399 @@
+[
+    {
+        "model": "accounts.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$ivFv7cMi7cAdV25C41SJZ9$GgTWRpQ6jnxvznUS7jA9SHbSr2shEGafntoZTxlOxCA=",
+            "last_login": null,
+            "is_superuser": true,
+            "first_name": "Super",
+            "last_name": "Admin",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-02-20T10:19:40.911Z",
+            "email": "superadmin@alumniconnect.com",
+            "role": "SUPER_ADMIN",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$Cmw6pKxGkg6MdF8bQDEkOD$FJQggu358H6AFHmnpdhXoJpB7r1D651Qn5Qz6vREHcc=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Staff",
+            "last_name": "1",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-02-20T10:19:41.000Z",
+            "email": "admin1@alumniconnect.com",
+            "role": "ADMIN",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$1BWFPScMjsmH0ldR8qh1rk$B9jB4x4v1KbesLX4vr4tcRGXW/gmFx6qrEceiRCigVI=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Staff",
+            "last_name": "2",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-02-20T10:19:41.084Z",
+            "email": "admin2@alumniconnect.com",
+            "role": "ADMIN",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$6k4ggs3d980dMWho5yE5IQ$6QrtegNVxgVElvnsS+L1oCDtSE6+E5I6gErLK5t3kxE=",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Staff",
+            "last_name": "3",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-02-20T10:19:41.170Z",
+            "email": "admin3@alumniconnect.com",
+            "role": "ADMIN",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 131,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$SH4lFp3YCkN5XFBQZEAmI5$kYtGPym64GAviPMfmmblG88R7fhQB5ZkpHhkubIUu8M=",
+            "last_login": "2026-03-10T20:50:01.692Z",
+            "is_superuser": true,
+            "first_name": "",
+            "last_name": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-03-07T16:06:25.867Z",
+            "email": "admin",
+            "role": "SUPER_ADMIN",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 132,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$F77K81Xk2diJgCxbb75ok1$he2Vn2m/ZA3+bKw3bTiLveJtqulV2rRmXjmnQaxCRxc=",
+            "last_login": null,
+            "is_superuser": true,
+            "first_name": "Super",
+            "last_name": "Admin",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-03-07T16:06:26.405Z",
+            "email": "mds.school@gmail.com",
+            "role": "SUPER_ADMIN",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 133,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Alexis",
+            "last_name": "HADJIAN",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.279Z",
+            "email": "alexis.hadjian@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 134,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Mathis",
+            "last_name": "LAVERSIN",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.286Z",
+            "email": "mathis.laversin@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 135,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "J\u00e9r\u00e9my",
+            "last_name": "BOUREUX",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.288Z",
+            "email": "j\u00e9r\u00e9my.boureux@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 136,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "R\u00e9mi",
+            "last_name": "MOUL",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.289Z",
+            "email": "r\u00e9mi.moul@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 137,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Samuel",
+            "last_name": "ZENTOU",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.291Z",
+            "email": "samuel.zentou@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 138,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Ath\u00e9na\u00efs",
+            "last_name": "GRAVIL",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.292Z",
+            "email": "ath\u00e9na\u00efs.gravil@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 139,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Gana",
+            "last_name": "FALL",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.294Z",
+            "email": "gana.fall@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 140,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Hichem",
+            "last_name": "MEBERBECHE",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.295Z",
+            "email": "hichem.meberbeche@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 141,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Peter",
+            "last_name": "BINATE",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.297Z",
+            "email": "peter.binate@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 142,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Amine",
+            "last_name": "LAIHEM",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.298Z",
+            "email": "amine.laihem@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 143,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Lo\u00efc",
+            "last_name": "TCHUENKAM TCHUENCHE",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.300Z",
+            "email": "lo\u00efc.tchuenkam-tchuenche@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 144,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Mamy Marcos",
+            "last_name": "AMBININTSOA",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.301Z",
+            "email": "mamy-marcos.ambinintsoa@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 145,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Oc\u00e9ane",
+            "last_name": "GLANEUX",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.303Z",
+            "email": "oc\u00e9ane.glaneux@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 146,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Carole",
+            "last_name": "BOUCHE",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.304Z",
+            "email": "carole.bouche@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 147,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Amir Tahar",
+            "last_name": "AMIOUR",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.306Z",
+            "email": "amir-tahar.amiour@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 148,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Rayan",
+            "last_name": "KICHOU",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.307Z",
+            "email": "rayan.kichou@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 149,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Tim",
+            "last_name": "HRDY",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.308Z",
+            "email": "tim.hrdy@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 150,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Guillaume",
+            "last_name": "LAFAY",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.310Z",
+            "email": "guillaume.lafay@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 151,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Max",
+            "last_name": "RICHET",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.312Z",
+            "email": "max.richet@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 152,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Paul",
+            "last_name": "OHL",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.314Z",
+            "email": "paul.ohl@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 153,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Johanna",
+            "last_name": "STOICANESCU",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.315Z",
+            "email": "johanna.stoicanescu@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 154,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Romain",
+            "last_name": "MARCELLI",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.317Z",
+            "email": "romain.marcelli@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 155,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Mahylan",
+            "last_name": "VECLIN",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.318Z",
+            "email": "mahylan.veclin@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 156,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Amrou",
+            "last_name": "BEN ABDESSALEM",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.321Z",
+            "email": "amrou.ben-abdessalem@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 157,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Sarah",
+            "last_name": "OTMANE",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.323Z",
+            "email": "sarah.otmane@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 158,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Mohamed Lamine",
+            "last_name": "REMINI",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:22.324Z",
+            "email": "mohamed-lamine.remini@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.user",
+        "pk": 160,
+        "fields": {
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "Matt\u00e9o",
+            "last_name": "HOUILLON",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2026-03-10T20:48:41.041Z",
+            "email": "matt\u00e9o.houillon@my-digital-school.org",
+            "role": "MEMBER",
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "phone": "",
+            "is_profile_public": true,
+            "must_change_password": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "alumni.promotion",
+        "pk": 12,
+        "fields": {
+            "label": "DEV",
+            "created_at": "2026-03-07T22:20:55.688Z",
+            "updated_at": "2026-03-07T22:20:55.688Z"
+        }
+    },
+    {
+        "model": "alumni.promotion",
+        "pk": 13,
+        "fields": {
+            "label": "MARKET",
+            "created_at": "2026-03-07T22:20:55.689Z",
+            "updated_at": "2026-03-07T22:20:55.689Z"
+        }
+    },
+    {
+        "model": "alumni.promotion",
+        "pk": 14,
+        "fields": {
+            "label": "UXUI",
+            "created_at": "2026-03-07T22:20:55.689Z",
+            "updated_at": "2026-03-07T22:20:55.689Z"
+        }
+    },
+    {
+        "model": "alumni.promotion",
+        "pk": 15,
+        "fields": {
+            "label": "DA",
+            "created_at": "2026-03-07T22:20:55.690Z",
+            "updated_at": "2026-03-07T22:20:55.690Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Super Administrateur de la plateforme.",
+            "current_job_title": "",
+            "current_company": "",
+            "location": "",
+            "avatar_url": null,
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "status": "VERIFIED",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-02-20T10:19:40.999Z",
+            "updated_at": "2026-02-20T10:19:40.999Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "bio": "Administrateur n\u00b01 charg\u00e9 de la mod\u00e9ration.",
+            "current_job_title": "",
+            "current_company": "",
+            "location": "",
+            "avatar_url": null,
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "status": "VERIFIED",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-02-20T10:19:41.084Z",
+            "updated_at": "2026-02-20T10:19:41.084Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "bio": "Administrateur n\u00b02 charg\u00e9 de la mod\u00e9ration.",
+            "current_job_title": "",
+            "current_company": "",
+            "location": "",
+            "avatar_url": null,
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "status": "VERIFIED",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-02-20T10:19:41.170Z",
+            "updated_at": "2026-02-20T10:19:41.170Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "bio": "Administrateur n\u00b03 charg\u00e9 de la mod\u00e9ration.",
+            "current_job_title": "",
+            "current_company": "",
+            "location": "",
+            "avatar_url": null,
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "status": "VERIFIED",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-02-20T10:19:41.255Z",
+            "updated_at": "2026-02-20T10:19:41.255Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 105,
+        "fields": {
+            "user": 132,
+            "bio": "Super Administrateur de la plateforme.",
+            "current_job_title": "",
+            "current_company": "",
+            "location": "",
+            "avatar_url": null,
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "status": "VERIFIED",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-07T16:06:26.493Z",
+            "updated_at": "2026-03-07T16:06:26.493Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 106,
+        "fields": {
+            "user": 133,
+            "bio": "D\u00e9veloppeur Web chez AKQA",
+            "current_job_title": "D\u00e9veloppeur Web",
+            "current_company": "AKQA",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Alexis%20HADJIAN&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/alexis-hadjian",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.283Z",
+            "updated_at": "2026-03-10T22:51:53.128Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 107,
+        "fields": {
+            "user": 134,
+            "bio": "Software engineer | Next.js | React Native | Docker | Kubernetes",
+            "current_job_title": "Software engineer",
+            "current_company": "Bouygues Telecom",
+            "location": "Chatou, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Mathis%20LAVERSIN&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/mathis-laversin",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.287Z",
+            "updated_at": "2026-03-10T22:51:53.132Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 108,
+        "fields": {
+            "user": 135,
+            "bio": "Tech Lead at Verdikt, a Future 40 start-up at Station F",
+            "current_job_title": "Tech Lead",
+            "current_company": "Verdikt",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=J%C3%A9r%C3%A9my%20BOUREUX&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/j%C3%A9r%C3%A9my-boureux-19283b222",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.288Z",
+            "updated_at": "2026-03-10T22:51:53.134Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 109,
+        "fields": {
+            "user": 136,
+            "bio": "D\u00e9veloppeur Fullstack (React Native)",
+            "current_job_title": "D\u00e9veloppeur Fullstack",
+            "current_company": "",
+            "location": "Paris, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=R%C3%A9mi%20MOUL&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/remimoul/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.290Z",
+            "updated_at": "2026-03-10T22:51:53.135Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 110,
+        "fields": {
+            "user": 137,
+            "bio": "Concepteur D\u00e9veloppeur d'Applications Web & Mobile",
+            "current_job_title": "Concepteur D\u00e9veloppeur d'Applications",
+            "current_company": "La Capsule",
+            "location": "Louvres, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Samuel%20ZENTOU&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/zentou-samuel-2710122a4/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.291Z",
+            "updated_at": "2026-03-10T22:51:53.136Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 111,
+        "fields": {
+            "user": 138,
+            "bio": "\u00c9tudiante \u00e0 MyDigitalSchool",
+            "current_job_title": "Apprentie",
+            "current_company": "",
+            "location": "Maincy, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Ath%C3%A9na%C3%AFs%20GRAVIL&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/ath%C3%A9na%C3%AFs-gravil-27a2892b3",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.293Z",
+            "updated_at": "2026-03-10T22:51:53.137Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 112,
+        "fields": {
+            "user": 139,
+            "bio": "D\u00e9veloppeur Full-stack (Angular Springboot NestJS) chez Scalian",
+            "current_job_title": "D\u00e9veloppeur Full Stack",
+            "current_company": "Scalian",
+            "location": "Paris Area, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Gana%20FALL&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/ganafall/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.294Z",
+            "updated_at": "2026-03-10T22:51:53.138Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 113,
+        "fields": {
+            "user": 140,
+            "bio": "D\u00e9veloppeur Full Stack Junior | \u00c9tudiant \u00e0 MyDigitalSchool | en alternance",
+            "current_job_title": "D\u00e9veloppeur Full Stack Junior",
+            "current_company": "Cegedim Sant\u00e9",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Hichem%20MEBERBECHE&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/amir-meberbeche/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": 12,
+            "created_at": "2026-03-10T20:48:22.296Z",
+            "updated_at": "2026-03-10T22:51:53.139Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 114,
+        "fields": {
+            "user": 141,
+            "bio": "D\u00e9veloppeur web full-stack @ TimeLapse Go'",
+            "current_job_title": "D\u00e9veloppeur web full-stack",
+            "current_company": "TimeLapse Go'",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Peter%20BINATE&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/peter-binate-08776a171",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.297Z",
+            "updated_at": "2026-03-10T22:51:53.140Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 115,
+        "fields": {
+            "user": 142,
+            "bio": "D\u00e9veloppeur Full Stack en alternance",
+            "current_job_title": "D\u00e9veloppeur Full Stack en alternance",
+            "current_company": "Assystem",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Amine%20LAIHEM&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/laihem-amine",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.299Z",
+            "updated_at": "2026-03-10T22:51:53.142Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 116,
+        "fields": {
+            "user": 143,
+            "bio": "D\u00e9veloppeur FullStack",
+            "current_job_title": "D\u00e9veloppeur FullStack",
+            "current_company": "DECOTEC",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Lo%C3%AFc%20TCHUENKAM%20TCHUENCHE&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/loic-arthur-tchuenkam-a268a7256/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.300Z",
+            "updated_at": "2026-03-10T22:51:53.143Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 117,
+        "fields": {
+            "user": 144,
+            "bio": "\u00c9tudiant(e) \u00e0 antsiranana",
+            "current_job_title": "\u00c9tudiant",
+            "current_company": "",
+            "location": "Antananarivo",
+            "avatar_url": "https://ui-avatars.com/api/?name=Mamy%20Marcos%20AMBININTSOA&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://mg.linkedin.com/in/mamy-ambinintsoa-154b63256",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.302Z",
+            "updated_at": "2026-03-10T22:51:53.144Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 118,
+        "fields": {
+            "user": 145,
+            "bio": "Les Fermes Debout (ex-NeoFarm)",
+            "current_job_title": "D\u00e9veloppeur / Profil Technique",
+            "current_company": "Les Fermes Debout (ex-NeoFarm)",
+            "location": "Paris et p\u00e9riph\u00e9rie",
+            "avatar_url": "https://ui-avatars.com/api/?name=Oc%C3%A9ane%20GLANEUX&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/glaneux",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.303Z",
+            "updated_at": "2026-03-10T22:51:53.145Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 119,
+        "fields": {
+            "user": 146,
+            "bio": "Community Manager | \u00c9v\u00e9nementiel",
+            "current_job_title": "Community Manager",
+            "current_company": "Com'une Bouche",
+            "location": "Saint-Nectaire, Auvergne-Rh\u00f4ne-Alpes, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Carole%20BOUCHE&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/carole-b-it/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.305Z",
+            "updated_at": "2026-03-10T22:51:53.147Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 120,
+        "fields": {
+            "user": 147,
+            "bio": "Hager Group",
+            "current_job_title": "Alternant / D\u00e9veloppeur",
+            "current_company": "Hager Group",
+            "location": "Paris",
+            "avatar_url": "https://ui-avatars.com/api/?name=Amir%20Tahar%20AMIOUR&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/amir-tahar-amiour-79b64a292",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.306Z",
+            "updated_at": "2026-03-10T22:51:53.148Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 121,
+        "fields": {
+            "user": 148,
+            "bio": "Enedis",
+            "current_job_title": "D\u00e9veloppeur / Alternant",
+            "current_company": "Enedis",
+            "location": "Courbevoie, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Rayan%20KICHOU&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/rayan-kichou-189936205",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.308Z",
+            "updated_at": "2026-03-10T22:51:53.149Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 122,
+        "fields": {
+            "user": 149,
+            "bio": "Ing\u00e9nieur Full Stack | Mobile & IA",
+            "current_job_title": "Ing\u00e9nieur Full Stack",
+            "current_company": "Freelance / Malt",
+            "location": "Paris",
+            "avatar_url": "https://ui-avatars.com/api/?name=Tim%20HRDY&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/tim-hrdy",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.309Z",
+            "updated_at": "2026-03-10T22:51:53.150Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 123,
+        "fields": {
+            "user": 150,
+            "bio": "Actemium Saint-Etienne Process Solutions",
+            "current_job_title": "D\u00e9veloppeur / Ing\u00e9nieur",
+            "current_company": "Actemium Saint-Etienne Process Solutions",
+            "location": "Lyon et p\u00e9riph\u00e9rie",
+            "avatar_url": "https://ui-avatars.com/api/?name=Guillaume%20LAFAY&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/guillaume-lafay",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.311Z",
+            "updated_at": "2026-03-10T22:51:53.152Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 124,
+        "fields": {
+            "user": 151,
+            "bio": "Max Richet - Screwfix",
+            "current_job_title": "Employ\u00e9",
+            "current_company": "Screwfix",
+            "location": "Yeovil, England, United Kingdom",
+            "avatar_url": "https://ui-avatars.com/api/?name=Max%20RICHET&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://uk.linkedin.com/in/max-richet-71a4a329a",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.313Z",
+            "updated_at": "2026-03-10T22:51:53.153Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 125,
+        "fields": {
+            "user": 152,
+            "bio": "Rust backend web developer",
+            "current_job_title": "Rust backend web developer",
+            "current_company": "IOmentum",
+            "location": "Montrouge, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Paul%20OHL&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://www.linkedin.com/in/paul-ohl/",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.314Z",
+            "updated_at": "2026-03-10T22:51:53.154Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 126,
+        "fields": {
+            "user": 153,
+            "bio": "Johanna Stoicanescu - Lucky cart",
+            "current_job_title": "Alternante",
+            "current_company": "Lucky cart",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Johanna%20STOICANESCU&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/johanna-stoicanescu-752801252",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.316Z",
+            "updated_at": "2026-03-10T22:51:53.156Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 127,
+        "fields": {
+            "user": 154,
+            "bio": "\u00c9tudiant / Alternant chez MyDigitalSchool",
+            "current_job_title": "D\u00e9veloppeur web",
+            "current_company": "SYSTELECOMS",
+            "location": "Lille et p\u00e9riph\u00e9rie",
+            "avatar_url": "https://ui-avatars.com/api/?name=Romain%20MARCELLI&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/romain-marcelli",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.317Z",
+            "updated_at": "2026-03-10T22:51:53.158Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 128,
+        "fields": {
+            "user": 155,
+            "bio": "Mahylan Veclin - Wangarden",
+            "current_job_title": "Alternant",
+            "current_company": "Wangarden",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Mahylan%20VECLIN&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/mahylan-veclin-59aa40242",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.319Z",
+            "updated_at": "2026-03-10T22:51:53.160Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 129,
+        "fields": {
+            "user": 156,
+            "bio": "\u00c9tudiant en MBA d\u00e9veloppeur full-stack en alternance chez AXA",
+            "current_job_title": "D\u00e9veloppeur Full Stack",
+            "current_company": "AXA en France",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Amrou%20BEN%20ABDESSALEM&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/amrou-ben-abdessalem-8b4324294",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.322Z",
+            "updated_at": "2026-03-10T22:51:53.161Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 130,
+        "fields": {
+            "user": 157,
+            "bio": "Sarah OTMANE - Cr\u00e9dit Agricole Assurances",
+            "current_job_title": "D\u00e9veloppeuse Full Stack",
+            "current_company": "Cr\u00e9dit Agricole Assurances",
+            "location": "Paris, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Sarah%20OTMANE&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/sarah-otmane-b03212251",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.323Z",
+            "updated_at": "2026-03-10T22:51:53.162Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 131,
+        "fields": {
+            "user": 158,
+            "bio": "",
+            "current_job_title": "",
+            "current_company": "",
+            "location": "",
+            "avatar_url": null,
+            "linkedin_url": null,
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:22.325Z",
+            "updated_at": "2026-03-10T20:48:22.325Z"
+        }
+    },
+    {
+        "model": "alumni.profile",
+        "pk": 133,
+        "fields": {
+            "user": 160,
+            "bio": "Matt\u00e9o HOUILLON - EVERTRUST",
+            "current_job_title": "Alternant",
+            "current_company": "EVERTRUST",
+            "location": "Vaires-sur-Marne, \u00cele-de-France, France",
+            "avatar_url": "https://ui-avatars.com/api/?name=Matt%C3%A9o%20HOUILLON&size=200&background=0D8ABC&color=fff&rounded=true&bold=true",
+            "linkedin_url": "https://fr.linkedin.com/in/matt%C3%A9o-houillon",
+            "graduation_year": null,
+            "degree": "",
+            "status": "DRAFT",
+            "is_visible": true,
+            "promotion": null,
+            "created_at": "2026-03-10T20:48:41.042Z",
+            "updated_at": "2026-03-10T22:51:53.164Z"
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 212,
+        "fields": {
+            "profile": 106,
+            "school": "MyDigitalSchool",
+            "degree": "Concepteur d\u00e9veloppeur d'applications",
+            "year": 2024
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 213,
+        "fields": {
+            "profile": 107,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 214,
+        "fields": {
+            "profile": 108,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 215,
+        "fields": {
+            "profile": 109,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 216,
+        "fields": {
+            "profile": 110,
+            "school": "La Capsule",
+            "degree": "Concepteur D\u00e9veloppeur d'Applications Web & Mobile \u2013 Niveau 6",
+            "year": 2024
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 217,
+        "fields": {
+            "profile": 111,
+            "school": "MyDigitalSchool",
+            "degree": "Bachelor",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 218,
+        "fields": {
+            "profile": 112,
+            "school": "MyDigitalSchool",
+            "degree": "Bachelor",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 219,
+        "fields": {
+            "profile": 113,
+            "school": "MyDigitalSchool",
+            "degree": "Bachelor",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 220,
+        "fields": {
+            "profile": 114,
+            "school": "MyDigitalSchool",
+            "degree": "Bachelor",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 221,
+        "fields": {
+            "profile": 115,
+            "school": "Universit\u00e9 Paris 13",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 222,
+        "fields": {
+            "profile": 116,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 223,
+        "fields": {
+            "profile": 117,
+            "school": "antsiranana",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 224,
+        "fields": {
+            "profile": 118,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 225,
+        "fields": {
+            "profile": 119,
+            "school": "CCI Clermont-Ferrand",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 226,
+        "fields": {
+            "profile": 120,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 227,
+        "fields": {
+            "profile": 121,
+            "school": "Universit\u00e9 des Sciences et de la Technologie Houari Boumedi\u00e8ne",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 228,
+        "fields": {
+            "profile": 122,
+            "school": "Universit\u00e9 Paris-Saclay",
+            "degree": "Master 2 (M2) MIAGE",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 229,
+        "fields": {
+            "profile": 122,
+            "school": "MyDigitalSchool",
+            "degree": "MBA sp\u00e9cialis\u00e9 D\u00e9veloppeur Full-Stack",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 230,
+        "fields": {
+            "profile": 123,
+            "school": "Ecole nationale d'Ing\u00e9nieurs de Saint-Etienne",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 231,
+        "fields": {
+            "profile": 124,
+            "school": "Swansea University",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 232,
+        "fields": {
+            "profile": 125,
+            "school": "42",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 233,
+        "fields": {
+            "profile": 125,
+            "school": "OpenClassrooms",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 234,
+        "fields": {
+            "profile": 126,
+            "school": "MyDigitalSchool",
+            "degree": "Bac +5",
+            "year": 2024
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 235,
+        "fields": {
+            "profile": 127,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 236,
+        "fields": {
+            "profile": 127,
+            "school": "Webforce3",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 237,
+        "fields": {
+            "profile": 128,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 238,
+        "fields": {
+            "profile": 129,
+            "school": "MyDigitalSchool",
+            "degree": "MBA d\u00e9veloppeur full-stack",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 239,
+        "fields": {
+            "profile": 130,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.education",
+        "pk": 240,
+        "fields": {
+            "profile": 133,
+            "school": "MyDigitalSchool",
+            "degree": "",
+            "year": null
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 238,
+        "fields": {
+            "profile": 106,
+            "title": "D\u00e9veloppeur Web",
+            "company": "AKQA",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 239,
+        "fields": {
+            "profile": 107,
+            "title": "Software engineer",
+            "company": "Bouygues Telecom",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 240,
+        "fields": {
+            "profile": 108,
+            "title": "Tech Lead",
+            "company": "Verdikt",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 241,
+        "fields": {
+            "profile": 112,
+            "title": "D\u00e9veloppeur Full Stack",
+            "company": "Scalian",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 242,
+        "fields": {
+            "profile": 113,
+            "title": "D\u00e9veloppeur Full Stack",
+            "company": "Cegedim Sant\u00e9",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 243,
+        "fields": {
+            "profile": 114,
+            "title": "D\u00e9veloppeur web full-stack",
+            "company": "TimeLapse Go'",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 244,
+        "fields": {
+            "profile": 115,
+            "title": "D\u00e9veloppeur Full Stack en alternance",
+            "company": "Assystem",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 245,
+        "fields": {
+            "profile": 116,
+            "title": "D\u00e9veloppeur FullStack",
+            "company": "DECOTEC",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 246,
+        "fields": {
+            "profile": 118,
+            "title": "Profil Technique",
+            "company": "Les Fermes Debout (ex-NeoFarm)",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 247,
+        "fields": {
+            "profile": 119,
+            "title": "Community Manager",
+            "company": "Com'une Bouche",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 248,
+        "fields": {
+            "profile": 120,
+            "title": "Alternant",
+            "company": "Hager Group",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 249,
+        "fields": {
+            "profile": 121,
+            "title": "Alternant",
+            "company": "Enedis",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 250,
+        "fields": {
+            "profile": 122,
+            "title": "Ing\u00e9nieur Full Stack | Mobile & IA",
+            "company": "Malt / Freelance",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 251,
+        "fields": {
+            "profile": 123,
+            "title": "Ing\u00e9nieur",
+            "company": "Actemium Saint-Etienne Process Solutions",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 252,
+        "fields": {
+            "profile": 124,
+            "title": "Employ\u00e9",
+            "company": "Screwfix",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 253,
+        "fields": {
+            "profile": 125,
+            "title": "Founder/Developer",
+            "company": "IOmentum",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 254,
+        "fields": {
+            "profile": 125,
+            "title": "Developer",
+            "company": "Mirametrix",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 255,
+        "fields": {
+            "profile": 126,
+            "title": "Alternante",
+            "company": "Lucky cart",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 256,
+        "fields": {
+            "profile": 127,
+            "title": "D\u00e9veloppeur web",
+            "company": "SYSTELECOMS",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 257,
+        "fields": {
+            "profile": 128,
+            "title": "Alternant",
+            "company": "Wangarden",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 258,
+        "fields": {
+            "profile": 129,
+            "title": "D\u00e9veloppeur Full Stack",
+            "company": "AXA en France",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 259,
+        "fields": {
+            "profile": 130,
+            "title": "D\u00e9veloppeuse Full Stack",
+            "company": "Cr\u00e9dit Agricole Assurances",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 260,
+        "fields": {
+            "profile": 133,
+            "title": "Alternant",
+            "company": "EVERTRUST",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "alumni.experience",
+        "pk": 261,
+        "fields": {
+            "profile": 133,
+            "title": "Alternant",
+            "company": "Ville de Paris",
+            "start_date": null,
+            "end_date": null,
+            "description": ""
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 1,
+        "fields": {
+            "user": 133,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:04.558Z",
+            "created_at": "2026-03-10T20:48:22.285Z",
+            "updated_at": "2026-03-10T21:04:04.558Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 2,
+        "fields": {
+            "user": 134,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:00.581Z",
+            "created_at": "2026-03-10T20:48:22.287Z",
+            "updated_at": "2026-03-10T21:04:00.582Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 3,
+        "fields": {
+            "user": 135,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:14.310Z",
+            "created_at": "2026-03-10T20:48:22.289Z",
+            "updated_at": "2026-03-10T21:04:14.310Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 4,
+        "fields": {
+            "user": 136,
+            "status": "url_not_found",
+            "raw_data": {},
+            "error_message": "URL LinkedIn introuvable via Google",
+            "scraped_at": null,
+            "created_at": "2026-03-10T20:48:22.290Z",
+            "updated_at": "2026-03-10T20:48:22.290Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 5,
+        "fields": {
+            "user": 137,
+            "status": "url_not_found",
+            "raw_data": {},
+            "error_message": "URL LinkedIn introuvable via Google",
+            "scraped_at": null,
+            "created_at": "2026-03-10T20:48:22.292Z",
+            "updated_at": "2026-03-10T20:48:22.292Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 6,
+        "fields": {
+            "user": 138,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:03:52.061Z",
+            "created_at": "2026-03-10T20:48:22.293Z",
+            "updated_at": "2026-03-10T21:03:52.061Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 7,
+        "fields": {
+            "user": 139,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:02.941Z",
+            "created_at": "2026-03-10T20:48:22.295Z",
+            "updated_at": "2026-03-10T21:04:02.941Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 8,
+        "fields": {
+            "user": 140,
+            "status": "url_not_found",
+            "raw_data": {},
+            "error_message": "URL LinkedIn introuvable via Google",
+            "scraped_at": null,
+            "created_at": "2026-03-10T20:48:22.296Z",
+            "updated_at": "2026-03-10T20:48:22.296Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 9,
+        "fields": {
+            "user": 141,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:03:56.259Z",
+            "created_at": "2026-03-10T20:48:22.298Z",
+            "updated_at": "2026-03-10T21:03:56.259Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 10,
+        "fields": {
+            "user": 142,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:05.178Z",
+            "created_at": "2026-03-10T20:48:22.299Z",
+            "updated_at": "2026-03-10T21:04:05.178Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 11,
+        "fields": {
+            "user": 143,
+            "status": "url_not_found",
+            "raw_data": {},
+            "error_message": "URL LinkedIn introuvable via Google",
+            "scraped_at": null,
+            "created_at": "2026-03-10T20:48:22.301Z",
+            "updated_at": "2026-03-10T20:48:22.301Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 12,
+        "fields": {
+            "user": 144,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:07.140Z",
+            "created_at": "2026-03-10T20:48:22.302Z",
+            "updated_at": "2026-03-10T21:04:07.140Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 13,
+        "fields": {
+            "user": 145,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:18.706Z",
+            "created_at": "2026-03-10T20:48:22.304Z",
+            "updated_at": "2026-03-10T21:04:18.706Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 14,
+        "fields": {
+            "user": 146,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:02.029Z",
+            "created_at": "2026-03-10T20:48:22.305Z",
+            "updated_at": "2026-03-10T21:04:02.029Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 15,
+        "fields": {
+            "user": 147,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:12.350Z",
+            "created_at": "2026-03-10T20:48:22.307Z",
+            "updated_at": "2026-03-10T21:04:12.350Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 16,
+        "fields": {
+            "user": 148,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:03:58.226Z",
+            "created_at": "2026-03-10T20:48:22.308Z",
+            "updated_at": "2026-03-10T21:03:58.226Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 17,
+        "fields": {
+            "user": 149,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:18.405Z",
+            "created_at": "2026-03-10T20:48:22.310Z",
+            "updated_at": "2026-03-10T21:04:18.405Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 18,
+        "fields": {
+            "user": 150,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:10.827Z",
+            "created_at": "2026-03-10T20:48:22.312Z",
+            "updated_at": "2026-03-10T21:04:10.827Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 19,
+        "fields": {
+            "user": 151,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:16.356Z",
+            "created_at": "2026-03-10T20:48:22.313Z",
+            "updated_at": "2026-03-10T21:04:16.356Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 20,
+        "fields": {
+            "user": 152,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:03:56.777Z",
+            "created_at": "2026-03-10T20:48:22.315Z",
+            "updated_at": "2026-03-10T21:03:56.777Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 21,
+        "fields": {
+            "user": 153,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:12.922Z",
+            "created_at": "2026-03-10T20:48:22.316Z",
+            "updated_at": "2026-03-10T21:04:12.922Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 22,
+        "fields": {
+            "user": 154,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:03:54.237Z",
+            "created_at": "2026-03-10T20:48:22.318Z",
+            "updated_at": "2026-03-10T21:03:54.238Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 23,
+        "fields": {
+            "user": 155,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:09.933Z",
+            "created_at": "2026-03-10T20:48:22.320Z",
+            "updated_at": "2026-03-10T21:04:09.933Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 24,
+        "fields": {
+            "user": 156,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:03:59.255Z",
+            "created_at": "2026-03-10T20:48:22.322Z",
+            "updated_at": "2026-03-10T21:03:59.255Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 25,
+        "fields": {
+            "user": 157,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:15.307Z",
+            "created_at": "2026-03-10T20:48:22.324Z",
+            "updated_at": "2026-03-10T21:04:15.307Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 26,
+        "fields": {
+            "user": 158,
+            "status": "url_not_found",
+            "raw_data": {},
+            "error_message": "URL LinkedIn introuvable via Google",
+            "scraped_at": null,
+            "created_at": "2026-03-10T20:48:22.325Z",
+            "updated_at": "2026-03-10T20:48:22.325Z"
+        }
+    },
+    {
+        "model": "scraping.linkedinscrapingtask",
+        "pk": 28,
+        "fields": {
+            "user": 160,
+            "status": "pending",
+            "raw_data": {},
+            "error_message": "",
+            "scraped_at": "2026-03-10T21:04:36.016Z",
+            "created_at": "2026-03-10T20:48:41.044Z",
+            "updated_at": "2026-03-10T21:04:36.016Z"
+        }
+    }
+]

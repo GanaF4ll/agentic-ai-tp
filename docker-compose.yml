@@ -12,6 +12,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./back-end:/dumps:ro
 
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
   back-end:
     build: ./back-end
     restart: unless-stopped
@@ -25,10 +31,35 @@ services:
       DATABASE_PASSWORD: app_password
       DJANGO_SUPERUSER_USERNAME: admin
       DJANGO_SUPERUSER_PASSWORD: admin
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    env_file:
+      - .env.local
     volumes:
       - ./back-end:/app
     depends_on:
       - db
+      - redis
+
+  worker:
+    build: ./back-end
+    restart: unless-stopped
+    command: celery -A config worker --loglevel=info --concurrency=2
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: app_db
+      DATABASE_USER: app_user
+      DATABASE_PASSWORD: app_password
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    env_file:
+      - .env.local
+    volumes:
+      - ./back-end:/app
+    depends_on:
+      - db
+      - redis
 
   front-end:
     build: ./front-end
