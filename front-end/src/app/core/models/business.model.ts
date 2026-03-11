@@ -25,4 +25,13 @@ export interface AlumniEvent {
   organizer: string;
   is_registered?: boolean;
   participants_count?: number;
+  participants?: Participant[];
+}
+
+export interface Participant {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  full_name: string;
 }

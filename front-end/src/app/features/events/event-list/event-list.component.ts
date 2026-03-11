@@ -21,7 +21,9 @@ import { RouterLink } from '@angular/router';
           <p class="text-base-content/60 font-medium mt-3">Networking, ateliers et vie de l'école.</p>
         </div>
         <div class="flex gap-2">
-           <button routerLink="/events/my-events" class="btn btn-ghost font-bold rounded-xl border-base-200 text-base-content hover:bg-base-200/50">Mes inscriptions</button>
+           @if (isMember()) {
+             <button routerLink="/events/my-events" class="btn btn-ghost font-bold rounded-xl border-base-200 text-base-content hover:bg-base-200/50">Mes inscriptions</button>
+           }
            @if (isAdmin()) {
              <button (click)="showCreateModal.set(true)" class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 rounded-xl border-none text-primary-content">Proposer un événement</button>
            }

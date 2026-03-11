@@ -33,12 +33,14 @@ import { EventCreateComponent } from '../event-list/event-create.component';
                 <div class="flex justify-between items-start mb-4">
                   <div class="badge badge-primary font-black px-4 py-3 shadow-sm">{{ e.is_online ? 'EN LIGNE' : 'PRÉSENTIEL' }}</div>
                   @if (isAdmin()) {
-                    <div class="flex gap-2">
-                      <button (click)="showEditModal.set(true)" class="btn btn-circle btn-sm btn-ghost hover:bg-primary/10 hover:text-primary">
+                    <div class="flex flex-wrap gap-2">
+                      <button (click)="showEditModal.set(true)" class="btn btn-warning btn-sm font-bold gap-2 rounded-xl border-none">
                         <lucide-angular [img]="editIcon" class="size-4"></lucide-angular>
+                        Modifier l'événement
                       </button>
-                      <button (click)="deleteEvent()" class="btn btn-circle btn-sm btn-ghost hover:bg-error/10 hover:text-error">
+                      <button (click)="deleteEvent()" class="btn btn-error btn-sm font-bold gap-2 rounded-xl border-none">
                         <lucide-angular [img]="deleteIcon" class="size-4"></lucide-angular>
+                        Annuler l'événement
                       </button>
                     </div>
                   }
@@ -88,6 +90,26 @@ import { EventCreateComponent } from '../event-list/event-create.component';
                 </div>
 
                 <div class="divider opacity-5 my-4"></div>
+
+                @if (isAdmin() && e.participants) {
+                  <p class="text-xs font-bold text-base-content/40 mb-4 uppercase tracking-widest">Liste des participants</p>
+                  <div class="flex flex-col gap-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                    @for (participant of e.participants; track participant.id) {
+                      <div class="flex items-center gap-3 p-2 rounded-xl bg-base-200/50 hover:bg-base-200 transition-colors">
+                        <div class="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                          {{ participant.first_name?.[0] || '?' }}{{ participant.last_name?.[0] || '' }}
+                        </div>
+                        <div class="flex flex-col min-w-0">
+                          <span class="text-xs font-black text-base-content truncate">{{ participant.full_name }}</span>
+                          <span class="text-[10px] font-bold text-base-content/40 truncate">{{ participant.email }}</span>
+                        </div>
+                      </div>
+                    } @empty {
+                      <p class="text-xs font-bold italic text-base-content/30 text-center py-4">Aucun participant inscrit.</p>
+                    }
+                  </div>
+                  <div class="divider opacity-5 my-4"></div>
+                }
 
                 <p class="text-xs font-bold text-base-content/40 mb-2 uppercase tracking-widest">Organisateur</p>
                 <p class="font-black text-base-content mb-8">{{ e.organizer }}</p>

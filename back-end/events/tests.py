@@ -110,3 +110,22 @@ class EventAPITests(APITestCase):
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("Cannot register for a past event.", response.data['detail'])
+
+    def test_participants_visibility(self):
+        # Register member to upcoming event
+        EventParticipant.objects.create(event=self.upcoming_event, user=self.member_user)
+        
+        # Admin should see participants
+        self.client.force_authenticate(user=self.admin_user)
+        url = reverse('event-detail', args=[self.upcoming_event.id])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn('participants', response.data)
+        self.assertEqual(len(response.data['participants']), 1)
+        self.assertEqual(response.data['participants'][0]['email'], self.member_user.email)
+
+        # Member should NOT see participants
+        self.client.force_authenticate(user=self.member_user)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNone(response.data['participants'])
