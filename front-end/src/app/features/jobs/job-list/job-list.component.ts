@@ -14,20 +14,20 @@ import { ToastService } from '../../../core/services/toast.service';
   imports: [CommonModule, LucideAngularModule, RouterLink, FormsModule],
   template: `
     <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
-      <header class="col-span-full flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] text-base-content">
-        <div>
-          <h1 class="text-4xl font-black text-base-content tracking-tighter">Offres d'Emploi</h1>
-          <p class="text-base-content/70 font-medium mt-2">Opportunités exclusives pour notre réseau d'alumni.</p>
+      <header class="col-span-full flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] text-base-content relative overflow-hidden">
+        <div class="relative z-10">
+          <h1 class="text-3xl md:text-4xl font-black text-base-content tracking-tighter leading-none">Offres d'Emploi</h1>
+          <p class="text-base-content/70 font-medium mt-3">Opportunités exclusives pour notre réseau d'alumni.</p>
+          
+          <button (click)="toggleFilters()" class="btn btn-ghost border-base-200 text-base-content font-bold rounded-xl lg:hidden mt-6">
+            <lucide-angular [img]="filterIcon" class="size-4 mr-2"></lucide-angular>
+            {{ showMobileFilters() ? 'Masquer les filtres' : 'Afficher les filtres' }}
+          </button>
         </div>
         
-        <div class="flex gap-3">
-          <button (click)="toggleFilters()" class="btn btn-ghost border-base-200 text-base-content font-bold rounded-xl lg:hidden">
-            <lucide-angular [img]="filterIcon" class="size-4 mr-2"></lucide-angular>
-            Filtres
-          </button>
-          
+        <div class="flex flex-wrap gap-3 relative z-10">
           @if (isAdmin()) {
-            <button routerLink="/admin/jobs/create" class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 border-none text-primary-content rounded-xl">
+            <button routerLink="/admin/jobs/create" class="btn btn-primary px-8 font-bold shadow-lg shadow-primary/20 border-none text-primary-content rounded-xl h-12">
               <lucide-angular [img]="plusIcon" class="size-4 mr-2"></lucide-angular>
               Publier une offre
             </button>
@@ -35,14 +35,21 @@ import { ToastService } from '../../../core/services/toast.service';
         </div>
       </header>
 
-      <aside class="col-span-full lg:col-span-2 flex flex-col gap-6" [ngClass]="{'hidden lg:flex': !showMobileFilters()}">
+      <aside class="col-span-full lg:col-span-2 flex flex-col gap-6" 
+        [class.hidden]="!showMobileFilters() && !isLargeScreen()"
+        [class.lg:flex]="true">
         <!-- Filters Card -->
         <section class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
           <div class="card-body p-6">
-            <h2 class="text-xs font-black uppercase tracking-widest text-base-content/40 mb-4 flex items-center gap-2">
-              <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
-              Recherche & Filtres
-            </h2>
+            <div class="flex justify-between items-center mb-4 lg:mb-0">
+              <h2 class="text-xs font-black uppercase tracking-widest text-base-content/40 flex items-center gap-2">
+                <lucide-angular [img]="filterIcon" class="size-3"></lucide-angular>
+                Recherche & Filtres
+              </h2>
+              <button (click)="toggleFilters()" class="btn btn-ghost btn-xs lg:hidden">
+                <lucide-angular [img]="closeIcon" class="size-4"></lucide-angular>
+              </button>
+            </div>
 
             <div class="flex flex-col gap-5">
               <fieldset class="fieldset p-0">
@@ -239,6 +246,13 @@ export class JobListComponent implements OnInit {
   totalPages = computed(() => Math.ceil(this.totalCount() / this.limit()) || 1);
   
   showMobileFilters = signal(false);
+  isLargeScreen = signal(window.innerWidth >= 1024);
+
+  constructor() {
+    window.addEventListener('resize', () => {
+      this.isLargeScreen.set(window.innerWidth >= 1024);
+    });
+  }
 
   ngOnInit() {
     this.loadJobs();

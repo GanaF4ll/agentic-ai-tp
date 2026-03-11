@@ -13,23 +13,23 @@ import { switchMap, startWith } from 'rxjs';
   imports: [LucideAngularModule, UserCreateComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="p-6 max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div class="p-4 md:p-6 max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
-          <h1 class="text-4xl font-black tracking-tighter text-base-content">Gestion des Accès</h1>
-          <p class="text-base-content/60 font-medium mt-1">Gérez les invitations et les rôles des collaborateurs.</p>
+          <h1 class="text-3xl md:text-4xl font-black tracking-tighter text-base-content leading-none">Gestion des Accès</h1>
+          <p class="text-base-content/60 font-medium mt-2">Gérez les invitations et les rôles des collaborateurs.</p>
         </div>
         
-        <button (click)="showCreateModal.set(true)" class="btn btn-primary btn-lg rounded-2xl shadow-lg shadow-primary/20 font-black">
+        <button (click)="showCreateModal.set(true)" class="btn btn-primary btn-lg rounded-2xl shadow-lg shadow-primary/20 font-black h-12 md:h-14">
           <lucide-icon name="user-plus" size="20" class="mr-2"></lucide-icon>
           Inviter un administrateur
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
         <div class="card bg-base-100 border border-base-200 shadow-sm p-6 rounded-3xl">
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+            <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
               <lucide-icon name="shield-check" size="24"></lucide-icon>
             </div>
             <div>
@@ -41,7 +41,7 @@ import { switchMap, startWith } from 'rxjs';
         
         <div class="card bg-base-100 border border-base-200 shadow-sm p-6 rounded-3xl">
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary">
+            <div class="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
               <lucide-icon name="shield-check" size="24"></lucide-icon>
             </div>
             <div>
@@ -51,9 +51,9 @@ import { switchMap, startWith } from 'rxjs';
           </div>
         </div>
 
-        <div class="card bg-base-100 border border-base-200 shadow-sm p-6 rounded-3xl">
+        <div class="card bg-base-100 border border-base-200 shadow-sm p-6 rounded-3xl sm:col-span-2 md:col-span-1">
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
+            <div class="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
               <lucide-icon name="calendar" size="24"></lucide-icon>
             </div>
             <div>
@@ -65,11 +65,11 @@ import { switchMap, startWith } from 'rxjs';
       </div>
 
       <div class="card bg-base-100 border border-base-200 shadow-sm rounded-3xl overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="table table-lg">
+        <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-base-300">
+          <table class="table table-lg min-w-[800px] md:min-w-full">
             <thead>
               <tr class="bg-base-200/50">
-                <th class="font-black text-xs uppercase tracking-wider text-base-content/50">Utilisateur</th>
+                <th class="font-black text-xs uppercase tracking-wider text-base-content/50 pl-6">Utilisateur</th>
                 <th class="font-black text-xs uppercase tracking-wider text-base-content/50">Rôle</th>
                 <th class="font-black text-xs uppercase tracking-wider text-base-content/50">Statut</th>
                 <th class="font-black text-xs uppercase tracking-wider text-base-content/50 text-right">Actions</th>

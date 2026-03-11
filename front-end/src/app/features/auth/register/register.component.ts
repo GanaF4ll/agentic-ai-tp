@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
           </div>
           
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <fieldset class="fieldset">
                 <legend class="fieldset-legend font-bold text-sm">Prénom</legend>
                 <input type="text" formControlName="first_name" class="input input-bordered w-full bg-base-200/50 focus:bg-base-100 transition-colors h-11" placeholder="Jean" />

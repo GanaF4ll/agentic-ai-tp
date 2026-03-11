@@ -12,19 +12,19 @@ import { JobOffer } from '../../../core/models/business.model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, RouterLink],
   template: `
-    <div class="max-w-3xl mx-auto py-8 px-4">
-      <header class="flex items-center justify-between mb-8">
+    <div class="max-w-3xl mx-auto py-6 md:py-8 px-4">
+      <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 class="text-3xl font-black text-base-content tracking-tighter">Publier une Offre</h1>
-          <p class="text-base-content/60 font-medium mt-1">Créez une nouvelle opportunité pour notre réseau.</p>
+          <h1 class="text-2xl md:text-3xl font-black text-base-content tracking-tighter leading-none">Publier une Offre</h1>
+          <p class="text-base-content/60 font-medium mt-2">Créez une nouvelle opportunité pour notre réseau.</p>
         </div>
-        <button routerLink="/jobs" class="btn btn-ghost btn-sm text-base-content/70 hover:text-primary">
+        <button routerLink="/jobs" class="btn btn-ghost btn-sm text-base-content/70 hover:text-primary shrink-0">
           <lucide-angular [img]="backIcon" class="size-4 mr-2"></lucide-angular>
           Retour
         </button>
       </header>
 
-      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="bg-base-100 p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] space-y-6">
+      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="bg-base-100 p-6 md:p-8 rounded-[var(--radius-card)] border border-base-200 shadow-[var(--shadow-card)] space-y-6">
         <!-- Basic Info -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="form-control w-full">

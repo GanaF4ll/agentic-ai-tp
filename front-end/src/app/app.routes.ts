@@ -75,8 +75,23 @@ export const routes: Routes = [
   {
     path: 'events',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/events/event-list/event-list.component').then((m) => m.EventListComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/events/event-list/event-list.component').then((m) => m.EventListComponent),
+      },
+      {
+        path: 'my-events',
+        loadComponent: () =>
+          import('./features/events/my-events/my-events.component').then((m) => m.MyEventsComponent),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/events/event-detail/event-detail.component').then((m) => m.EventDetailComponent),
+      }
+    ]
   },
   {
     path: 'admin',

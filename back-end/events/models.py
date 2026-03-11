@@ -6,6 +6,8 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     location = models.CharField(max_length=255, blank=True)
     date = models.DateTimeField()
+    is_online = models.BooleanField(default=False)
+    organizer = models.CharField(max_length=255, blank=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -34,4 +36,4 @@ class EventParticipant(models.Model):
         unique_together = ('event', 'user')
 
     def __str__(self):
-        return f"{self.user.username} attending {self.event.title}"
+        return f"{self.user.email} attending {self.event.title}"

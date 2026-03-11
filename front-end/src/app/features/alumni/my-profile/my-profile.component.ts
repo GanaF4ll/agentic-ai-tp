@@ -11,21 +11,21 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [LucideAngularModule, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex flex-col gap-8">
-      <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div class="p-4 md:p-0 flex flex-col gap-6 md:gap-8">
+      <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
         <div>
-          <h1 class="text-4xl font-black tracking-tight text-base-content">Mon Profil</h1>
-          <p class="text-base-content/50 font-bold uppercase tracking-widest text-xs mt-1">Gérez vos informations et votre visibilité</p>
+          <h1 class="text-3xl md:text-4xl font-black tracking-tight text-base-content leading-none">Mon Profil</h1>
+          <p class="text-base-content/50 font-bold uppercase tracking-widest text-[10px] md:text-xs mt-2">Gérez vos informations et votre visibilité</p>
         </div>
 
         @if (profile(); as p) {
-          <div class="flex items-center gap-3 bg-base-100 p-1.5 pr-4 rounded-2xl border border-base-200 shadow-sm">
+          <div class="flex items-center gap-3 bg-base-100 p-2 pr-4 rounded-2xl border border-base-200 shadow-sm w-full sm:w-auto">
              <div [class]="'p-2 rounded-xl ' + (p.is_visible ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning')">
                 <lucide-angular [img]="p.is_visible ? eyeIcon : eyeOffIcon" class="size-5"></lucide-angular>
              </div>
-             <div class="flex flex-col">
+             <div class="flex flex-col grow">
                 <span class="text-xs font-black uppercase tracking-wider text-base-content/40">Visibilité du profil</span>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center justify-between sm:justify-start gap-3">
                    <span class="font-bold text-sm">{{ p.is_visible ? 'Public' : 'Privé' }}</span>
                    <input type="checkbox" class="toggle toggle-primary toggle-sm" [checked]="p.is_visible" (change)="toggleVisibility(p)" />
                 </div>
@@ -82,7 +82,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             
             <!-- About Section -->
             <div class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
-              <div class="card-body p-8">
+              <div class="card-body p-6 md:p-8">
                 <h2 class="text-xl font-black tracking-tight flex items-center gap-3 mb-6">
                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg">
                       <lucide-angular [img]="userIcon" class="size-5"></lucide-angular>
@@ -98,7 +98,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
             <!-- Experience Section -->
             <div class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
-              <div class="card-body p-8">
+              <div class="card-body p-6 md:p-8">
                 <h2 class="text-xl font-black tracking-tight flex items-center gap-3 mb-6">
                    <div class="p-2 bg-info/10 text-info rounded-lg">
                       <lucide-angular [img]="briefcaseIcon" class="size-5"></lucide-angular>
@@ -136,7 +136,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
              <!-- Academic Section -->
             <div class="card bg-base-100 shadow-[var(--shadow-card)] border border-base-200 rounded-[var(--radius-card)]">
-               <div class="card-body p-8">
+               <div class="card-body p-6 md:p-8">
                   <h2 class="text-xl font-black tracking-tight flex items-center gap-3 mb-6">
                      <div class="p-2 bg-accent/10 text-accent-content rounded-lg">
                         <lucide-angular [img]="gradIcon" class="size-5"></lucide-angular>
